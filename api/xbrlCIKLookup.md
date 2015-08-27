@@ -23,35 +23,36 @@ This API allows the user to fetch CIK information about a company by providing a
 
 
 
-* **Data Params**
+* **Data Params:**
 
     The API supports the same params as the URL.
 
 * **Success Response:**
 
-    ***
-      1. Valid Ticker
-      
-        <dataRequest date="2015-08-26T20:25:11-0400">
-          <tickerLookup>
-            <cik>0000732717</cik>
-            <ticker>t</ticker>
-            <name>AT&T INC.</name>
-            <sic>4813</sic>
-          </tickerLookup>
-        </dataRequest>
+    1. Valid Ticker
 
-  ***
-        2. Invalid Ticker
+    ```XML
+      <dataRequest date="2015-08-26T20:25:11-0400">
+        <tickerLookup>
+          <cik>0000732717</cik>
+          <ticker>t</ticker>
+          <name>AT&T INC.</name>
+          <sic>4813</sic>
+        </tickerLookup>
+      </dataRequest>
+      ```
 
-        <dataRequest date="2015-08-26T21:32:51-0400">
-          <tickerLookup>
-            <cik>No CIK found for this Ticker.</cik>
-            <ticker>12</ticker>
-            <name/>
-            <sic/>
-          </tickerLookup>
-        </dataRequest>
+    2. Invalid Ticker
+    ```XML
+    <dataRequest date="2015-08-26T21:32:51-0400">
+      <tickerLookup>
+        <cik>No CIK found for this Ticker.</cik>
+        <ticker>12</ticker>
+        <name/>
+        <sic/>
+      </tickerLookup>
+    </dataRequest>
+    ```
 
 * **Error Response:**
 
