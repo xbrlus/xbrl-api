@@ -108,7 +108,7 @@ This API allows the user to fetch XBRL facts from the XBRL US database in an XML
               <error>
                   <date>Fri, 21 Aug 2015 18:11:08</date>
                   <status>Error - Insufficient Parameters</status>
-                  <message><![CDATA[This call returns to much data. Please revise the attributes to include at least a CIK or Accession Number.]]></message>
+                  <message><![CDATA[This call returns too much data. Please revise the attributes to include at least a CIK or Accession Number.]]></message>
               </error>
     ```
     An error is returned if the value for the CIK value is not numeric.
