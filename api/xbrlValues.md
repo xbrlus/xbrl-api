@@ -19,6 +19,8 @@ This API allows the user to fetch XBRL facts from the XBRL US database in an XML
 
    `TASK=xbrlValues`
 
+   `API_Key=[uuid]` - A valid API Key must be provided. This is freely available from XBRL US.
+
    **Optional:**
 
    `Element=[alphanumeric]` - The XBRL element. This parameter allows a comma separated list.
@@ -53,6 +55,8 @@ This API allows the user to fetch XBRL facts from the XBRL US database in an XML
 
     `ExtensionMember=[base|extension]` - base will return non extension members and extension will return extension members. If no value is provided then all members are returned.
 
+    `Small=[boolean]` - If this parameter is set to true the size of the XML response is cut down. This is to help Excel users who may use the webservice function which returns the response into a single cell. These cells have size limitations.
+
    **Minimum:**
 
    All calls to the API must include at least a CIK or Filing Accession Number.  You can pull data for multiple entities by listing them as comma separated values.  It's not possible to call all values for an element such as Assets as the response will be too large.
@@ -63,7 +67,7 @@ This API allows the user to fetch XBRL facts from the XBRL US database in an XML
 
     The API supports the same params as the URL.
 
-* **Success Response:**
+* **Success Response (Normal):**
 
     ```XML
     <dataRequest>
@@ -99,6 +103,31 @@ This API allows the user to fetch XBRL facts from the XBRL US database in an XML
         </count>
     </dataRequest>
     ```
+
+* **Success Response (Small):**
+
+    ```XML
+  <dataRequest date="2015-09-01T20:08:02-0400">
+      <fact>
+        <entity>
+        <![CDATA[ 3M CO ]]>
+        </entity>
+        <accessionID>146436</accessionID>
+        <elementName>Assets</elementName>
+        <namespace>http://fasb.org/us-gaap/2014-01-31</namespace>
+        <axis/>
+        <member/>
+        <units>USD</units>
+        <amount>31269000000</amount>
+        <period>Y</period>
+        <year>2014</year>
+        <dimensions/>
+        <dimensionCount>0</dimensionCount>
+      </fact>
+      <count>1</count>
+  </dataRequest>
+    ```
+
 * **Error Response:**
 
     An error is returned if no value is defined for a CIK or an accession number.
