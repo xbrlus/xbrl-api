@@ -18,9 +18,11 @@ This API allows the user to fetch details of US GAAP Taxonomy ELements from the 
 
    `TASK=xbrlBaseElement`
 
-   `API_Key=[uuid]` - A valid API Key must be provided. This is freely available from XBRL US.
+   `API_Key=[uuid]` - A valid API Key must be provided. This is freely available from XBRL US at <http://xbrl.us/apirequest>
 
    **Optional:**
+
+    `Element=[alphanumeric]` - The element name in the base taxonomy. This parameter will not take a comma separated list.
 
     `Namespace=[url]` - The namespace of the taxonomy the data is requested for.
 
@@ -37,133 +39,68 @@ This API allows the user to fetch details of US GAAP Taxonomy ELements from the 
 * **Success Response (Normal):**
 
     ```XML
-    <dataRequest>
-    <fact>
-          <entity><![CDATA[APPLE INC]]></entity>
-          <entityCode>0000320193</entityCode>
-          <accessionID>22881</accessionID>
-          <filingAccession>0001193125-11-282113</filingAccession>
-          <elementName>Assets</elementName>
-          <namespace>http://fasb.org/us-gaap/2011-01-31</namespace>
-          <extensionflag>N</extensionflag>
-          <axis>StatementBusinessSegmentsAxis</axis>
-          <member>JP</member>
-          <units>USD</units>
-          <amount>991000000</amount>
-          <decimals>-6</decimals>
-          <fact>991000000</fact>
-          <period>Y</period>
-          <year>2010</year>
-          <filingDate>2011-10-26</filingDate>
-          <aligned>false</aligned>
-          <factID>10610385</factID>
-          <dimensions>
-            <dimensionPair>
-              <axisLocalName>StatementBusinessSegmentsAxis</axisLocalName>
-              <memberLocalName>JP</memberLocalName></dimensionPair>
-          </dimensions>
-          <dimensionCount>1</dimensionCount>
-        <url>http://test.xbrl.us/php/dispatch.php?Task=htmlExport&amp;FactID=10610385</url>
-        </fact>
-      <count>
-        <elementName>Number of Rows: 1</elementName>
-        </count>
+      <dataRequest date="2015-09-04T15:35:26-0400">
+        <baseElement>
+            <elementName>Liabilities</elementName>
+            <namespace>http://fasb.org/us-gaap/2015-01-31</namespace>
+            <abstract>false</abstract>
+            <type>xbrli:monetaryItemType</type>
+            <substitutionGroup>xbrli:item</substitutionGroup>
+            <id>us-gaap_Liabilities</id>
+            <periodType>instant</periodType>
+            <balance>credit</balance>
+            <nillable>true</nillable>
+            <standard>
+                <language>en-us</language>
+                <labelValue>Liabilities</labelValue>
+                <labelRole>http://www.xbrl.org/2003/role/label</labelRole>
+            </standard>
+            <documentation>
+                <language>en-us</language>
+                <labelValue>
+                <![CDATA[
+                Sum of the carrying amounts as of the balance sheet date of all liabilities that are recognized. Liabilities are probable future sacrifices of economic benefits arising from present obligations of an entity to transfer assets or provide services to other entities in the future.
+                ]]>
+                </labelValue>
+                <labelRole>http://www.xbrl.org/2003/role/documentation</labelRole>
+            </documentation>
+        </baseElement>
     </dataRequest>
-    ```
-
-* **Success Response (Small):**
-
-    ```XML
-  <dataRequest date="2015-09-01T20:08:02-0400">
-      <fact>
-        <entity>
-        <![CDATA[ 3M CO ]]>
-        </entity>
-        <accessionID>146436</accessionID>
-        <elementName>Assets</elementName>
-        <namespace>http://fasb.org/us-gaap/2014-01-31</namespace>
-        <axis/>
-        <member/>
-        <units>USD</units>
-        <amount>31269000000</amount>
-        <period>Y</period>
-        <year>2014</year>
-        <dimensions/>
-        <dimensionCount>0</dimensionCount>
-      </fact>
-      <count>1</count>
-  </dataRequest>
     ```
 
 * **Error Response:**
 
-    An error is returned if no value is defined for a CIK or an accession number.
+    An error is returned if no value is defined for an element name.
 
     ```XML
-    <?xml version="1.0" encoding="utf-8"?>
-              <error>
-                  <date>Fri, 21 Aug 2015 18:11:08</date>
-                  <status>Error - Insufficient Parameters</status>
-                  <message><![CDATA[This call returns too much data. Please revise the attributes to include at least a CIK or Accession Number.]]></message>
-              </error>
+    <error>
+        <date>Fri, 04 Sep 2015 17:06:50</date>
+        <status>Error - Bad Parameter</status>
+        <message>
+        <![CDATA[
+        The value entered for the Element of is not valid.
+        ]]>
+        </message>
+    </error>
     ```
-    An error is returned if the value for the CIK value is not numeric.
+    An error is returned if an incorrect parameter is provided.
 
     ```XML
-    <?xml version="1.0" encoding="utf-8"?>
-          <error>
-              <date>Fri, 21 Aug 2015 18:15:08</date>
-              <status>Error - Bad Parameter</status>
-              <message><![CDATA[The value entered for the CIK of abcd is not valid.]]></message>
-          </error>
-    ```
-
-    An error is returned if the value for the `Year` or `StartYear` is not a 4 character number after 1900.
-
-    ```XML
-    <?xml version="1.0" encoding="utf-8"?>
-          <error>
-              <date>Fri, 21 Aug 2015 18:20:39</date>
-              <status>Error - Bad Parameter</status>
-              <message><![CDATA[The value entered for the Year of 1800 is not a valid year.]]></message>
-          </error>
+    <error>
+      <date>Fri, 04 Sep 2015 17:08:00</date>
+      <status>Error - Bad Parameter</status>
+      <message>
+      <![CDATA[
+      The parameter of mith with a value of 2 is not valid.
+      ]]>
+      </message>
+    </error>
     ```
 
 
-
-* **Sample Call:**
-
-    ```
-    <mx:HTTPService id="ElementValue_HTTPRequest" url="{SERVERNAME}{SERVERPATH}dispatch.php"
-    		 useProxy="false"
-    		 method="POST"  
-    		 showBusyCursor="true"
-    		 result="{globalResultEventHandler(event)}{generateColsForAxis(event)}"
-    		 fault="Alert.show(HTTP_REQUEST_ERROR +
-    		 		event.fault.faultString, 'Connection Error')">
-        <mx:request xmlns="">
-        <Task>ElementUseMultipleGet</Task>
-        <Element>{sendFilterSettings.elementUseID}</Element>
-        <CIK>{sendFilterSettings.entityUseID}</CIK>
-        <Axis>{sendFilterSettings.axisUseID}</Axis>
-        <Member>{sendFilterSettings.memberUseID}</Member>
-        <Period>{sendFilterSettings.period}</Period>
-        <Year>{sendFilterSettings.endYear}</Year>
-        <StartYear>{sendFilterSettings.startYear}</StartYear>
-        <NoYears>{sendFilterSettings.noYears}</NoYears>
-        <Restated>{sendFilterSettings.latestID}</Restated>
-        <Accession>{sendFilterSettings.accessionUseID}</Accession>
-        <Dimension>{sendFilterSettings.dimensionUseID}</Dimension>
-        <ExtensionMember>{sendFilterSettings.selectedTaxonomiesMemberValuePostVariable}</ExtensionMember>
-        <ExtensionAxis>{sendFilterSettings.selectedTaxonomiesAxisValuePostVariable}</ExtensionAxis>
-        <ExtensionElement>{sendFilterSettings.selectedTaxonomiesValuePostVariable}</ExtensionElement>
-        <Ultimus>{sendFilterSettings.ultimus}</Ultimus>
-        <DimReqd>{!sendFilterSettings.defaultValuesOnly}</DimReqd>
-
-    ```
 
 * **Notes:**
 
   Any parameters defined that are not in the list above will be ignored.
 
-  For questions contact campbell.pryde@xbrl.us.
+  For questions contact support@xbrl.us.
