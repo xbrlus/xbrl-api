@@ -1,6 +1,6 @@
 xbrlBaseElement REST API
 ----
-This API allows the user to fetch details of US GAAP Taxonomy ELements from the XBRL US GAAP Taxonomy in an XML format, by passing the element name in the API.
+This API allows the user to fetch details of US GAAP Taxonomy Elements from the XBRL US GAAP Taxonomy in an XML format, by passing the element name in the API.
 
 * **URL**
 
@@ -22,14 +22,13 @@ This API allows the user to fetch details of US GAAP Taxonomy ELements from the 
 
    **Optional:**
 
-    `Element=[alphanumeric]` - The element name in the base taxonomy. This parameter will not take a comma separated list.
+    `Element=[alphanumeric]` - The element name in the base taxonomy. This parameter will **not** take a comma separated list.
 
-    `Namespace=[url]` - The namespace of the taxonomy the data is requested for.
+    `Namespace=[url]` - The namespace of the taxonomy the data is requested for. For example http://fasb.org/us-gaap/2015-01-31.
 
    **Minimum:**
 
    All calls to the API must include at least an element name.  If no namespace is selected the latest namespace will be used.
-
 
 
 * **Data Params**
