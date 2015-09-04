@@ -1,5 +1,4 @@
 # data_analysis_toolkit
-The Data Analysis Toolkit
 This toolkit provides API and Template resources to help you access and begin analyzing corporate XBRL
 data. Through the tools provided, you’ll have easy access to the XBRL US database which contains all
 public company data reported in XBRL format, updated approximately every 15 minutes from the SEC’s
