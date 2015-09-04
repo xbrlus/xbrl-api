@@ -19,7 +19,7 @@ This API allows the user to fetch XBRL facts from the XBRL US database in an XML
 
    `TASK=xbrlValues`
 
-   `API_Key=[uuid]` - A valid API Key must be provided. This is freely available from XBRL US.
+   `API_Key=[uuid]` - A valid API Key must be provided. This is freely available from XBRL US at <http://xbrl.us/apirequest>.
 
    **Optional:**
 
@@ -199,4 +199,4 @@ This API allows the user to fetch XBRL facts from the XBRL US database in an XML
 
   Any parameters defined that are not in the list above will be ignored.
 
-  For questions contact campbell.pryde@xbrl.us.
+  For questions contact support@xbrl.us.

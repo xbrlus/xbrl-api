@@ -1,11 +1,11 @@
 
 xbrlCIKLookup REST API
 ----
-This API allows the user to fetch CIK information about a company by providing a companies ticker symbol.
+This API allows the user to fetch CIK information about a company by providing a ticker symbol.
 
 * **URL**
 
-  <http://test.xbrl.us/php/dispatch.php?Task=xbrlCIKLookup&Ticker=aapl>
+  <http://csuite.xbrl.us/php/dispatch.php?Task=xbrlCIKLookup&Ticker=aapl>
 
 * **Method:**
 
@@ -56,7 +56,7 @@ This API allows the user to fetch CIK information about a company by providing a
 
 * **Error Response:**
 
-    An error is returned if any parameter than Ticker is provided.
+    An error is returned if any parameter other than a Ticker is provided.
 
     ```XML
     <?xml version="1.0" encoding="utf-8"?>
@@ -82,4 +82,4 @@ This API allows the user to fetch CIK information about a company by providing a
 
 * **Notes:**
 
-  For questions contact campbell.pryde@xbrl.us.
+  For questions contact support@xbrl.us.
