@@ -4,7 +4,7 @@ This API allows the user to fetch details of US GAAP Taxonomy Elements from the 
 
 * **URL**
 
-  <http://csuite.xbrl.us/php/dispatch.php?Task=xbrlBaseElement&Element=Assets&namespace=http://fasb.org/us-gaap/2015-01-31>
+  <http://csuite.xbrl.us/php/dispatch.php?Task=xbrlBaseElement&Element=Assets&Namespace=http://fasb.org/us-gaap/2015-01-31&API_Key=EnterKeyHere>
 
 * **Method:**
 
