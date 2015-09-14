@@ -1,6 +1,6 @@
 xbrlExtensionElement REST API
 ----
-This API allows the user to fetch details of extension Elements from company extensions in an XML format, by passing the element name and/or namespace in the API.
+This API allows the user to fetch details of extension elements from company extensions in an XML format, by passing the element name and/or namespace in the API.
 
 * **URL**
 
