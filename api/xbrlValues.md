@@ -162,39 +162,6 @@ This API allows the user to fetch XBRL facts from the XBRL US database in an XML
           </error>
     ```
 
-
-
-* **Sample Call:**
-
-    ```
-    <mx:HTTPService id="ElementValue_HTTPRequest" url="{SERVERNAME}{SERVERPATH}dispatch.php"
-    		 useProxy="false"
-    		 method="POST"  
-    		 showBusyCursor="true"
-    		 result="{globalResultEventHandler(event)}{generateColsForAxis(event)}"
-    		 fault="Alert.show(HTTP_REQUEST_ERROR +
-    		 		event.fault.faultString, 'Connection Error')">
-        <mx:request xmlns="">
-        <Task>ElementUseMultipleGet</Task>
-        <Element>{sendFilterSettings.elementUseID}</Element>
-        <CIK>{sendFilterSettings.entityUseID}</CIK>
-        <Axis>{sendFilterSettings.axisUseID}</Axis>
-        <Member>{sendFilterSettings.memberUseID}</Member>
-        <Period>{sendFilterSettings.period}</Period>
-        <Year>{sendFilterSettings.endYear}</Year>
-        <StartYear>{sendFilterSettings.startYear}</StartYear>
-        <NoYears>{sendFilterSettings.noYears}</NoYears>
-        <Restated>{sendFilterSettings.latestID}</Restated>
-        <Accession>{sendFilterSettings.accessionUseID}</Accession>
-        <Dimension>{sendFilterSettings.dimensionUseID}</Dimension>
-        <ExtensionMember>{sendFilterSettings.selectedTaxonomiesMemberValuePostVariable}</ExtensionMember>
-        <ExtensionAxis>{sendFilterSettings.selectedTaxonomiesAxisValuePostVariable}</ExtensionAxis>
-        <ExtensionElement>{sendFilterSettings.selectedTaxonomiesValuePostVariable}</ExtensionElement>
-        <Ultimus>{sendFilterSettings.ultimus}</Ultimus>
-        <DimReqd>{!sendFilterSettings.defaultValuesOnly}</DimReqd>
-
-    ```
-
 * **Notes:**
 
   Any parameters defined that are not in the list above will be ignored.
