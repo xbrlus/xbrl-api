@@ -98,9 +98,7 @@ This API allows the user to fetch XBRL facts from the XBRL US database in an XML
           <dimensionCount>1</dimensionCount>
         <url>http://test.xbrl.us/php/dispatch.php?Task=htmlExport&amp;FactID=10610385</url>
         </fact>
-      <count>
-        <elementName>Number of Rows: 1</elementName>
-        </count>
+      <count>1</count>
     </dataRequest>
     ```
 
