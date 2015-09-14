@@ -1,6 +1,6 @@
 xbrlBaseElement REST API
 ----
-This API allows the user to fetch details of US GAAP Taxonomy Elements from the XBRL US GAAP Taxonomy in an XML format, by passing the element name in the API.
+This API allows the user to fetch details of US GAAP Taxonomy elements from the XBRL US GAAP Taxonomy in an XML format, by passing the element name in the API.
 
 * **URL**
 
