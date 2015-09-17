@@ -17,5 +17,3 @@ time. Any green cell within a Sheet can be revised to access a different set of 
 reported or calculated data from XBRL or other sources. New sheets will be posted here periodically and
 users of this site are encouraged to post their own templates and to check back from time to time to
 find new content.
-
-All APIs and templates require use of a valid XBRL US API key which is freely available at http://xbrl.us/APIkey.
