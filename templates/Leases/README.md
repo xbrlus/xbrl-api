@@ -1,11 +1,4 @@
 # Leases Templates
-Use the links to the Google doc sheet (there may be a limit on the number of requests you can make
-using a single Google Sheet but the sheet can be copied to create new sheets ) or the Excel worksheet
-(requires Excel version 2013) to perform company-specific lease analysis.. Both worksheets use the
-xbrlValues api to build a lease worksheet that calculates the adustments to account for an operating
-lease in the same manner as a capitalized lease. The template shows how the lease payments and
-discount rates can be extracted from XBRL data. Content in these worksheets is driven by the XBRL US
-database and other sources, and can be customized by the user. To perform custom analysis on either
-worksheet, change content in green cells to update ticker symbol, time period or taxonomy elements
-selected, e.g., OperatingLeasesFutureMinimumPaymentsDueCurrent. Content in pink cells is reported
-XBRL data or calculated from XBRL data.
+This section contains lease worksheets that calculate the adjustments to account for an operating lease in the same manner as a capitalized lease. The templates shows how the lease payments and discount rates can be extracted from XBRL data. Google Sheet and Excel versions of the lease template linked here can be used for your analysis by doing the following: 1) create a copy of the google sheet for your own purposes and save locally, 2) insert a valid API key in the sheet; keys are freely available from XBRL US at http://xbrl.us/apirequest. The demo sheet contains a temporary API that will expire each week. Copy your own key into the cell to replace the temporary API key, 3) to customize the analysis, change the green cells to update ticker symbol, time period or taxonomy elements selected, e.g., OperatingLeasesFutureMinimumPaymentsDueCurrent. Content in pink cells is reported XBRL data or calculated from XBRL data.
+
+Important: Note that the Excel sheet requires at minimum, Excel version 2013; for the Google sheet, there is a daily limit of 20,000 requests you can make but again, the sheet can be copied to accommodate further data requests. Most data on these sheets is driven by the XBRL US database.
