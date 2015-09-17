@@ -2,7 +2,9 @@
 This toolkit provides API and Template resources to help you access and begin analyzing corporate XBRL
 data. Through the tools provided, you’ll have easy access to the XBRL US database which contains all
 public company data reported in XBRL format, updated approximately every 15 minutes from the SEC’s
-EDGAR system. All APIs and templates (except for the CIKlookup) require use of a valid XBRL US API key which is freely available at http://xbrl.us/APIkey.
+EDGAR system.
+
+All APIs and templates (except for the CIKlookup) require use of a valid XBRL US API key which is freely available at http://xbrl.us/APIkey.
 
 The **API folder** includes several APIs that allow users to fetch XBRL facts from the database in an XML
 format, by requesting financial statement parameters such as CIK or accession number, time period or
