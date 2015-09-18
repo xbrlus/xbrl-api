@@ -53,6 +53,7 @@ This is the data that you want to actually put in the cell. This could be the am
 * url
 
 *arrayPosition*
+
 The values returned by this function may be many and could populate many cells. To limit the number of records this parametr allows you to limit it to the first record, the last record or all records. If left blank the function defaults to `All`. The allowable values are as follows:
 * First
 * last
@@ -61,6 +62,7 @@ The values returned by this function may be many and could populate many cells. 
 When the records are returned tha latest value reported will always be last. To get the latest value this parameter can be set to `last`.
 
 *dimensionCount*
+
 This parameter allows you to limit the records returned to those records that have a matching dimension count. This value takes an integer value. SO if you want those values that have 0 dimensions or are defined as the default value you would enter 0.
 
  **xbrlCIKLookup**
