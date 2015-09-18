@@ -51,7 +51,7 @@ This API allows the user to fetch XBRL facts from the XBRL US database in an XML
 
    `ExtensionElement=[base|extension]` - base will return non extension elements and extension will return extension elements. If no value is provided then all elements are returned.
 
-    `ExtensionAxis=[base|extension]` - base will return non extension axes and extension will return extension axes. If no value is provided then all axes are returned. If DimReqd is set to false this parameter is ignored.
+    `ExtensionAxis=[base|extension]` - base will return non extension axes and extension will return extension axes. If no value is provided then all axes are returned. If `DimReqd` is set to false this parameter is ignored.
 
     `ExtensionMember=[base|extension]` - base will return non extension members and extension will return extension members. If no value is provided then all members are returned. If `DimReqd` is set to false this parameter is ignored.
 
