@@ -54,9 +54,9 @@ This is the data that you want to actually put in the cell. This could be the am
 
 *arrayPosition*
 
-The values returned by this function may be many and could populate many cells. To limit the number of records this parametr allows you to limit it to the first record, the last record or all records. If left blank the function defaults to `All`. The allowable values are as follows:
+The values returned by this function may be many and could populate many cells. To limit the number of records this parameter allows you to limit it to the first record, the last record or all records. If left blank the function defaults to `All`. The allowable values are as follows:
 * First
-* last
+* Last
 * All
 
 When the records are returned tha latest value reported will always be last. To get the latest value this parameter can be set to `last`.
