@@ -41,9 +41,9 @@ This API allows the user to fetch XBRL facts from the XBRL US database in an XML
 
    `DimReqd=[boolean]`    - True returns all facts with and without dimensions associated with fact, false returns records with no dimensions. If no value is defined the API defaults to true.
 
-   `Axis=[alphanumeric]` - The XBRL axis element. This parameter allows a comma separated list. If defined the API will return facts which use this axis. If DimReqd is set to false this parameter will be ignored.
+   `Axis=[alphanumeric]` - The XBRL axis element. This parameter allows a comma separated list. If defined the API will return facts which use this axis. If `DimReqd` is set to false this parameter will be ignored.
 
-   `Member=[alphanumeric]` - The XBRL member element. This parameter allows a comma separated list. If defined the API will return facts which use this member. If DimReqd is set to false this parameter will be ignored.
+   `Member=[alphanumeric]` - The XBRL member element. This parameter allows a comma separated list. If defined the API will return facts which use this member. If `DimReqd` is set to false this parameter will be ignored.
 
    `Dimension=[alphanumeric]` - Axis and member i.e. DimensionID:IncomeTaxAuthorityAxi:AbasMember. A list of comma separated pairs can also be listed.
 
@@ -53,7 +53,7 @@ This API allows the user to fetch XBRL facts from the XBRL US database in an XML
 
     `ExtensionAxis=[base|extension]` - base will return non extension axes and extension will return extension axes. If no value is provided then all axes are returned. If DimReqd is set to false this parameter is ignored.
 
-    `ExtensionMember=[base|extension]` - base will return non extension members and extension will return extension members. If no value is provided then all members are returned. If DimReqd is set to false this parameter is ignored.
+    `ExtensionMember=[base|extension]` - base will return non extension members and extension will return extension members. If no value is provided then all members are returned. If `DimReqd` is set to false this parameter is ignored.
 
     `Small=[boolean]` - If this parameter is set to true the size of the XML response is cut down. This is to help Excel users who may use the webservice function which returns the response into a single cell. These cells have size limitations.
 
