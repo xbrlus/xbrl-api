@@ -51,9 +51,9 @@ This API allows the user to fetch XBRL facts from the XBRL US database in an XML
 
    `ExtensionElement=[base|extension]` - base will return non extension elements and extension will return extension elements. If no value is provided then all elements are returned.
 
-    `ExtensionAxis=[base|extension]` - base will return non extension axes and extension will return extension axes. If no value is provided then all axes are returned.
+    `ExtensionAxis=[base|extension]` - base will return non extension axes and extension will return extension axes. If no value is provided then all axes are returned. If DimReqd is set to false this parameter is ignored.
 
-    `ExtensionMember=[base|extension]` - base will return non extension members and extension will return extension members. If no value is provided then all members are returned.
+    `ExtensionMember=[base|extension]` - base will return non extension members and extension will return extension members. If no value is provided then all members are returned. If DimReqd is set to false this parameter is ignored.
 
     `Small=[boolean]` - If this parameter is set to true the size of the XML response is cut down. This is to help Excel users who may use the webservice function which returns the response into a single cell. These cells have size limitations.
 
@@ -128,7 +128,7 @@ This API allows the user to fetch XBRL facts from the XBRL US database in an XML
 
 * **Error Response:**
 
-    An error is returned if no value is defined for a CIK or an accession number.
+    An error is returned if the CIK value entered is not numeric.
 
     ```XML
     <?xml version="1.0" encoding="utf-8"?>
