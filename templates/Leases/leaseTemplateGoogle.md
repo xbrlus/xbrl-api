@@ -52,6 +52,23 @@ This is the data that you want to actually put in the cell. This could be the am
 * dimensionCount
 * url
 
+These return property values can also be entered as an array of values by pointing to cells in the spreadsheet. for example this parameter could be entered as A1:C:1.  The results will always be returned as a row.  To make it a column format the transpose function can be used.
+
+| |A|B|C|D|
+|---:|---:|---:|---:|---:|
+|1|elementName|amount|decimals|units|
+|2|=xbrlValues(url,A1:D1)|||||
+
+Results in:
+
+| |A|B|C|d|
+|---:|---:|---:|---:|---:|
+|1|elementName|amount|decimals|units|
+|2|Assets|1,000,000|-6|USD|
+
+
+
+
 *arrayPosition*
 
 The values returned by this function may be many and could populate many cells. To limit the number of records this parameter allows you to limit it to the first record, the last record or all records. If left blank the function defaults to `All`. The allowable values are as follows:
