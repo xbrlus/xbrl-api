@@ -97,7 +97,6 @@ This parameter allows you to limit the records returned to those records that ha
  *returnProperty*
 
  This is the data that you want to actually put in the cell. This could be the CIK, the name of the company or the sic code.  All the allowable values are defined in the API documentation. The allowable values are as follows:
-
  * `cik`
  * `ticker`
  * `sic`
@@ -115,7 +114,6 @@ This parameter allows you to limit the records returned to those records that ha
  *returnProperty*
 
  This is the data that you want to actually put in the cell. This could be details about the element.  All the allowable values are defined in the API documentation. The allowable values are as follows:
-
  * `elementName`
  * `namespace`
  * `abstract`
