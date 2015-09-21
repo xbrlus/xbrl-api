@@ -88,7 +88,7 @@ This parameter allows you to limit the records returned to those records that ha
 
  *url*
 
- The url of the data you want.  This is defined in the api and maybe something like the following:
+ The url of the data you want.  This is defined in the api and may be something like the following:
 
  `http://csuite.xbrl.us/php/dispatch.php?Task=xbrlCIKLookup&Ticker=aapl`
 
