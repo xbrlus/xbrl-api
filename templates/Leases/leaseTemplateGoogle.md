@@ -29,28 +29,28 @@ This will return the value of operating lease payments in the next year for 2014
 
 This is the data that you want to actually put in the cell. This could be the amount, the elementName, the units, decimals etc.  All the allowable values are defined in the API documentation. The allowable values are as follows:
 
-* entity
-* entityCode
-* accessionID
-* filingAccession
-* elementName
-* namespace
-* extensionflag
-* axis
-* member
-* units
-* amount
-* decimals
-* fact
-* period
-* year
-* filingDate
-* aligned
-* factID
-* axisLocalName
-* memberLocalName
-* dimensionCount
-* url
+* `entity`
+* `entityCode`
+* `accessionID`
+* `filingAccession`
+* `elementName`
+* `namespace`
+* `extensionflag`
+* `axis`
+* `member`
+* `units`
+* `amount`
+* `decimals`
+* `fact`
+* `period`
+* `year`
+* `filingDate`
+* `aligned`
+* `factID`
+* `axisLocalName`
+* `memberLocalName`
+* `dimensionCount`
+* `url`
 
 These return property values can also be entered as an array of values by pointing to cells in the spreadsheet. for example this parameter could be entered as A1:C:1.  The results will always be returned as a row.  To make it a column format the transpose function can be used.
 
@@ -72,9 +72,9 @@ Results in:
 *arrayPosition*
 
 The values returned by this function may be many and could populate many cells. To limit the number of records this parameter allows you to limit it to the first record, the last record or all records. If left blank the function defaults to `All`. The allowable values are as follows:
-* First
-* Last
-* All
+* `First`
+* `Last`
+* `All`
 
 When the records are returned tha latest value reported will always be last. To get the latest value this parameter can be set to `last`.
 
@@ -98,9 +98,9 @@ This parameter allows you to limit the records returned to those records that ha
 
  This is the data that you want to actually put in the cell. This could be the CIK, the name of the company or the sic code.  All the allowable values are defined in the API documentation. The allowable values are as follows:
 
- * cik
- * ticker
- * sic
+ * `cik`
+ * `ticker`
+ * `sic`
 
  **xbrlSchema**
 
@@ -116,14 +116,14 @@ This parameter allows you to limit the records returned to those records that ha
 
  This is the data that you want to actually put in the cell. This could be details about the element.  All the allowable values are defined in the API documentation. The allowable values are as follows:
 
- * elementName
- * namespace
- * abstract
- * type
- * substitutionGroup
- * id
- * periodType
- * balance
- * nillable
- * standard
- * documentation
+ * `elementName`
+ * `namespace`
+ * `abstract`
+ * `type`
+ * `substitutionGroup`
+ * `id`
+ * `periodType`
+ * `balance`
+ * `nillable`
+ * `standard`
+ * `documentation`
