@@ -19,7 +19,7 @@ This function is used to get xbrl fact values. To use the function you need to p
 
 *url*
 
-The url of the data you want.  This is defined in the api and maybe something like the following:
+The url of the data you want.  This is defined in the api and may be something like the following:
 
 `http://csuite.xbrl.us/php/dispatch.php?Task=xbrlValues&Element=OperatingLeasesFutureMinimumPaymentsDueCurrent&Period=Y&Year=2014&CIK=0000732717&Ultimus=true&NoYears=1&DimReqd=false&API_Key=EnterKeyHere`
 
@@ -76,7 +76,7 @@ The values returned by this function may be many and could populate many cells. 
 * `Last`
 * `All`
 
-When the records are returned tha latest value reported will always be last. To get the latest value this parameter can be set to `last`.
+When the records are returned the latest value reported will always be the last value in the list. To get the latest value this parameter can be set to `last`.
 
 *dimensionCount*
 
@@ -107,7 +107,7 @@ This parameter allows you to limit the records returned to those records that ha
 
  *url*
 
- The url of the data you want.  This is defined in the api and maybe something like the following:
+ The url of the data you want.  This is defined in the api and may be something like the following:
 
  `http://csuite.xbrl.us/php/dispatch.php?Task=xbrlBaseElement&Element=Assets&Namespace=http://fasb.org/us-gaap/2015-01-31&API_Key=EnterKeyHere`
 
