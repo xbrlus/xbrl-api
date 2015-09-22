@@ -37,7 +37,7 @@ This API allows the user to fetch XBRL facts from the XBRL US database in an XML
 
    `Ultimus=[boolean]`    - True returns the latest value, false returns all values. If no value is defined the API defaults to true.
 
-   `NoYears=[integer]`  - Use to define the number of years of data to returned based on value provided for `Year`. For example if `NoYears`  is set to 3 and `Year` is set to 2014 then fact values will be returned for 2012, 2013, and 2014.  If `Year` is not provided then `NoYears` is ignored.
+   `NoYears=[integer]`  - Use to define the number of years of data returned based on value provided for `Year`. For example if `NoYears`  is set to 3 and `Year` is set to 2014 then fact values will be returned for 2012, 2013, and 2014.  If `Year` is not provided then `NoYears` is ignored.
 
    `DimReqd=[boolean]`    - True returns all facts with and without dimensions associated with fact, false returns records with no dimensions. If no value is defined the API defaults to true.
 
