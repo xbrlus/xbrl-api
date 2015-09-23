@@ -6,7 +6,7 @@ The following is the link to a google doc that uses the xbrlValues api to build 
 This template uses custom functions to pull the values from the API.  To get a copy of these functions take a copy of the spreadsheet using File>Make a Copy. This will duplicate the spreadsheets with  the custom functions.  These functions allow you to make up to 20,000 calls to the API.  In addition the function caches the results to conserve the number of calls made. The cache is flushed after 6 hours.
 
 
-* Lease Template ([Google doc](https://docs.google.com/spreadsheets/d/1NT6dPSJAu8GJX8pq-MlZ17ORixNW7nkW0pdIMq90nH4/edit#gid=0g))
+* Lease Template ([Google doc](https://docs.google.com/spreadsheets/d/1JA_Gx_Wu0FwNdKatRg-8Ru3gyW36eOr3o7OuUv_QQR4/edit?usp=sharing))
 
 
 Google Sheets - Custom functions
