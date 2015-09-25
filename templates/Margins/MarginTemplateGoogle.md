@@ -1,6 +1,6 @@
 Margin Template Example
 --
-The following is the link to a google doc that uses the xbrlValues api to build a Margin worksheet that shows comparative operating margins across different public companies and showing margin for a given ticker over successive quarters.
+The following is the link to a google doc that uses the xbrlValues api to build 1) a Margin worksheet that shows comparative operating margins across different public companies and 2) a worksheet showing operating margins for a given ticker over successive quarters.
 
 This template uses custom functions to pull the values from the API.  To get a copy of these functions take a copy of the spreadsheet using File>Make a Copy. This will duplicate the spreadsheets with the custom functions.  These functions allow you to make up to 20,000 calls to the API.  In addition the function caches the results to conserve the number of calls made. The cache is flushed after 6 hours.
 
