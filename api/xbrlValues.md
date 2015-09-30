@@ -70,34 +70,44 @@ This API allows the user to fetch XBRL facts from the XBRL US database in an XML
 * **Success Response (Normal):**
 
     ```XML
-    <dataRequest>
-    <fact>
-          <entity><![CDATA[APPLE INC]]></entity>
-          <entityCode>0000320193</entityCode>
-          <accessionID>22881</accessionID>
-          <filingAccession>0001193125-11-282113</filingAccession>
-          <elementName>Assets</elementName>
-          <namespace>http://fasb.org/us-gaap/2011-01-31</namespace>
-          <extensionflag>N</extensionflag>
-          <axis>StatementBusinessSegmentsAxis</axis>
-          <member>JP</member>
-          <units>USD</units>
-          <amount>991000000</amount>
-          <decimals>-6</decimals>
-          <fact>991000000</fact>
-          <period>Y</period>
-          <year>2010</year>
-          <filingDate>2011-10-26</filingDate>
-          <aligned>false</aligned>
-          <factID>10610385</factID>
-          <dimensions>
-            <dimensionPair>
-              <axisLocalName>StatementBusinessSegmentsAxis</axisLocalName>
-              <memberLocalName>JP</memberLocalName></dimensionPair>
-          </dimensions>
-          <dimensionCount>1</dimensionCount>
-        <url>http://test.xbrl.us/php/dispatch.php?Task=htmlExport&amp;FactID=10610385</url>
-        </fact>
+    <dataRequest date="2015-09-29T20:37:03-0400">
+      <fact>
+        <entity>
+        <![CDATA[ APPLE INC ]]>
+        </entity>
+        <entityCode>0000320193</entityCode>
+        <accessionID>129603</accessionID>
+        <filingAccession>0001193125-15-153166</filingAccession>
+        <elementName>SeniorNotes</elementName>
+        <namespace>http://fasb.org/us-gaap/2014-01-31</namespace>
+        <extensionflag>N</extensionflag>
+        <axis>DebtInstrumentAxis</axis>
+        <axis_namespace>http://fasb.org/us-gaap/2014-01-31</axis_namespace>
+        <member>SeniorNotesDueTwentySixteenMember</member>
+        <member_namespace>http://www.apple.com/20150328</member_namespace>
+        <units>USD</units>
+        <amount>1000000000</amount>
+        <decimals>-6</decimals>
+        <fact>1000000000</fact>
+        <period>Y</period>
+        <year>2014</year>
+        <period_start/>
+        <period_end/>
+        <period_instant>2014-09-28</period_instant>
+        <filingDate>2015-04-28</filingDate>
+        <aligned/>
+        <factID>98984151</factID>
+        <dimensions>
+          <dimensionPair>
+            <axisLocalName>DebtInstrumentAxis</axisLocalName>
+            <memberLocalName>SeniorNotesDueTwentySixteenMember</memberLocalName>
+          </dimensionPair>
+        </dimensions>
+        <dimensionCount>1</dimensionCount>
+        <url>
+        http://test.xbrl.us/php/dispatch.php?Task=htmlExport&FactID=98984151
+        </url>
+      </fact>
       <count>1</count>
     </dataRequest>
     ```
@@ -105,25 +115,32 @@ This API allows the user to fetch XBRL facts from the XBRL US database in an XML
 * **Success Response (Small):**
 
     ```XML
-  <dataRequest date="2015-09-01T20:08:02-0400">
+    <dataRequest date="2015-09-29T20:38:20-0400">
       <fact>
         <entity>
-        <![CDATA[ 3M CO ]]>
+        <![CDATA[ APPLE INC ]]>
         </entity>
-        <accessionID>146436</accessionID>
-        <elementName>Assets</elementName>
+        <accessionID>129603</accessionID>
+        <elementName>SeniorNotes</elementName>
         <namespace>http://fasb.org/us-gaap/2014-01-31</namespace>
-        <axis/>
-        <member/>
+        <axis>DebtInstrumentAxis</axis>
+        <axis_namespace>http://fasb.org/us-gaap/2014-01-31</axis_namespace>
+        <member>SeniorNotesDueTwentySixteenMember</member>
+        <member_namespace>http://www.apple.com/20150328</member_namespace>
         <units>USD</units>
-        <amount>31269000000</amount>
+        <amount>1000000000</amount>
         <period>Y</period>
         <year>2014</year>
-        <dimensions/>
-        <dimensionCount>0</dimensionCount>
+        <dimensions>
+        <dimensionPair>
+        <axisLocalName>DebtInstrumentAxis</axisLocalName>
+        <memberLocalName>SeniorNotesDueTwentySixteenMember</memberLocalName>
+        </dimensionPair>
+        </dimensions>
+        <dimensionCount>1</dimensionCount>
       </fact>
       <count>1</count>
-  </dataRequest>
+    </dataRequest>
     ```
 
 * **Error Response:**
