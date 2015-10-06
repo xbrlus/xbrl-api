@@ -55,7 +55,7 @@ This API allows the user to fetch XBRL facts from the XBRL US database in an XML
 
    `PeriodID=[Y|1Q|2Q|3Q|3QCUM|4Q|1H|2H|Other]` - Period required, if not provided all periods are returned. This parameter allows a comma separated list.
 
-   `StartYear=[integer]`  - First Year of  data to return a range used in conjunction with the `Year` parameter.
+   `StartYear=[integer]`  - First Year of  data to return a range used in conjunction with the `Year` parameter to define a range.
 
     `NoYears=[integer]`  - Use to define the number of years of data returned based on value provided for `Year`. For example if `NoYears`  is set to 3 and `Year` is set to 2014 then fact values will be returned for 2012, 2013, and 2014.  If `Year` is not provided then `NoYears` is ignored.
 
@@ -92,18 +92,18 @@ This API allows the user to fetch XBRL facts from the XBRL US database in an XML
         <namespace>http://fasb.org/us-gaap/2014-01-31</namespace>
         <extensionflag>N</extensionflag>
         <axis>DebtInstrumentAxis</axis>
-        <axis_namespace>http://fasb.org/us-gaap/2014-01-31</axis_namespace>
+        <axisNamespace>http://fasb.org/us-gaap/2014-01-31</axisNamespace>
         <member>SeniorNotesDueTwentySixteenMember</member>
-        <member_namespace>http://www.apple.com/20150328</member_namespace>
+        <memberNamespace>http://www.apple.com/20150328</memberNamespace>
         <units>USD</units>
         <amount>1000000000</amount>
         <decimals>-6</decimals>
         <fact>1000000000</fact>
         <period>Y</period>
         <year>2014</year>
-        <period_start/>
-        <period_end/>
-        <period_instant>2014-09-28</period_instant>
+        <periodStart/>
+        <periodEnd/>
+        <periodInstant>2014-09-28</periodInstant>
         <filingDate>2015-04-28</filingDate>
         <aligned/>
         <factID>98984151</factID>
