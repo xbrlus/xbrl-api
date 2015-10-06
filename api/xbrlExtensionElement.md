@@ -1,6 +1,6 @@
 xbrlExtensionElement REST API
 ----
-This API allows the user to fetch details of extension elements from company extensions in an XML format, by passing the element name and/or namespace in the API.
+This API allows the user to fetch details of about elements used in the company extensions in an XML format, by passing the element name, namespace and entity information in the API. THe API allows the user to get the attributes of an extension element and the associated labels.  If the filing information is provided the API will return the labels used by the company in their extension filing.  As a convenience it will also return the attributes of the US GAAP taxonomy.  
 
 * **URL**
 
@@ -26,9 +26,9 @@ This API allows the user to fetch details of extension elements from company ext
 
     `Namespace=[url]` - The namespace of the company filing the data is requested for. For example http://www.ovt.com/20150430.
 
-    `AccessionID=[int]` - Internal Accession identifier used by the XBRL US database. This is returned by the API and can be used in subsequent calls. This allows a comma separated list.
+    `AccessionID=[int]` - Internal Accession identifier used by the XBRL US database. This is a unique filing identifier. For example one comapny will have many filings. This is returned by the API and can be used in subsequent calls. This allows a comma separated list.
 
-    `Accession=[alpha]` - Filing accession number. This is the accession number used by the SEC. This parameter does not allow a comma separated list.
+    `Accession=[alpha]` - Filing accession number. This is the accession number used as the filing identifier used by the SEC. This parameter does not allow a comma separated list.
 
    **Minimum:**
 
@@ -45,32 +45,26 @@ This API allows the user to fetch details of extension elements from company ext
     <dataRequest date="2015-09-11T17:05:35-0400">
       <baseElement>
         <entity>
-        <![CDATA[ OMNIVISION TECHNOLOGIES INC ]]>
+          <![CDATA[ ADOBE SYSTEMS INC ]]>
         </entity>
-        <elementName>ResearchDevelopmentAndRelatedExpenses</elementName>
-        <namespace>http://www.ovt.com/20120731</namespace>
-        <accessionID>46773</accessionID>
-        <filingAccession>0001104659-12-062291</filingAccession>
+        <elementName>ResearchAndDevelopment</elementName>
+        <namespace>http://adobe.com/2010-03-05</namespace>
+        <accessionID>28481</accessionID>
+        <filingDate>2010-04-09</filingDate>
+        <filingAccession>0000796343-10-000007</filingAccession>
         <abstract>false</abstract>
+        <Type>monetaryItemType</Type>
         <periodType>Duration</periodType>
         <balance>Debit</balance>
         <nillable>true</nillable>
-        <documentation>
-          <language>en-US</language>
-          <labelValue>
+        <documentation lang="en-US">
           <![CDATA[
-          Research, development and related expenses consist primarily of compensation and personnel-related expenses, non-recurring engineering costs related principally to the costs of the masks purchased when the company releases new product designs to the manufacturing foundry, costs for purchased materials, designs, tooling, depreciation of computers and workstations, and amortization of acquired intangible intellectual property and computer aided design software. Related costs include expenses associated with patent, copyright, trademark and trade secrets.
+          Represents the expense recognized and included in Research and Development during the period arising from share-based compensation arrangements (for example, shares of stock, stock options or other equity instruments) with employees, directors and certain consultants qualifying for treatment as employees.
           ]]>
-          </labelValue>
-          <labelRole>http://www.xbrl.org/2003/role/documentation</labelRole>
         </documentation>
-        <standard>
-          <language>en-US</language>
-          <labelValue>Research Development And Related Expenses</labelValue>
-          <labelRole>http://www.xbrl.org/2003/role/label</labelRole>
-        </standard>
+        <standard lang="en-US">Research and development</standard>
+        <verbose lang="en-US">Research and development</verbose>
         </baseElement>
-        <baseElement>
     </dataRequest>
     ```
 
@@ -83,9 +77,9 @@ This API allows the user to fetch details of extension elements from company ext
         <date>Fri, 04 Sep 2015 17:06:50</date>
         <status>Error - Bad Parameter</status>
         <message>
-        <![CDATA[
-        The value entered for the Element of is not valid.
-        ]]>
+          <![CDATA[
+          The value entered for the Element of is not valid.
+          ]]>
         </message>
     </error>
     ```
@@ -96,9 +90,9 @@ This API allows the user to fetch details of extension elements from company ext
       <date>Fri, 04 Sep 2015 17:08:00</date>
       <status>Error - Bad Parameter</status>
       <message>
-      <![CDATA[
-      The parameter of mith with a value of 2 is not valid.
-      ]]>
+        <![CDATA[
+        The parameter of mith with a value of 2 is not valid.
+        ]]>
       </message>
     </error>
     ```

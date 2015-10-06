@@ -1,6 +1,6 @@
 xbrlBaseElement REST API
 ----
-This API allows the user to fetch details of US GAAP Taxonomy elements from the XBRL US GAAP Taxonomy in an XML format, by passing the element name in the API.
+This API allows the user to fetch details of US GAAP Taxonomy elements from the XBRL US GAAP Taxonomy in an XML format, by passing the element name from the US GAAP taxonomy in the API.
 
 * **URL**
 
@@ -49,19 +49,11 @@ This API allows the user to fetch details of US GAAP Taxonomy elements from the 
             <periodType>instant</periodType>
             <balance>credit</balance>
             <nillable>true</nillable>
-            <standard>
-                <language>en-us</language>
-                <labelValue>Liabilities</labelValue>
-                <labelRole>http://www.xbrl.org/2003/role/label</labelRole>
-            </standard>
-            <documentation>
-                <language>en-us</language>
-                <labelValue>
+            <standard lang="en-US">Liabilities</standard>
+            <documentation lang="en-US">        
                 <![CDATA[
                 Sum of the carrying amounts as of the balance sheet date of all liabilities that are recognized. Liabilities are probable future sacrifices of economic benefits arising from present obligations of an entity to transfer assets or provide services to other entities in the future.
                 ]]>
-                </labelValue>
-                <labelRole>http://www.xbrl.org/2003/role/documentation</labelRole>
             </documentation>
         </baseElement>
     </dataRequest>
