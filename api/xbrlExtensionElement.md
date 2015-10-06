@@ -26,6 +26,10 @@ This API allows the user to fetch details of extension elements from company ext
 
     `Namespace=[url]` - The namespace of the company filing the data is requested for. For example http://www.ovt.com/20150430.
 
+    `AccessionID=[int]` - Internal Accession identifier used by the XBRL US database. This is returned by the API and can be used in subsequent calls. This allows a comma separated list.
+
+    `Accession=[alpha]` - Filing accession number. This is the accession number used by the SEC. This parameter does not allow a comma separated list.
+
    **Minimum:**
 
    All calls to the API must include at least an element name.  If no namespace is selected all elements will be returned with their respective namespaces.
@@ -39,9 +43,14 @@ This API allows the user to fetch details of extension elements from company ext
 
     ```XML
     <dataRequest date="2015-09-11T17:05:35-0400">
-      <extensionElement>
+      <baseElement>
+        <entity>
+        <![CDATA[ OMNIVISION TECHNOLOGIES INC ]]>
+        </entity>
         <elementName>ResearchDevelopmentAndRelatedExpenses</elementName>
-        <namespace>http://www.ovt.com/20150430</namespace>
+        <namespace>http://www.ovt.com/20120731</namespace>
+        <accessionID>46773</accessionID>
+        <filingAccession>0001104659-12-062291</filingAccession>
         <abstract>false</abstract>
         <periodType>Duration</periodType>
         <balance>Debit</balance>
@@ -57,10 +66,11 @@ This API allows the user to fetch details of extension elements from company ext
         </documentation>
         <standard>
           <language>en-US</language>
-          <labelValue>Research Development and Related Expenses</labelValue>
+          <labelValue>Research Development And Related Expenses</labelValue>
           <labelRole>http://www.xbrl.org/2003/role/label</labelRole>
         </standard>
-      </extensionElement>
+        </baseElement>
+        <baseElement>
     </dataRequest>
     ```
 

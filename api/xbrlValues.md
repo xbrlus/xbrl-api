@@ -23,23 +23,19 @@ This API allows the user to fetch XBRL facts from the XBRL US database in an XML
 
    **Optional:**
 
+    ***Filing Parameters***
+
+     `Accession=[alpha]`   - filing accession number. This is the accession number used by the SEC. This parameter does not allow a comma separated list.
+
+     `AccessionID=[int]` - Internal Accession identifier used by the XBRL US database. This is returned by the API and can be used in subsequent calls.
+
+    `CIK=[integer]`   - CIK of the Company. This must be 10 digits in length. This parameter allows a comma separated list.
+
+     `Restated=[boolean]` - A value of false will exclude amounts subsequently restated, a value of true will include amounts that were restated. If no value is defined the API defaults to false.
+
+    ***Element Parameters***
+
    `Element=[alphanumeric]` - The XBRL element. This parameter allows a comma separated list.
-
-   `PeriodID=[Y|1Q|2Q|3Q|3QCUM|4Q|1H|2H|Other]` - Period required, if not provided all periods are returned. This parameter allows a comma separated list.
-
-   `Year=[integer]`     - Year of the data required
-
-   `StartYear=[integer]`  - First Year of  data to return a range used in conjunction with the `Year` parameter.
-
-   `CIK=[integer]`   - CIK of the Company. This must be 10 digits in length. This parameter allows a comma separated list.
-
-    `Accession=[alpha]`   - filing accession number. This is the accession number used by the SEC. This parameter does not allow a comma separated list.
-
-   `Ultimus=[boolean]`    - True returns the latest value, false returns all values. If no value is defined the API defaults to true.
-
-   `NoYears=[integer]`  - Use to define the number of years of data returned based on value provided for `Year`. For example if `NoYears`  is set to 3 and `Year` is set to 2014 then fact values will be returned for 2012, 2013, and 2014.  If `Year` is not provided then `NoYears` is ignored.
-
-   `DimReqd=[boolean]`    - True returns all facts with and without dimensions associated with fact, false returns records with no dimensions. If no value is defined the API defaults to true.
 
    `Axis=[alphanumeric]` - The XBRL axis element. This parameter allows a comma separated list. If defined the API will return facts which use this axis. If `DimReqd` is set to false this parameter will be ignored.
 
@@ -47,13 +43,27 @@ This API allows the user to fetch XBRL facts from the XBRL US database in an XML
 
    `Dimension=[alphanumeric]` - Axis and member i.e. DimensionID:IncomeTaxAuthorityAxi:AbasMember. A list of comma separated pairs can also be listed.
 
-   `Restated=[boolean]` - A value of false will exclude amounts subsequently restated, a value of true will include amounts that were restated. If no value is defined the API defaults to false.
+   `DimReqd=[boolean]`    - True returns all facts with and without dimensions associated with fact, false returns records with no dimensions. If no value is defined the API defaults to true.
 
-   `ExtensionElement=[base|extension]` - base will return non extension elements and extension will return extension elements. If no value is provided then all elements are returned.
+    `ExtensionElement=[base|extension]` - base will return non extension elements and extension will return extension elements. If no value is provided then all elements are returned.
 
-    `ExtensionAxis=[base|extension]` - base will return non extension axes and extension will return extension axes. If no value is provided then all axes are returned. If `DimReqd` is set to false this parameter is ignored.
+     `ExtensionAxis=[base|extension]` - base will return non extension axes and extension will return extension axes. If no value is provided then all axes are returned. If `DimReqd` is set to false this parameter is ignored.
 
-    `ExtensionMember=[base|extension]` - base will return non extension members and extension will return extension members. If no value is provided then all members are returned. If `DimReqd` is set to false this parameter is ignored.
+     `ExtensionMember=[base|extension]` - base will return non extension members and extension will return extension members. If no value is provided then all members are returned. If `DimReqd` is set to false this parameter is ignored.
+
+   ***Time Parameters***
+
+   `PeriodID=[Y|1Q|2Q|3Q|3QCUM|4Q|1H|2H|Other]` - Period required, if not provided all periods are returned. This parameter allows a comma separated list.
+
+   `StartYear=[integer]`  - First Year of  data to return a range used in conjunction with the `Year` parameter.
+
+    `NoYears=[integer]`  - Use to define the number of years of data returned based on value provided for `Year`. For example if `NoYears`  is set to 3 and `Year` is set to 2014 then fact values will be returned for 2012, 2013, and 2014.  If `Year` is not provided then `NoYears` is ignored.
+
+   `Year=[integer]`     - Year of the data required
+
+   `Ultimus=[boolean]`    - True returns the latest value, false returns all values. If no value is defined the API defaults to true.
+
+   ***Response Parameters***
 
     `Small=[boolean]` - If this parameter is set to true the size of the XML response is cut down. This is to help Excel users who may use the webservice function which returns the response into a single cell. These cells have size limitations.
 
