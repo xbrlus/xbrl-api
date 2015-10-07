@@ -1,6 +1,6 @@
 xbrlNetwork REST API
 ----
-This API allows the user to fetch details about a report (Group/Network/Extended link role) in an XBRL filing that an element appears in. This could return multiple results. The user passes an element and filing number/CIK and the report url will be returned. The API allows the user to specify the different linkbases associated with a report.  For example  a user can request the calculation network for those reports that contain Assets for company ABC.
+This API allows the user to fetch details about a report (Group/Network/Extended link role) in an XBRL filing that an element appears in such as the balance sheet or income statement. This could return multiple results as Assets for example could be in multiple locations in a filing. The user passes an element and filing number/CIK and the report url will be returned. The API allows the user to specify the different linkbases associated with a report.  For example  a user can request the calculation network for those reports that contain Assets for company ABC.
 
 * **URL**
 
@@ -26,9 +26,9 @@ This API allows the user to fetch details about a report (Group/Network/Extended
 
     `Linkbase=[Calculation|Definition|Presentation]` - The type of network relationship. This could be a Presentation, Calculation or Definition. If this is not entered then all will be returned.
 
-    `AccessionID=[int]` - Internal Accession identifier used by the XBRL US database. This is a unique filing identifier. For example one comapny will have many filings. This is returned by the API and can be used in subsequent calls. This allows a comma separated list.
+    `AccessionID=[int]` - Internal Accession identifier used by the XBRL US database. This is a unique filing identifier. For example one company will have many filings. This is returned by the API and can be used in subsequent calls. This allows a comma separated list.
 
-    `Accession=[alpha]` - Filing accession number. This is the accession number used as the filing identifier used by the SEC. This parameter does not allow a comma separated list.
+    `Accession=[alpha]` - Filing accession number. The SEC creates an accession number to identify individual filings. This parameter does not allow a comma separated list.
 
     `CIK=[integer]`   - CIK of the Company. This must be 10 digits in length. This parameter allows a comma separated list.
 

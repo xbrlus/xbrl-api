@@ -1,6 +1,6 @@
 xbrlChildren REST API
 ----
-This API allows the user to fetch the relationships in a network by passing the extended link role. The user must also provide an element and the API will return all children of that element. This will return multiple results. The user passes an element and filing number/CIK and the children elements in the network will be returned plus attributes of the relationships like weight, order, and preferred labels. The API allows the user to specify the different linkbases and relation ship types associated with a report or network.  For example  a user can request the calculation children of Assets in the balance sheet for company ABC.
+This API allows the user to fetch the relationships in a network by passing the extended link role, an element name and the filing number/CIK. The API will return all children of the specified element plus attributes such as weight, order and preferred labels. It will return multiple results. The API also allows the user to specify the different linkbases and relationship types associated with a report or network. For example a user can request the calculation children of Assets in the balance sheet for company ABC.
 
 * **URL**
 
@@ -22,7 +22,7 @@ This API allows the user to fetch the relationships in a network by passing the 
 
     `Element=[alphanumeric]` - The element name in the base taxonomy. This parameter will **not** take a comma separated list.
 
-    `AccessionID=[int]` - Internal Accession identifier used by the XBRL US database. This is a unique filing identifier. For example one comapny will have many filings. This is returned by the API and can be used in subsequent calls. This allows a comma separated list.
+    `AccessionID=[int]` - Internal Accession identifier used by the XBRL US database. This is a unique filing identifier. For example one company will have many filings. This is returned by the API and can be used in subsequent calls. This allows a comma separated list.
 
     `GroupURI=[uri]`  - The extended link role in an XBRL report that is defined by the company.
 
