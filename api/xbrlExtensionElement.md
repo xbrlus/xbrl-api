@@ -64,6 +64,8 @@ This API allows the user to fetch details of about elements used in the company 
         </documentation>
         <standard lang="en-US">Research and development</standard>
         <verbose lang="en-US">Research and development</verbose>
+        <terse lang="en-US">Research and development</terse>
+        <negated lang="en-US">Research and development</negated>
         </baseElement>
     </dataRequest>
     ```
