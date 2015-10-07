@@ -1,6 +1,6 @@
 xbrlNetwork REST API
 ----
-This API allows the user to fetch details the reports in an XBRL filing that an element is used in. This could return multiple results. The user passes an element and filing parameter and the report url will be returned. The API allows the user to specify the different linkbases associated with a report.  For example  a user can request the calculation network for those reports that contain Assets for company ABC.
+This API allows the user to fetch details about a report (Group/Network/Extended link role) in an XBRL filing that an element appears in. This could return multiple results. The user passes an element and filing number/CIK and the report url will be returned. The API allows the user to specify the different linkbases associated with a report.  For example  a user can request the calculation network for those reports that contain Assets for company ABC.
 
 * **URL**
 
