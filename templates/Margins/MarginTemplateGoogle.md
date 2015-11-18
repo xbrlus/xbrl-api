@@ -46,6 +46,7 @@ This is the data that you want to actually put in the cell. This could be the am
 * `filingDate`
 * `aligned`
 * `factID`
+* `secURL`
 * `axisLocalName`
 * `memberLocalName`
 * `dimensionCount`
