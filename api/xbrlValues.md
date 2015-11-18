@@ -83,41 +83,45 @@ This API allows the user to fetch XBRL facts from the XBRL US database in an XML
     <dataRequest date="2015-09-29T20:37:03-0400">
       <fact>
         <entity>
-        <![CDATA[ APPLE INC ]]>
+          <![CDATA[ APPLE INC ]]>
         </entity>
         <entityCode>0000320193</entityCode>
-        <accessionID>129603</accessionID>
-        <filingAccession>0001193125-15-153166</filingAccession>
+        <accessionID>72687</accessionID>
+        <filingAccession>0001193125-13-300670</filingAccession>
         <elementName>SeniorNotes</elementName>
-        <namespace>http://fasb.org/us-gaap/2014-01-31</namespace>
+        <namespace>http://fasb.org/us-gaap/2013-01-31</namespace>
         <extensionflag>N</extensionflag>
         <axis>DebtInstrumentAxis</axis>
-        <axisNamespace>http://fasb.org/us-gaap/2014-01-31</axisNamespace>
-        <member>SeniorNotesDueTwentySixteenMember</member>
-        <memberNamespace>http://www.apple.com/20150328</memberNamespace>
+        <axisNamespace>http://fasb.org/us-gaap/2013-01-31</axisNamespace>
+        <member>SeniorNotesDueTwentyEighteenMember</member>
+        <memberNamespace>http://www.apple.com/20130629</memberNamespace>
         <units>USD</units>
-        <amount>1000000000</amount>
+        <amount>2000000000</amount>
         <decimals>-6</decimals>
-        <fact>1000000000</fact>
-        <period>Y</period>
-        <year>2014</year>
+        <fact>2000000000</fact>
+        <period>3Q</period>
+        <year>2013</year>
         <periodStart/>
         <periodEnd/>
-        <periodInstant>2014-09-28</periodInstant>
-        <filingDate>2015-04-28</filingDate>
+        <periodInstant>2013-06-30</periodInstant>
+        <filingDate>2013-07-24</filingDate>
         <aligned/>
-        <factID>98984151</factID>
+        <factID>47622920</factID>
+        <secURL>
+          http://www.sec.gov/Archives/edgar/data/320193/000119312513300670/0001193125-13-300670-index.htm
+        </secURL>
         <dimensions>
           <dimensionPair>
             <axisLocalName>DebtInstrumentAxis</axisLocalName>
-            <memberLocalName>SeniorNotesDueTwentySixteenMember</memberLocalName>
+            <memberLocalName>SeniorNotesDueTwentyEighteenMember</memberLocalName>
           </dimensionPair>
         </dimensions>
         <dimensionCount>1</dimensionCount>
         <url>
-        http://test.xbrl.us/php/dispatch.php?Task=htmlExport&FactID=98984151
+            http://csuite.xbrl.us/php/dispatch.php?Task=htmlExport&FactID=47622920
         </url>
-      </fact>
+        </fact>
+        <count>282</count>
       <count>1</count>
     </dataRequest>
     ```
