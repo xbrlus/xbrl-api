@@ -1,4 +1,4 @@
-The resources here help investors, analysts, regulators and other data consumers learn how to use XBRL corporate data. Get started by reading <a href="https://xbrl.us/wp-content/uploads/2015/10/HowTo-Use-the-Data-Analysis-Toolkit.pdf" target="_blank">HowTo – Use the Data Analysis Toolkit</a>, watching <a href="https://xbrl.us/use/howto/data-analysis-toolkit/" target="_blank">a brief screencast demonstration</a> and diving in to the folders above for templates.
+These templates are helping investors, analysts, regulators and other data consumers learn how to use XBRL corporate data. You can get started by browsing the contents of the folders above, reading <a href="https://xbrl.us/wp-content/uploads/2015/10/HowTo-Use-the-Data-Analysis-Toolkit.pdf" target="_blank">HowTo – Use the Data Analysis Toolkit</a>, watching <a href="https://xbrl.us/use/howto/data-analysis-toolkit/" target="_blank">a brief screencast demonstration</a> and diving in to create your own analytics from our templates.
 
 Google Sheets - Custom functions
 --
