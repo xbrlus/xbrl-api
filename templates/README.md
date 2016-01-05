@@ -1,6 +1,6 @@
 The resources here help investors, analysts, regulators and other data consumers learn how to use XBRL corporate data. Get started by reading <a href="https://xbrl.us/wp-content/uploads/2015/10/HowTo-Use-the-Data-Analysis-Toolkit.pdf" target="_blank">HowTo – Use the Data Analysis Toolkit</a>, watching <a href="https://xbrl.us/use/howto/data-analysis-toolkit/" target="_blank">a brief screencast demonstration</a> and diving in to the folders above for templates.
 
-* Google Sheets - Custom functions *
+Google Sheets - Custom functions
 --
 These functions allow the user to access the API without the need to use the XMLIMPORT function in Google docs which is limited and requires a knowledge of XPATH.  The following functions are included in the sheet.
 
