@@ -1,0 +1,118 @@
+The resources here help investors, analysts, regulators and other data consumers learn how to use XBRL corporate data. Get started by reading <a href="https://xbrl.us/wp-content/uploads/2015/10/HowTo-Use-the-Data-Analysis-Toolkit.pdf" target="_blank">HowTo – Use the Data Analysis Toolkit</a>, watching <a href="https://xbrl.us/use/howto/data-analysis-toolkit/" target="_blank">a brief screencast demonstration</a> and diving in to the folders above for templates.
+
+* Google Sheets - Custom functions *
+--
+These functions allow the user to access the API without the need to use the XMLIMPORT function in Google docs which is limited and requires a knowledge of XPATH.  The following functions are included in the sheet.
+
+ **xbrlValues**
+
+This function is used to get xbrl fact values. To use the function you need to pass a number of parameters. The function supports four parameters. Each of these is defined below:
+
+*url*
+
+The url of the data you want.  This is defined in the api and may be something like the following:
+
+`http://csuite.xbrl.us/php/dispatch.php?Task=xbrlValues&Element=Revenues&Period=Y&Year=2014&CIK=0000732717&Ultimus=true&NoYears=1&DimReqd=false&API_Key=EnterKeyHere`
+
+This will return the value of Revenues for 2014 year for a specific company.
+
+*returnProperty*
+
+This is the data that you want to actually put in the cell. This could be the amount, the elementName, the units, decimals etc.  All the allowable values are defined in the API documentation. The allowable values are as follows:
+
+* `entity`
+* `entityCode`
+* `accessionID`
+* `filingAccession`
+* `elementName`
+* `namespace`
+* `extensionflag`
+* `axis`
+* `member`
+* `units`
+* `amount`
+* `decimals`
+* `fact`
+* `period`
+* `year`
+* `filingDate`
+* `aligned`
+* `factID`
+* `axisLocalName`
+* `memberLocalName`
+* `dimensionCount`
+* `url`
+
+These return property values can also be entered as an array of values by pointing to cells in the spreadsheet. for example this parameter could be entered as A1:C:1.  The results will always be returned as a row.  To make it a column format the transpose function can be used.
+
+| |A|B|C|D|
+|---:|---:|---:|---:|---:|
+|1|elementName|amount|decimals|units|
+|2|=xbrlValues(url,A1:D1)|||||
+
+Results in:
+
+| |A|B|C|d|
+|---:|---:|---:|---:|---:|
+|1|elementName|amount|decimals|units|
+|2|Assets|1,000,000|-6|USD|
+
+
+
+
+*arrayPosition*
+
+The values returned by this function may be many and could populate many cells. To limit the number of records this parameter allows you to limit it to the first record, the last record or all records. If left blank the function defaults to `All`. The allowable values are as follows:
+ * `First`
+ * `Last`
+ * `All`
+
+When the records are returned the latest value reported will always be the last value in the list. To get the latest value this parameter can be set to `last`.
+
+*dimensionCount*
+
+This parameter allows you to limit the records returned to those records that have a matching dimension count. This value takes an integer value. SO if you want those values that have 0 dimensions or are defined as the default value you would enter 0.
+
+**xbrlCIKLookup**
+
+This function allows you to lookup a CIK number by providing a ticker symbol. The function has two parameters which are defined below:
+
+*url*
+
+The url of the data you want.  This is defined in the api and may be something like the following:
+
+`http://csuite.xbrl.us/php/dispatch.php?Task=xbrlCIKLookup&Ticker=aapl`
+
+This will return the CIK for Apple.
+
+*returnProperty*
+
+This is the data that you want to actually put in the cell. This could be the CIK, the name of the company or the sic code.  All the allowable values are defined in the API documentation. The allowable values are as follows:
+ * `cik`
+ * `ticker`
+ * `sic`
+
+**xbrlSchema**
+
+This function is used to get xbrl schema values from the USGAAP taxonomy. To use the function you need to pass a number of parameters. The function supports two parameters. Each of these is defined below:
+
+*url*
+
+The url of the data you want.  This is defined in the api and may be something like the following:
+
+`http://csuite.xbrl.us/php/dispatch.php?Task=xbrlBaseElement&Element=Assets&Namespace=http://fasb.org/us-gaap/2015-01-31&API_Key=EnterKeyHere`
+
+*returnProperty*
+
+This is the data that you want to actually put in the cell. This could be details about the element.  All the allowable values are defined in the API documentation. The allowable values are as follows:
+* `elementName`
+* `namespace`
+* `abstract`
+* `type`
+* `substitutionGroup`
+* `id`
+* `periodType`
+* `balance`
+* `nillable`
+* `standard`
+* `documentation`
