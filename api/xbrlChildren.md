@@ -24,11 +24,11 @@ This API allows the user to fetch the relationships in a network by passing the 
 
     `AccessionID=[int]` - Internal Accession identifier used by the XBRL US database. This is a unique filing identifier. For example one company will have many filings. This is returned by the API and can be used in subsequent calls. This allows a comma separated list.
 
-    `GroupURI=[uri]`  - The extended link role in an XBRL report that is defined by the company.
+    `GroupURI=[uri]`  - The extended link role in an XBRL report that is defined by the company. For example http://www.babc.com/taxonomy/role/StatementOfFinancialPosition		
 
    **Optional:**
 
-    `Linkbase=[Calculation|Definition|Presentation]` - The type of network relationship. This could be a Presentation, Calculation or Definition. If this is not entered then all will be returned.
+    `Linkbase=[Calculation|Definition|Presentation]` - The type of network relationship. This could be a Presentation, Calculation or Definition. If this is not entered then the relationship type found first will be returned.
 
     `Accession=[alpha]` - Filing accession number. This is the accession number used as the filing identifier used by the SEC. This parameter does not allow a comma separated list.
 
@@ -61,6 +61,7 @@ This API allows the user to fetch the relationships in a network by passing the 
         <treeSequence>25</treeSequence>
         <order>1</order>
         <calculationWeight/>
+        <calculationEffectiveWeight/>
         <leafNode>1</leafNode>
         <networkName>
           000010 - Statement - CONSOLIDATED STATEMENT OF EARNINGS
