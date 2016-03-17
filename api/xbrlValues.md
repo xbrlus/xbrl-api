@@ -126,6 +126,9 @@ This API allows the user to fetch XBRL facts from the XBRL US database in an XML
     </dataRequest>
     ```
 
+    `dataRequest - date` - The data request date attribute is the date that the data was generated. It is not the date of the query.  Data is cached once it is requested and is returned from cache if available. The data remains in cache for a day from the request. This means that data could be up to a day old if it has been previously requested.
+
+
 * **Success Response (Small):**
 
     ```XML
