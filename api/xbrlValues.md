@@ -53,7 +53,7 @@ This API allows the user to fetch XBRL facts from the XBRL US database in an XML
 
    ***Time Parameters***
 
-   `PeriodID=[Y|1Q|2Q|3Q|3QCUM|4Q|1H|2H|Other]` - Period required, if not provided all periods are returned. This parameter allows a comma separated list.
+   `Period=[Y|1Q|2Q|3Q|3QCUM|4Q|1H|2H|Other]` - Period required, if not provided all periods are returned. This parameter allows a comma separated list.
 
    `StartYear=[integer]`  - First Year of  data to return a range used in conjunction with the `Year` parameter to define a range.
 
