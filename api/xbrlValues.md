@@ -41,7 +41,7 @@ This API allows the user to fetch XBRL facts from the XBRL US database in an XML
 
    `Member=[alphanumeric]` - The XBRL member element. This parameter allows a comma separated list. If defined the API will return facts which use this member. If `DimReqd` is set to false this parameter will be ignored.
 
-   `Dimension=[alphanumeric]` - Axis and member i.e. DimensionID:IncomeTaxAuthorityAxi:AbasMember. A list of comma separated pairs can also be listed.
+   `Dimension=[alphanumeric]` - Axis and member i.e. DimensionID:IncomeTaxAuthorityAxis:AbasMember. A list of comma separated pairs can also be listed.
 
    `DimReqd=[boolean]`    - True returns all facts with and without dimensions associated with fact, false returns records with no dimensions. If no value is defined the API defaults to true.
 
