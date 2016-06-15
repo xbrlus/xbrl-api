@@ -24,7 +24,7 @@ This API allows the user to fetch details of US GAAP Taxonomy elements from the 
 
     `Element=[alphanumeric]` - The element name in the base taxonomy. This parameter will **not** take a comma separated list.
 
-    `Namespace=[url]` - The namespace of the taxonomy the data is requested for. For example http://fasb.org/us-gaap/2015-01-31.
+    `Namespace=[url]` - The namespace of the taxonomy the data is requested for. For example http://fasb.org/us-gaap/2015-01-31. If no namespace is provided the API will take the latest taxonomy.
 
    **Minimum:**
 
@@ -38,21 +38,29 @@ This API allows the user to fetch details of US GAAP Taxonomy elements from the 
 * **Success Response (Normal):**
 
     ```XML
-      <dataRequest date="2015-09-04T15:35:26-0400">
+      <dataRequest date="2016-06-04T15:35:26-0400">
         <baseElement>
-            <elementName>Liabilities</elementName>
-            <namespace>http://fasb.org/us-gaap/2015-01-31</namespace>
+          <elementName>Assets</elementName>
+            <namespace>http://fasb.org/us-gaap/2016-01-31</namespace>
+            <changeLabel2016 lang="en-us">
+                <![CDATA[ [2015-11] {Modified References} ]]>
+            </changeLabel2016>
             <abstract>false</abstract>
+            <standard lang="en-us">
+                <![CDATA[ Assets ]]>
+            </standard>
             <type>xbrli:monetaryItemType</type>
             <substitutionGroup>xbrli:item</substitutionGroup>
-            <id>us-gaap_Liabilities</id>
+            <id>us-gaap_Assets</id>
             <periodType>instant</periodType>
-            <balance>credit</balance>
+            <balance>debit</balance>
             <nillable>true</nillable>
-            <standard lang="en-US">Liabilities</standard>
-            <documentation lang="en-US">        
+            <totalLabel lang="en-us">
+                <![CDATA[ Assets, Total ]]>
+            </totalLabel>
+            <documentation lang="en-us">
                 <![CDATA[
-                Sum of the carrying amounts as of the balance sheet date of all liabilities that are recognized. Liabilities are probable future sacrifices of economic benefits arising from present obligations of an entity to transfer assets or provide services to other entities in the future.
+                Sum of the carrying amounts as of the balance sheet date of all assets that are recognized. Assets are probable future economic benefits obtained or controlled by an entity as a result of past transactions or events.
                 ]]>
             </documentation>
         </baseElement>
@@ -61,6 +69,7 @@ This API allows the user to fetch details of US GAAP Taxonomy elements from the 
 
     `dataRequest - date` - The data request date attribute is the date that the data was generated. It is not the date of the query.  Data is cached once it is requested and is returned from cache if available. The data remains in cache for a day from the request. This means that data could be up to a day old if it has been previously requested.
 
+    The API will return all of the labels that are associated with the element. In the example above the API returns the documentation label, the totalLabel and the changeLabel2016. The order of the labels will not be consistent.
 
 * **Error Response:**
 
