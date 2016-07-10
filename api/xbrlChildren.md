@@ -22,13 +22,18 @@ This API allows the user to fetch the relationships in a network by passing the 
 
     `Element=[alphanumeric]` - The element name in the base taxonomy. This parameter will **not** take a comma separated list.
 
-    `AccessionID=[int]` - Internal Accession identifier used by the XBRL US database. This is a unique filing identifier. For example one company will have many filings. This is returned by the API and can be used in subsequent calls. This allows a comma separated list.
+    `AccessionID=[int] OR Accession=[alpha]`
+    - AccessionID: Internal Accession identifier used by the XBRL US database. This is a unique filing identifier. For example one company will have many filings. This is returned by the API and can be used in subsequent calls. This allows a comma separated list.
 
-    `GroupURI=[uri]`  - The extended link role in an XBRL report that is defined by the company. For example http://www.babc.com/taxonomy/role/StatementOfFinancialPosition		
+    - Accession: SEC Filing accession number. This is the accession number used as the filing identifier used by the SEC. This parameter does not allow a comma separated list.
+
+  `GroupURI=[uri]`  - The extended link role in an XBRL report that is defined by the company. For example: http://www.babc.com/taxonomy/role/StatementOfFinancialPosition		
 
    **Optional:**
 
     `Linkbase=[Calculation|Definition|Presentation]` - The type of network relationship. This could be a Presentation, Calculation or Definition. If this is not entered then the relationship type found first will be returned.
+
+    `AccessionID=[int]` - Internal Accession identifier used by the XBRL US database. This is a unique filing identifier. For example one company will have many filings. This is returned by the API and can be used in subsequent calls. This allows a comma separated list.
 
     `Accession=[alpha]` - Filing accession number. This is the accession number used as the filing identifier used by the SEC. This parameter does not allow a comma separated list.
 
