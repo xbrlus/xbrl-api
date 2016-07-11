@@ -2,6 +2,8 @@ xbrlNetwork REST API
 ----
 This API allows the user to fetch details about a report (Group/Network/Extended link role) in an XBRL filing that an element appears in such as the balance sheet or income statement. This could return multiple results as Assets for example could be in multiple locations in a filing. The user passes an element and filing number/CIK and the report url will be returned. The API allows the user to specify the different linkbases associated with a report.  For example  a user can request the calculation network for those reports that contain Assets for company ABC.
 
+If an element name is included then all the networks in the filing are returned.  This is a good way to identify all the networks in a given filing.
+
 * **URL**
 
   <http://csuite.xbrl.us/php/dispatch.php?Task=xbrlNetwork&Element=Assets&AccessionID=143908s&API_Key=EnterKeyHere>
@@ -20,11 +22,11 @@ This API allows the user to fetch details about a report (Group/Network/Extended
 
    `API_Key=[uuid]` - A valid API Key must be provided. This is freely available from XBRL US at <http://xbrl.us/apirequest>
 
-    `Element=[alphanumeric]` - The element name in the base taxonomy. This parameter will **not** take a comma separated list.
-
    **Optional:**
 
-    `Linkbase=[Calculation|Definition|Presentation]` - The type of network relationship. This could be a Presentation, Calculation or Definition. If this is not entered then all will be returned.
+    `Element=[alphanumeric]` - The element name in the base taxonomy. This parameter will **not** take a comma separated list.
+
+    `Linkbase=[Calculation|Definition|Presentation]` - The type of network relationship. This could be a Presentation, Calculation or Definition. If this is not entered then the presentation links will be returned.
 
     `AccessionID=[int]` - Internal Accession identifier used by the XBRL US database. This is a unique filing identifier. For example one company will have many filings. This is returned by the API and can be used in subsequent calls. This allows a comma separated list.
 

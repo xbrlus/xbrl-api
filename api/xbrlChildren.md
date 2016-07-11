@@ -2,6 +2,8 @@ xbrlChildren REST API
 ----
 This API allows the user to fetch the relationships in a network by passing the extended link role, an element name and the filing number/CIK. The API will return all children of the specified element plus attributes such as weight, order and preferred labels. It will return multiple results. The API also allows the user to specify the different linkbases and relationship types associated with a report or network. For example a user can request the calculation children of Assets in the balance sheet for company ABC.
 
+If an element name is not provided then all the relationships for the entire network are returned. This includes the root node which will have a tree depth of zero. If no element name is provided no value is returned for calculationEffectiveWeight as there is no relative element. In addition the Leaf node attribute is currently not returned when no element name is provided.
+
 * **URL**
 
   <http://csuite.xbrl.us/php/dispatch.php?Task=xbrlChildren&AccessionID=135173&Element=IncomeStatementAbstract&GroupURI=http://www.ibm.com/role/StatementCONSOLIDATEDSTATEMENTOFEARNINGS&Linkbase=Presentation&API_Key=EnterKeyHere>
@@ -20,8 +22,6 @@ This API allows the user to fetch the relationships in a network by passing the 
 
    `API_Key=[uuid]` - A valid API Key must be provided. This is freely available from XBRL US at <http://xbrl.us/apirequest>
 
-    `Element=[alphanumeric]` - The element name in the base taxonomy. This parameter will **not** take a comma separated list.
-
     `AccessionID=[int] OR Accession=[alpha]`
     - AccessionID: Internal Accession identifier used by the XBRL US database. This is a unique filing identifier. For example one company will have many filings. This is returned by the API and can be used in subsequent calls. This allows a comma separated list.
 
@@ -31,7 +31,9 @@ This API allows the user to fetch the relationships in a network by passing the 
 
    **Optional:**
 
-    `Linkbase=[Calculation|Definition|Presentation]` - The type of network relationship. This could be a Presentation, Calculation or Definition. If this is not entered then the relationship type found first will be returned.
+   `Element=[alphanumeric]` - The element name in the base taxonomy. This parameter will **not** take a comma separated list.
+
+    `Linkbase=[Calculation|Definition|Presentation]` - The type of network relationship. This could be a Presentation, Calculation or Definition. If this is not entered then the presentation relationship will be returned.
 
     `AccessionID=[int]` - Internal Accession identifier used by the XBRL US database. This is a unique filing identifier. For example one company will have many filings. This is returned by the API and can be used in subsequent calls. This allows a comma separated list.
 
