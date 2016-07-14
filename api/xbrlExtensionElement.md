@@ -53,7 +53,7 @@ This API allows the user to fetch details of about elements used in the company 
         <filingDate>2010-04-09</filingDate>
         <filingAccession>0000796343-10-000007</filingAccession>
         <abstract>false</abstract>
-        <Type>monetaryItemType</Type>
+        <type>monetaryItemType</type>
         <periodType>Duration</periodType>
         <balance>Debit</balance>
         <nillable>true</nillable>
