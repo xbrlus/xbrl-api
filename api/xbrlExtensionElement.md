@@ -41,7 +41,7 @@ This API allows the user to fetch details of about elements used in the company 
 
 * **Return Values**
 
-  All return values start with a lowercase letter.
+  All return values start with a lowercase letter. Only values that are available are returned.
 
   `entity` - The name of the company.
 
@@ -57,7 +57,7 @@ This API allows the user to fetch details of about elements used in the company 
 
   `abstract` - True or false value. If the item is an abstract it is returned as true.
 
-  `type` - The schema type of the XBRL elementName.
+  `type` - The schema type of the XBRL elementNamee.e.g. monetaryItemType
 
   `periodType` - The period type of the element. Either "Instant" or "Duration".
 
