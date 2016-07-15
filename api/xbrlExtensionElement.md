@@ -39,6 +39,49 @@ This API allows the user to fetch details of about elements used in the company 
 
     The API supports the same params as the URL.
 
+* **Return Values**
+
+  All return values start with a lowercase letter.
+
+  `entity` - The name of the company.
+
+  `elementName` - The name of the xbrl base or extension element.
+
+  `namespace` - The namespace of the base or extension element.
+
+  `accessionID` - The internal number of the filing in the XBRL US database.
+
+  `filingDate` - The date the filing was filed with the SEC.
+
+  `filingAccession` - The accession number allocated to the filing by the SEC.
+
+  `abstract` - True or false value. If the item is an abstract it is returned as true.
+
+  `type` - The schema type of the XBRL elementName.
+
+  `periodType` - The period type of the element. Either "Instant" or "Duration".
+
+  `balance` - The balance type of the element. Either "debit", "credit" or none.
+
+  `nillable` - True or false value. If the item is nillable it is returned as true.
+
+  `documentation` - The documentation label represented by http://www.xbrl.org/2003/role/documentation.
+
+  `standard` - The standard label represented by http://www.xbrl.org/2003/role/label.
+
+  `terse` - The terse label represented by http://www.xbrl.org/2003/role/terseLabel.
+
+  `verbose` - The verbose label represented by http://www.xbrl.org/2003/role/verboseLabel.
+
+  `total` - The total label represented by http://www.xbrl.org/2003/role/totalLabel.
+
+  `negated` - The negated label represented by http://www.xbrl.org/2009/role/negatedLabel.
+
+  `periodEnd` - The periodEnd label represented by http://www.xbrl.org/2003/role/periodEndLabel.
+
+  `periodStart` - The periodStart label represented by http://www.xbrl.org/2003/role/periodStartLabel.
+
+
 * **Success Response (Normal):**
 
     ```XML
