@@ -21,6 +21,12 @@ This API allows the user to fetch XBRL facts from the XBRL US database in an XML
 
    `API_Key=[uuid]` - A valid API Key must be provided. This is freely available from XBRL US at <http://xbrl.us/apirequest>.
 
+   In addition to the above two parameters one of the following combinations of optional parameters must be provided:
+
+   1. Either the Accession, AccessionID or CIK parameter must be provided.
+
+   2. If a CIK is provided either the elementName, AxisName, MemberName or Dimension parameter must be provided. 
+
    **Optional:**
 
     ***Filing Parameters***
