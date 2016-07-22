@@ -21,11 +21,11 @@ This API allows the user to fetch XBRL facts from the XBRL US database in an XML
 
    `API_Key=[uuid]` - A valid API Key must be provided. This is freely available from XBRL US at <http://xbrl.us/apirequest>.
 
-   In addition to the above two parameters one of the following combinations of optional parameters must be provided:
+   In addition to the above two required parameters one of the following combinations of optional parameters must also be provided:
 
-   1. Either the Accession, AccessionID or CIK parameter must be provided.
+   1. Either the `Accession`, `AccessionID` or `CIK` parameter must be provided.
 
-   2. If a CIK is provided either the elementName, AxisName, MemberName or Dimension parameter must be provided. 
+   2. If a `CIK` parameter is provided either the `elementName`, `AxisName`, `MemberName` or `Dimension` parameter must be provided.
 
    **Optional:**
 
@@ -65,13 +65,17 @@ This API allows the user to fetch XBRL facts from the XBRL US database in an XML
 
     `NoYears=[integer]`  - Use to define the number of years of data returned based on value provided for `Year`. For example if `NoYears`  is set to 3 and `Year` is set to 2014 then fact values will be returned for 2012, 2013, and 2014.  If `Year` is not provided then `NoYears` is ignored.
 
-   `Year=[integer]`     - Year of the data required
+   `Year=[integer]`     - Year of the data required.
 
-   `Ultimus=[boolean]`    - True returns the latest value, false returns all values. If no value is defined the API defaults to true.
+   `Ultimus=[boolean]`   - True returns the latest value, false returns all values. If no value is defined the API defaults to true.
+
+   `Align=[boolean]` - True indicates that rather than using fiscal periods calendar periods should be used.
 
    ***Response Parameters***
 
     `Small=[boolean]` - If this parameter is set to true the size of the XML response is cut down. This is to help Excel users who may use the webservice function which returns the response into a single cell. These cells have size limitations.
+
+    `ResetCache=[boolean]` - If set to "True" then the value will be queried from the database and will not be sourced from cache. The cache will then be updated.
 
    **Minimum:**
 
@@ -82,6 +86,66 @@ This API allows the user to fetch XBRL facts from the XBRL US database in an XML
 * **Data Params**
 
     The API supports the same params as the URL.
+
+* **Return Values**
+
+  All return values start with a lowercase letter. Only values that are available are returned.
+
+  `entity` - The name of the company.
+
+  `accessionID` - The internal number of the filing in the XBRL US database.
+
+  `filingAccession` - The accession number allocated to the filing by the SEC.
+
+  `elementName` - The name of the xbrl base or extension element.
+
+  `namespace` - The namespace of the base or extension element.
+
+  `extensionflag` - Indicates if the elementName is an extension
+
+  `axis` - The name of the axis associated with the fact.
+
+  `axisNamespace` The namespace of the axis associated with the fact.
+
+  `member` - The name of the member associated with the fact.
+
+  `memberNamespace` - The namespace of the member associated with the fact.
+
+  `units` - The unit ID associated with the fact.
+
+  `amount` - The numerical value of the fact. (Will be blank for non numerical values)
+
+  `decimals` - The number of decimals associated with the fact.
+
+  `fact` - The value of the fact as a string.
+
+  `period` - The  period of the fact. For example 1Q, 2Q, 3Q, 4Q, Y, 1H, 2H, 3QCUM or the actual date if the fact does not align with a standard period. The value is relative to the financial year end unless the `Align` parameter is set to "True" then this will be the calendar year.
+
+  `year` - The  year the fact was reported for. If the `Align` parameter is set to "True" then this will be the calendar year otherwise it will be the fiscal year.
+
+  `periodStart` - The actual start date for a fact that is a duration.
+
+  `periodEnd` - The actual end date for a fact that is a duration.
+
+  `periodInstant` - The actual  date for a fact that is an instant.
+
+  `filingDate` - The date the filing was filed with the SEC.
+
+  `aligned` - Returns true if the periods are calendar aligned.
+
+  `factID` - The internal fact id used for a fact in the XBRL US database.
+
+  `secURL` - The URL landing page where the filing can be found on the SEC Edgar system.
+
+  `dimensions` - Contain repeating values where there is more than one dimension associated with a fact.
+
+  `dimensionCount` - The number of dimensions associated with a fact.
+
+  `url` - A UR that links directly to the fact in an html format. This is used to see text block types.
+
+
+
+
 
 * **Success Response (Normal):**
 
