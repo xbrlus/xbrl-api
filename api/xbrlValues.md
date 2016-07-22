@@ -141,7 +141,7 @@ This API allows the user to fetch XBRL facts from the XBRL US database in an XML
 
   `dimensionCount` - The number of dimensions associated with a fact.
 
-  `url` - A UR that links directly to the fact in an html format. This is used to see text block types.
+  `url` - A URL that links directly to the fact in an html format. This is used to see text block types.
 
 
 
