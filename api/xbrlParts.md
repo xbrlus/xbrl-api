@@ -177,13 +177,13 @@ This API allows the user to get all the calculation parts comprising an element 
       JOIN network n
         ON n.network_id = relationship.network_id
       WHERE n.accession_id in ($AccessionValues)
-      AND n.extended_link_qname_id = (select qname_id from qname where local_name = 'calculationLink')
+      AND n.extended_link_qname_id = (SELECT qname_id FROM qname WHERE local_name = 'calculationLink')
       )
       SELECT
       ar.*
       FROM ar
       JOIN accession_element ae
-        ON ar.accession_id = ae.accession_id and ar.from_element_id = ae.element_id
+        ON ar.accession_id = ae.accession_id AND ar.from_element_id = ae.element_id
       JOIN element e_from
         ON e_from.element_id = ae.element_id
       JOIN qname q_from
@@ -209,7 +209,7 @@ This API allows the user to get all the calculation parts comprising an element 
       JOIN relationship r
         ON r.from_element_id = rels.to_element_id
       JOIN network n
-        ON r.network_id = n.network_id and rels.accession_id = n.accession_id and n.extended_link_qname_id = rels.extended_link_qname_id
+        ON r.network_id = n.network_id AND rels.accession_id = n.accession_id AND n.extended_link_qname_id = rels.extended_link_qname_id
       JOIN accession_element ae
         ON n.accession_id = ae.accession_id and r.from_element_id = ae.element_id
       )
@@ -250,7 +250,7 @@ This API allows the user to get all the calculation parts comprising an element 
             , filing_accession_number
             , rl.calculation_weight
             , rl.weight as calculation_effective_weight
-            ,  CASE
+            , CASE
                   WHEN elto.balance_id = 1 THEN 'Debit'::text
                   WHEN elto.balance_id = 2 THEN 'Credit'::text
                   ELSE NULL::text
