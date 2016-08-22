@@ -211,7 +211,7 @@ This API allows the user to get all the calculation parts comprising an element 
       JOIN network n
         ON r.network_id = n.network_id AND rels.accession_id = n.accession_id AND n.extended_link_qname_id = rels.extended_link_qname_id
       JOIN accession_element ae
-        ON n.accession_id = ae.accession_id and r.from_element_id = ae.element_id
+        ON n.accession_id = ae.accession_id AND r.from_element_id = ae.element_id
       )
       SELECT
         local_name_from
