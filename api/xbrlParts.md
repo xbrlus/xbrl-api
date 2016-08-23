@@ -26,16 +26,17 @@ This API allows the user to get all the calculation parts comprising an element 
     `AccessionID=[int] OR Accession=[alpha]`
     - AccessionID: Internal Accession identifier used by the XBRL US database. This is a unique filing identifier. For example one company will have many filings. This is returned by the API and can be used in subsequent calls. This allows a comma separated list.
 
-    - Accession: SEC Filing accession number. This is the accession number used as the filing identifier used by the SEC. This parameter does not allow a comma separated list.
+    - Accession: SEC Filing accession number. This is the accession number used as the filing identifier used by the SEC. This parameter allows a comma separated list.
+
+
+     `Element=[alphanumeric]` - The element name in the base taxonomy. This parameter will **not** take a comma separated list.
 
 
    **Optional:**
 
-   `Element=[alphanumeric]` - The element name in the base taxonomy. This parameter will **not** take a comma separated list.
-
     `AccessionID=[int]` - Internal Accession identifier used by the XBRL US database. This is a unique filing identifier. For example one company will have many filings. This is returned by the API and can be used in subsequent calls. This allows a comma separated list.
 
-    `Accession=[alpha]` - Filing accession number. This is the accession number used as the filing identifier used by the SEC. This parameter does not allow a comma separated list.
+    `Accession=[alpha]` - Filing accession number. This is the accession number used as the filing identifier used by the SEC. This parameter allows a comma separated list.
 
 
    **Minimum:**
