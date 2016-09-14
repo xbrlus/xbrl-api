@@ -24,7 +24,7 @@ This API allows the user to fetch the relationships in a base taxonomy by passin
 
     `Taxonomy=[uri]` - The namespace of the taxonomy the element is in. The parameter allows you to get details from specific taxonomies.
 
-    `GroupURI=[uri]`  - The extended link role in an XBRL report that is defined by the company. For example http://www.babc.com/taxonomy/role/StatementOfFinancialPosition		
+    `GroupURI=[uri]`  - The extended link role defined in the taxonomy url referenced in the taxonomy parameter For example http://fasb.org/us-gaap/role/statement/StatementOfIncome		
 
    **Optional:**
 
