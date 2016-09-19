@@ -18,29 +18,29 @@ This function is used when a user want to determine what elements a specified el
 
   The API supports the following
 
-   `GET` | `POST`
+  `GET` | `POST`
 
 *  **URL Params**
 
    **Required:**
 
-   `TASK=xbrlPartOf`
+  `TASK=xbrlPartOf`
 
-   `API_Key=[uuid]` - A valid API Key must be provided. This is freely available from XBRL US at <http://xbrl.us/apirequest>
+  `API_Key=[uuid]` - A valid API Key must be provided. This is freely available from XBRL US at <http://xbrl.us/apirequest>
 
-   `AccessionID=[int] OR Accession=[alpha]`
+  `AccessionID=[int] OR Accession=[alpha]`
     - AccessionID: Internal Accession identifier used by the XBRL US database. This is a unique filing identifier. For example one company will have many filings. This is returned by the API and can be used in subsequent calls. This allows a comma separated list.
 
     - Accession: SEC Filing accession number. This is the accession number used as the filing identifier used by the SEC. This parameter allows a comma separated list.
 
-   `Element=[alphanumeric]` - The element name in the base taxonomy. This parameter will **not** take a comma separated list.
+  `Element=[alphanumeric]` - The element name in the base taxonomy. This parameter will **not** take a comma separated list.
 
 
    **Optional:**
 
-   `AccessionID=[int]` - Internal Accession identifier used by the XBRL US database. This is a unique filing identifier. For example one company will have many filings. This is returned by the API and can be used in subsequent calls. This allows a comma separated list.
+  `AccessionID=[int]` - Internal Accession identifier used by the XBRL US database. This is a unique filing identifier. For example one company will have many filings. This is returned by the API and can be used in subsequent calls. This allows a comma separated list.
 
-   `Accession=[alpha]` - Filing accession number. This is the accession number used as the filing identifier used by the SEC. This parameter allows a comma separated list.
+  `Accession=[alpha]` - Filing accession number. This is the accession number used as the filing identifier used by the SEC. This parameter allows a comma separated list.
 
 
    **Minimum:**
@@ -83,13 +83,13 @@ This function is used when a user want to determine what elements a specified el
         </groupURI>
     </dataRequest>
 ```
-   `dataRequest - date` - The data request date attribute is the date that the data was generated. It is not the date of the query.  Data is cached once it is requested and is returned from cache if available. The data remains in cache for a day from the request. This means that data could be up to a day old if it has been previously requested.
+  `dataRequest - date` - The data request date attribute is the date that the data was generated. It is not the date of the query.  Data is cached once it is requested and is returned from cache if available. The data remains in cache for a day from the request. This means that data could be up to a day old if it has been previously requested.
 
-   `calculationEffectiveWeight` - This is the weight relationship between the element in the request and the element returned in this record. This differs from the calculationWeight which is the weight to the parent element in the calculation tree. Whereas as the calculationEffectiveWeight is the weight relative to the requested element. They will often be the same but will vary as the tree depth increases.
+  `calculationEffectiveWeight` - This is the weight relationship between the element in the request and the element returned in this record. This differs from the calculationWeight which is the weight to the parent element in the calculation tree. Whereas as the calculationEffectiveWeight is the weight relative to the requested element. They will often be the same but will vary as the tree depth increases.
 
-   `leafNode` - This indicates if the element is a leaf on the tree, or a branch. If the value is 0 the element is the last node on the tree (It has no children). If the value is 1 then the element is a branch element that will have children elements.
+  `leafNode` - This indicates if the element is a leaf on the tree, or a branch. If the value is 0 the element is the last node on the tree (It has no children). If the value is 1 then the element is a branch element that will have children elements.
 
-   `rootNode` - This indicates if the element is a root of the tree, or a branch. If the value is 0 the element is the first node on the tree (The element requested). If the value is 1 then the element is a branch element that will have a parent elements.
+  `rootNode` - This indicates if the element is a root of the tree, or a branch. If the value is 0 the element is the first node on the tree (The element requested). If the value is 1 then the element is a branch element that will have a parent elements.
 
 
 
@@ -147,7 +147,7 @@ This function is used when a user want to determine what elements a specified el
 
   Example query
 
-   ```
+  ```
   WITH RECURSIVE rels(
 		relationship_id
 		, network_id
@@ -316,4 +316,4 @@ This function is used when a user want to determine what elements a specified el
 		, min(description)
 		, min(tree_depth) desc
 		, min(tree_sequence)
-   ```
+  ```

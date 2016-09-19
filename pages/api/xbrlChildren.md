@@ -18,34 +18,34 @@ If an element name is not provided then all the relationships for the entire net
 
   The API supports the following
 
-   `GET` | `POST`
+  `GET` | `POST`
 
 *  **URL Params**
 
    **Required:**
 
-   `TASK=xbrlChildren`
+  `TASK=xbrlChildren`
 
-   `API_Key=[uuid]` - A valid API Key must be provided. This is freely available from XBRL US at <http://xbrl.us/apirequest>
+  `API_Key=[uuid]` - A valid API Key must be provided. This is freely available from XBRL US at <http://xbrl.us/apirequest>
 
-   `AccessionID=[int] OR Accession=[alpha]`
+  `AccessionID=[int] OR Accession=[alpha]`
     - AccessionID: Internal Accession identifier used by the XBRL US database. This is a unique filing identifier. For example one company will have many filings. This is returned by the API and can be used in subsequent calls. This allows a comma separated list.
 
     - Accession: SEC Filing accession number. This is the accession number used as the filing identifier used by the SEC. This parameter does not allow a comma separated list.
 
-   `GroupURI=[uri]`  - The extended link role in an XBRL report that is defined by the company. For example: http://www.babc.com/taxonomy/role/StatementOfFinancialPosition		
+  `GroupURI=[uri]`  - The extended link role in an XBRL report that is defined by the company. For example: http://www.babc.com/taxonomy/role/StatementOfFinancialPosition		
 
    **Optional:**
 
-   `Element=[alphanumeric]` - The element name in the base taxonomy. This parameter will **not** take a comma separated list.
+  `Element=[alphanumeric]` - The element name in the base taxonomy. This parameter will **not** take a comma separated list.
 
-   `Linkbase=[Calculation|Definition|Presentation]` - The type of network relationship. This could be a Presentation, Calculation or Definition. If this is not entered then the presentation relationship will be returned.
+  `Linkbase=[Calculation|Definition|Presentation]` - The type of network relationship. This could be a Presentation, Calculation or Definition. If this is not entered then the presentation relationship will be returned.
 
-   `AccessionID=[int]` - Internal Accession identifier used by the XBRL US database. This is a unique filing identifier. For example one company will have many filings. This is returned by the API and can be used in subsequent calls. This allows a comma separated list.
+  `AccessionID=[int]` - Internal Accession identifier used by the XBRL US database. This is a unique filing identifier. For example one company will have many filings. This is returned by the API and can be used in subsequent calls. This allows a comma separated list.
 
-   `Accession=[alpha]` - Filing accession number. This is the accession number used as the filing identifier used by the SEC. This parameter does not allow a comma separated list.
+  `Accession=[alpha]` - Filing accession number. This is the accession number used as the filing identifier used by the SEC. This parameter does not allow a comma separated list.
 
-   `NetworkLink=[String]` - The relationship type that links two elements together. For example summation-item in the calculation linkbase or dimension-default in the definition linkbase.
+  `NetworkLink=[String]` - The relationship type that links two elements together. For example summation-item in the calculation linkbase or dimension-default in the definition linkbase.
 
 
    **Minimum:**
@@ -90,11 +90,11 @@ If an element name is not provided then all the relationships for the entire net
       <count>1</count>
     </dataRequest>
 ```
-   `dataRequest - date` - The data request date attribute is the date that the data was generated. It is not the date of the query.  Data is cached once it is requested and is returned from cache if available. The data remains in cache for a day from the request. This means that data could be up to a day old if it has been previously requested.
+  `dataRequest - date` - The data request date attribute is the date that the data was generated. It is not the date of the query.  Data is cached once it is requested and is returned from cache if available. The data remains in cache for a day from the request. This means that data could be up to a day old if it has been previously requested.
 
-   `calculationEffectiveWeight` - This is the weight relationship between the element in the request and the element returned in this record. This differs from the calculationWeight which is the weight to the parent element in the calculation tree. Whereas as the calculationEffectiveWeight is the weight relative to the requested element. They will often be the same but will vary as the tree depth increases.
+  `calculationEffectiveWeight` - This is the weight relationship between the element in the request and the element returned in this record. This differs from the calculationWeight which is the weight to the parent element in the calculation tree. Whereas as the calculationEffectiveWeight is the weight relative to the requested element. They will often be the same but will vary as the tree depth increases.
 
-   `leafNode` - This indicates if the element is a leaf on the tree, or a branch. If the value is 0 the element is the last node on the tree (It has no children). If the value is 1 then the element is a branch element that will have children elements.
+  `leafNode` - This indicates if the element is a leaf on the tree, or a branch. If the value is 0 the element is the last node on the tree (It has no children). If the value is 1 then the element is a branch element that will have children elements.
 
 
 

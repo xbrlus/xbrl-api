@@ -14,15 +14,15 @@ folder: api
 
   The API supports the following
 
-   `GET` | `POST`
+  `GET` | `POST`
 
 *  **URL Params**
 
    **Required:**
 
-   `TASK=xbrlCIKLookup`
+  `TASK=xbrlCIKLookup`
 
-   `Ticker=[alphanumeric]` - The Ticker of the company.
+  `Ticker=[alphanumeric]` - The Ticker of the company.
 
 
 
@@ -43,7 +43,7 @@ folder: api
           <sic>4813</sic>
         </tickerLookup>
       </dataRequest>
-   ```
+  ```
 
     2. Invalid Ticker
 ```xml

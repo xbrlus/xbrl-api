@@ -14,21 +14,21 @@ folder: api
 
   The API supports the following
 
-   `GET` | `POST`
+  `GET` | `POST`
 
 *  **URL Params**
 
    **Required:**
 
-   `TASK=xbrlBaseElement`
+  `TASK=xbrlBaseElement`
 
-   `API_Key=[uuid]` - A valid API Key must be provided. This is freely available from XBRL US at <http://xbrl.us/apirequest>
+  `API_Key=[uuid]` - A valid API Key must be provided. This is freely available from XBRL US at <http://xbrl.us/apirequest>
 
    **Optional:**
 
-   `Element=[alphanumeric]` - The element name in the base taxonomy. This parameter will **not** take a comma separated list.
+  `Element=[alphanumeric]` - The element name in the base taxonomy. This parameter will **not** take a comma separated list.
 
-   `Namespace=[url]` - The namespace of the taxonomy the data is requested for. For example http://fasb.org/us-gaap/2015-01-31. If no namespace is provided the API will take the latest taxonomy.
+  `Namespace=[url]` - The namespace of the taxonomy the data is requested for. For example http://fasb.org/us-gaap/2015-01-31. If no namespace is provided the API will take the latest taxonomy.
 
    **Minimum:**
 
@@ -71,7 +71,7 @@ folder: api
     </dataRequest>
 ```
 
-   `dataRequest - date` - The data request date attribute is the date that the data was generated. It is not the date of the query.  Data is cached once it is requested and is returned from cache if available. The data remains in cache for a day from the request. This means that data could be up to a day old if it has been previously requested.
+  `dataRequest - date` - The data request date attribute is the date that the data was generated. It is not the date of the query.  Data is cached once it is requested and is returned from cache if available. The data remains in cache for a day from the request. This means that data could be up to a day old if it has been previously requested.
 
     The API will return all of the labels that are associated with the element. In the example above the API returns the documentation label, the totalLabel and the changeLabel2016. The order of the labels will not be consistent.
 
@@ -89,7 +89,7 @@ folder: api
         ]]>
         </message>
     </error>
-```
+````
     An error is returned if an incorrect parameter is provided.
 
 ```xml
@@ -102,9 +102,7 @@ folder: api
       ]]>
       </message>
     </error>
-```
-
-
+````
 
 * **Notes:**
 
