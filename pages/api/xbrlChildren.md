@@ -11,7 +11,7 @@ The API will return all children of the specified element plus attributes such a
 If an element name is not provided then all the relationships for the entire network are returned. This includes the root node which will have a tree depth of zero. If no element name is provided no value is returned for calculationEffectiveWeight as there is no relative element. In addition the Leaf node attribute is currently not returned when no element name is provided.
 
 ### **Sample URL**
- Replace text "EnterKeyHere" (without quotes) with your API key to return data in your browser window: 
+ In the sample URL below, replace text "EnterKeyHere" (without quotes) with your API key to return data in your browser window: 
 
   <http://csuite.xbrl.us/php/dispatch.php?Task=xbrlChildren&AccessionID=135173&Element=IncomeStatementAbstract&GroupURI=http://www.ibm.com/role/StatementCONSOLIDATEDSTATEMENTOFEARNINGS&Linkbase=Presentation&API_Key=EnterKeyHere>
 

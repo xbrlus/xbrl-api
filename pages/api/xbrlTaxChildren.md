@@ -9,7 +9,7 @@ folder: api
 The API will return all children of the specified element plus attributes such as weight, order and preferred labels. It will return multiple results. The API also allows the user to specify the different linkbases and relationship types associated with a report or network. For example a user can request the calculation children of Assets in the balance sheet defined in the base taxonomy.
 
 ### **Sample URL**
- Replace text "EnterKeyHere" (without quotes) with your API key to return data in your browser window: 
+ In the sample URL below, replace text "EnterKeyHere" (without quotes) with your API key to return data in your browser window: 
 
   <http://csuite.xbrl.us/php/dispatch.php?Task=xbrlTaxChildren&Taxonomy=http://fasb.org/us-gaap/2015-01-31&Element=InterestExpenseBorrowings&GroupURI=http://fasb.org/us-gaap/role/statement/StatementOfIncome&Linkbase=Calculation&ResetCache=False&API_Key=EnterKeyHere>
 

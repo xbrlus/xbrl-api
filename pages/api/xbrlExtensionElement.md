@@ -9,7 +9,7 @@ folder: api
 The API allows the user to get the attributes of an extension element and the associated labels.  If the filing information is provided the API will return the labels used by the company in their extension filing.  As a convenience it will also return the attributes of the US GAAP taxonomy.  
 
 ### **Sample URL**
- Replace text "EnterKeyHere" (without quotes) with your API key to return data in your browser window: 
+ In the sample URL below, replace text "EnterKeyHere" (without quotes) with your API key to return data in your browser window: 
 
   <http://csuite.xbrl.us/php/dispatch.php?Task=xbrlExtensionElement&Element=ResearchDevelopmentAndRelatedExpenses&API_Key=EnterKeyHere>
 

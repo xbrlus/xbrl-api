@@ -7,7 +7,7 @@ permalink: xbrlCIKLookup.html
 folder: api
 ---
 ### **Sample URL**
- Replace text "EnterKeyHere" (without quotes) with your API key to return data in your browser window: 
+ In the sample URL below, replace text "EnterKeyHere" (without quotes) with your API key to return data in your browser window: 
 
   <http://csuite.xbrl.us/php/dispatch.php?Task=xbrlCIKLookup&Ticker=aapl>
 

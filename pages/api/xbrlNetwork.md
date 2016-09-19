@@ -11,7 +11,7 @@ This could return multiple results as Assets for example could be in multiple lo
 If an element name is included then all the networks in the filing are returned.  This is a good way to identify all the networks in a given filing.
 
 ### **Sample URL**
- Replace text "EnterKeyHere" (without quotes) with your API key to return data in your browser window: 
+ In the sample URL below, replace text "EnterKeyHere" (without quotes) with your API key to return data in your browser window: 
 
   <http://csuite.xbrl.us/php/dispatch.php?Task=xbrlNetwork&Element=Assets&AccessionID=143908s&API_Key=EnterKeyHere>
 
