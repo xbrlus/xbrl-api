@@ -14,7 +14,7 @@ If an element name is included then all the networks in the filing are returned.
 
   <http://csuite.xbrl.us/php/dispatch.php?Task=xbrlNetwork&Element=Assets&AccessionID=143908s&API_Key=EnterKeyHere>
 
-### **Method:**
+### **Method**
 
   The API supports the following
 
@@ -53,7 +53,7 @@ If an element name is included then all the networks in the filing are returned.
 
   The API supports the same params as the URL.
 
-### **Success Response (Normal):**
+### **Success Response (Normal)**
 
 ```xml
     <dataRequest date="2015-10-06T19:34:20-0400">
@@ -82,7 +82,7 @@ If an element name is included then all the networks in the filing are returned.
   `dataRequest - date` - The data request date attribute is the date that the data was generated. It is not the date of the query.  Data is cached once it is requested and is returned from cache if available. The data remains in cache for a day from the request. This means that data could be up to a day old if it has been previously requested.
 
 
-### **Error Response:**
+### **Error Response**
 
     An error is returned if no value is defined for an element name.
 
@@ -126,6 +126,6 @@ If an element name is included then all the networks in the filing are returned.
 
 
 
-### **Notes:**
+### **Notes**
 
   Any parameters defined that are not in the list above will result in an error.

@@ -10,7 +10,7 @@ folder: api
 
   <http://csuite.xbrl.us/php/dispatch.php?Task=xbrlValues&Element=OperatingLeasesFutureMinimumPaymentsDueCurrent&Period=Y&Year=2014&CIK=0000732717&Ultimus=true&NoYears=1&DimReqd=false&API_Key=EnterKeyHere>
 
-### **Method:**
+### **Method**
 
   The API supports the following
 
@@ -144,7 +144,7 @@ folder: api
 
   `url` - A URL that links directly to the fact in an html format. This is used to see text block types.
 
-### **Success Response (Normal):**
+### **Success Response (Normal)**
 
 ```xml
     <dataRequest date="2015-09-29T20:37:03-0400">
@@ -227,7 +227,7 @@ folder: api
     </dataRequest>
 ```
 
-### **Error Response:**
+### **Error Response**
 
   An error is returned if the CIK value entered is not numeric.
 
@@ -262,6 +262,6 @@ folder: api
           </error>
 ```
 
-### **Notes:**
+### **Notes**
 
   Any parameters defined that are not in the list above will be ignored.

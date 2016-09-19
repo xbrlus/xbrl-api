@@ -10,7 +10,7 @@ folder: api
 
   <http://csuite.xbrl.us/php/dispatch.php?Task=xbrlCIKLookup&Ticker=aapl>
 
-### **Method:**
+### **Method**
 
   The API supports the following
 
@@ -57,7 +57,7 @@ folder: api
     </dataRequest>
 ```
 
-### **Error Response:**
+### **Error Response**
 
     An error is returned if any parameter other than a Ticker is provided.
 

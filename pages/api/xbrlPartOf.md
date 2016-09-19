@@ -14,7 +14,7 @@ This function is used when a user want to determine what elements a specified el
 
   <http://csuite.xbrl.us/php/dispatch.php?Task=xbrlPartOf&AccessionID=135173&Element=ProfitLoss&API_Key=EnterKeyHere>
 
-### **Method:**
+### **Method**
 
   The API supports the following
 
@@ -51,7 +51,7 @@ This function is used when a user want to determine what elements a specified el
 
   The API supports the same params as the URL.
 
-### **Success Response (Normal):**
+### **Success Response (Normal)**
 
 ```xml
     <dataRequest date="2015-10-06T19:34:20-0400">
@@ -93,7 +93,7 @@ This function is used when a user want to determine what elements a specified el
 
 
 
-### **Error Response:**
+### **Error Response**
 
   An error is returned if no value is defined for an element name.
 
@@ -139,11 +139,11 @@ This function is used when a user want to determine what elements a specified el
 
 
 
-### **Notes:**
+### **Notes**
 
   Any parameters defined that are not in the list above will result in an error.
   
-### **XBRL Database:**
+### **XBRL Database**
 
   The API calls the XBRL database using a recursive query. An example of the query is shown below. If you take a copy of the XBRL database or use the public database you can build the same API in your system using this query. Replace the $ variables with the appropriate parameters.
 

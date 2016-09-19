@@ -10,7 +10,7 @@ folder: api
 
   <http://csuite.xbrl.us/php/dispatch.php?Task=xbrlBaseElement&Element=Assets&Namespace=http://fasb.org/us-gaap/2015-01-31&API_Key=EnterKeyHere>
 
-### **Method:**
+### **Method**
 
   The API supports the following
 
@@ -39,7 +39,7 @@ folder: api
 
   The API supports the same params as the URL.
 
-### **Success Response (Normal):**
+### **Success Response (Normal)**
 
 ```xml
       <dataRequest date="2016-06-04T15:35:26-0400">
@@ -75,7 +75,7 @@ folder: api
 
   The API will return all of the labels that are associated with the element. In the example above the API returns the documentation label, the totalLabel and the changeLabel2016. The order of the labels will not be consistent.
 
-### **Error Response:**
+### **Error Response**
 
   An error is returned if no value is defined for an element name.
 
@@ -104,6 +104,6 @@ folder: api
     </error>
 ```
 
-### **Notes:**
+### **Notes**
 
   Any parameters defined that are not in the list above will be ignored.
