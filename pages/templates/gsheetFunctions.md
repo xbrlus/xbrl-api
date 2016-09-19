@@ -9,11 +9,11 @@ folder: templates
 
 The following functions are included in the sheet:
 
- **xbrlValues**
+###  **xbrlValues**
 
 This function is used to get xbrl fact values. To use the function you need to pass a number of parameters. The function supports four parameters. Each of these is defined below:
 
-*url*
+**url**
 
 The url of the data you want.  This is defined in the api and may be something like the following:
 
@@ -21,7 +21,7 @@ The url of the data you want.  This is defined in the api and may be something l
 
 This will return the value of Revenues for 2014 year for a specific company.
 
-*returnProperty*
+**returnProperty**
 
 This is the data that you want to actually put in the cell. This could be the amount, the elementName, the units, decimals etc.  All the allowable values are defined in the API documentation. The allowable values are as follows:
 
@@ -57,7 +57,7 @@ These return property values can also be entered as an array of values by pointi
 
 Results in:
 
-| |A|B|C|d|
+| |A|B|C|D|
 |---:|---:|---:|---:|---:|
 |1|elementName|amount|decimals|units|
 |2|Assets|1,000,000|-6|USD|
@@ -65,24 +65,24 @@ Results in:
 
 
 
-*arrayPosition*
+**arrayPosition**
 
 The values returned by this function may be many and could populate many cells. To limit the number of records this parameter allows you to limit it to the first record, the last record or all records. If left blank the function defaults to `All`. The allowable values are as follows:
- * `First`
- * `Last`
- * `All`
+* `First`
+* `Last`
+* `All`
 
 When the records are returned the latest value reported will always be the last value in the list. To get the latest value this parameter can be set to `last`.
 
-*dimensionCount*
+**dimensionCount**
 
 This parameter allows you to limit the records returned to those records that have a matching dimension count. This value takes an integer value. SO if you want those values that have 0 dimensions or are defined as the default value you would enter 0.
 
-**xbrlCIKLookup**
+### **xbrlCIKLookup**
 
 This function allows you to lookup a CIK number by providing a ticker symbol. The function has two parameters which are defined below:
 
-*url*
+**url**
 
 The url of the data you want.  This is defined in the api and may be something like the following:
 
@@ -90,26 +90,28 @@ The url of the data you want.  This is defined in the api and may be something l
 
 This will return the CIK for Apple.
 
-*returnProperty*
+**returnProperty**
 
 This is the data that you want to actually put in the cell. This could be the CIK, the name of the company or the sic code.  All the allowable values are defined in the API documentation. The allowable values are as follows:
- * `cik`
- * `ticker`
- * `sic`
 
-**xbrlSchema**
+* `cik`
+* `ticker`
+* `sic`
+
+### **xbrlSchema**
 
 This function is used to get xbrl schema values from the USGAAP taxonomy. To use the function you need to pass a number of parameters. The function supports two parameters. Each of these is defined below:
 
-*url*
+**url**
 
 The url of the data you want.  This is defined in the api and may be something like the following:
 
 `http://csuite.xbrl.us/php/dispatch.php?Task=xbrlBaseElement&Element=Assets&Namespace=http://fasb.org/us-gaap/2015-01-31&API_Key=EnterKeyHere`
 
-*returnProperty*
+**returnProperty**
 
 This is the data that you want to actually put in the cell. This could be details about the element.  All the allowable values are defined in the API documentation. The allowable values are as follows:
+
 * `elementName`
 * `namespace`
 * `abstract`

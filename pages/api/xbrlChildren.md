@@ -127,7 +127,7 @@ If an element name is not provided then all the relationships for the entire net
       </message>
     </error>
 ```
-    An error is provided if a filing number or CIK is not provided.
+  An error is provided if a filing number or CIK is not provided.
 
 ```xml
     <error>

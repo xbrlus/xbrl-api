@@ -110,7 +110,7 @@ If an element name is included then all the networks in the filing are returned.
       </message>
     </error>
 ```
-    An error is provided if a filing number or CIK is not provided.
+  An error is provided if a filing number or CIK is not provided.
 
 ```xml
     <error>
