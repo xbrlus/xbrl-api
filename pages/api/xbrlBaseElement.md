@@ -18,26 +18,26 @@ folder: api
 
 *  **URL Params**
 
-   **Required:**
+  **Required:**
 
   `TASK=xbrlBaseElement`
 
   `API_Key=[uuid]` - A valid API Key must be provided. This is freely available from XBRL US at <http://xbrl.us/apirequest>
 
-   **Optional:**
+  **Optional:**
 
   `Element=[alphanumeric]` - The element name in the base taxonomy. This parameter will **not** take a comma separated list.
 
   `Namespace=[url]` - The namespace of the taxonomy the data is requested for. For example http://fasb.org/us-gaap/2015-01-31. If no namespace is provided the API will take the latest taxonomy.
 
-   **Minimum:**
+  **Minimum:**
 
-   All calls to the API must include at least an element name.  If no namespace is selected the latest namespace will be used.
+  All calls to the API must include at least an element name.  If no namespace is selected the latest namespace will be used.
 
 
 * **Data Params**
 
-    The API supports the same params as the URL.
+  The API supports the same params as the URL.
 
 * **Success Response (Normal):**
 
@@ -73,11 +73,11 @@ folder: api
 
   `dataRequest - date` - The data request date attribute is the date that the data was generated. It is not the date of the query.  Data is cached once it is requested and is returned from cache if available. The data remains in cache for a day from the request. This means that data could be up to a day old if it has been previously requested.
 
-    The API will return all of the labels that are associated with the element. In the example above the API returns the documentation label, the totalLabel and the changeLabel2016. The order of the labels will not be consistent.
+  The API will return all of the labels that are associated with the element. In the example above the API returns the documentation label, the totalLabel and the changeLabel2016. The order of the labels will not be consistent.
 
 * **Error Response:**
 
-    An error is returned if no value is defined for an element name.
+  An error is returned if no value is defined for an element name.
 
 ```xml
     <error>
@@ -89,8 +89,8 @@ folder: api
         ]]>
         </message>
     </error>
-````
-    An error is returned if an incorrect parameter is provided.
+```
+  An error is returned if an incorrect parameter is provided.
 
 ```xml
     <error>
@@ -102,7 +102,7 @@ folder: api
       ]]>
       </message>
     </error>
-````
+```
 
 * **Notes:**
 
