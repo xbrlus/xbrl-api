@@ -13,6 +13,7 @@ search: exclude
 "keywords": "{{page.keywords}}",
 "url": "{{ page.url | remove: "/"}}",
 "summary": "{{page.summary | strip }}"
+"body": "{{ page.content | strip_html | strip_newlines | replace: '\', '\\\\' | replace: '"', '\\"' | replace: '^t', '    '  }}",
 },
 {% endunless %}
 {% endfor %}
