@@ -6,11 +6,11 @@ sidebar: api_sidebar
 permalink: xbrlCIKLookup.html
 folder: api
 ---
-* **URL**
+## **URL**
 
   <http://csuite.xbrl.us/php/dispatch.php?Task=xbrlCIKLookup&Ticker=aapl>
 
-* **Method:**
+## **Method:**
 
   The API supports the following
 
@@ -26,11 +26,11 @@ folder: api
 
 
 
-* **Data Params:**
+## **Data Params:**
 
     The API supports the same params as the URL.
 
-* **Success Response:**
+## **Success Response:**
 
     1. Valid Ticker
 
@@ -57,7 +57,7 @@ folder: api
     </dataRequest>
 ```
 
-* **Error Response:**
+## **Error Response:**
 
     An error is returned if any parameter other than a Ticker is provided.
 
@@ -83,4 +83,4 @@ folder: api
 
 
 
-* **Notes:**
+## **Notes:**

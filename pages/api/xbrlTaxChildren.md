@@ -8,11 +8,11 @@ folder: api
 ---
 The API will return all children of the specified element plus attributes such as weight, order and preferred labels. It will return multiple results. The API also allows the user to specify the different linkbases and relationship types associated with a report or network. For example a user can request the calculation children of Assets in the balance sheet defined in the base taxonomy.
 
-* **URL**
+## **URL**
 
   <http://csuite.xbrl.us/php/dispatch.php?Task=xbrlTaxChildren&Taxonomy=http://fasb.org/us-gaap/2015-01-31&Element=InterestExpenseBorrowings&GroupURI=http://fasb.org/us-gaap/role/statement/StatementOfIncome&Linkbase=Calculation&ResetCache=False&API_Key=EnterKeyHere>
 
-* **Method:**
+## **Method:**
 
   The API supports the following
 
@@ -45,11 +45,11 @@ The API will return all children of the specified element plus attributes such a
    All calls to the API must include the `Element` parameter name and at least an `AccessionID` or an `Accession` number. In addition the extended link role must be reported.
 
 
-* **Data Params**
+## **Data Params**
 
     The API supports the same params as the URL.
 
-* **Success Response (Normal):**
+## **Success Response (Normal):**
 
 ```xml
     <dataRequest date="2016-06-15T00:04:58-0400">
@@ -109,7 +109,7 @@ The API will return all children of the specified element plus attributes such a
 
 
 
-* **Error Response:**
+## **Error Response:**
 
     An error is returned if no value is defined for an element name.
 
@@ -138,6 +138,6 @@ The API will return all children of the specified element plus attributes such a
     </error>
 ```
 
-* **Notes:**
+## **Notes:**
 
   Any parameters defined that are not in the list above will result in an error.

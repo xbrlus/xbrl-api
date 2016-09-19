@@ -6,11 +6,11 @@ sidebar: api_sidebar
 permalink: xbrlValues.html
 folder: api
 ---
-* **URL**
+## **URL**
 
   <http://csuite.xbrl.us/php/dispatch.php?Task=xbrlValues&Element=OperatingLeasesFutureMinimumPaymentsDueCurrent&Period=Y&Year=2014&CIK=0000732717&Ultimus=true&NoYears=1&DimReqd=false&API_Key=EnterKeyHere>
 
-* **Method:**
+## **Method:**
 
   The API supports the following
 
@@ -86,11 +86,11 @@ folder: api
 
 
 
-* **Data Params**
+## **Data Params**
 
     The API supports the same params as the URL.
 
-* **Return Values**
+## **Return Values**
 
   All return values start with a lowercase letter. Only values that are available are returned.
 
@@ -150,7 +150,7 @@ folder: api
 
 
 
-* **Success Response (Normal):**
+## **Success Response (Normal):**
 
 ```xml
     <dataRequest date="2015-09-29T20:37:03-0400">
@@ -202,7 +202,7 @@ folder: api
   `dataRequest - date` - The data request date attribute is the date that the data was generated. It is not the date of the query.  Data is cached once it is requested and is returned from cache if available. The data remains in cache for a day from the request. This means that data could be up to a day old if it has been previously requested.
 
 
-* **Success Response (Small):**
+## **Success Response (Small):**
 
 ```xml
     <dataRequest date="2015-09-29T20:38:20-0400">
@@ -233,7 +233,7 @@ folder: api
     </dataRequest>
 ```
 
-* **Error Response:**
+## **Error Response:**
 
     An error is returned if the CIK value entered is not numeric.
 
@@ -267,6 +267,6 @@ folder: api
           </error>
 ```
 
-* **Notes:**
+## **Notes:**
 
   Any parameters defined that are not in the list above will be ignored.

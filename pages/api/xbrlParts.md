@@ -8,11 +8,11 @@ folder: api
 ---
 The API requires the element name and the filing number. The API will return all calculation children of the specified element plus attributes such as weight, the effective weight, the leaf node, balance type and associated network.
 
-* **URL**
+## **URL**
 
   <http://csuite.xbrl.us/php/dispatch.php?Task=xbrlParts&AccessionID=135173&Element=ProfitLoss&API_Key=EnterKeyHere>
 
-* **Method:**
+## **Method:**
 
   The API supports the following
 
@@ -47,11 +47,11 @@ The API requires the element name and the filing number. The API will return all
    All calls to the API must include the `Element` parameter name and at least an `AccessionID` or an `Accession` number. In addition the extended link role should not be used. To get the calculation children of an element in a network use the API xbrlChildren. xbrlParts is only for calculation relationships and gives a comprehensive relationship tree across all linkbases in the filing.
 
 
-* **Data Params**
+## **Data Params**
 
     The API supports the same params as the URL.
 
-* **Success Response (Normal):**
+## **Success Response (Normal):**
 
 ```xml
     <dataRequest date="2015-10-06T19:34:20-0400">
@@ -93,7 +93,7 @@ The API requires the element name and the filing number. The API will return all
 
 
 
-* **Error Response:**
+## **Error Response:**
 
     An error is returned if no value is defined for an element name.
 
@@ -137,10 +137,10 @@ The API requires the element name and the filing number. The API will return all
 
 
 
-* **Notes:**
+## **Notes:**
 
   Any parameters defined that are not in the list above will result in an error.
-* **XBRL Database:**
+## **XBRL Database:**
 
   The API calls the XBRL database using a recursive query. An example of the query is shown below. If you take a copy of the XBRL database or use the public database you can build the same API in your system using this query. Replace the $ variables with the appropriate parameters.
 

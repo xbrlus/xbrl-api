@@ -10,11 +10,11 @@ The API will return all children of the specified element plus attributes such a
 
 If an element name is not provided then all the relationships for the entire network are returned. This includes the root node which will have a tree depth of zero. If no element name is provided no value is returned for calculationEffectiveWeight as there is no relative element. In addition the Leaf node attribute is currently not returned when no element name is provided.
 
-* **URL**
+## **URL**
 
   <http://csuite.xbrl.us/php/dispatch.php?Task=xbrlChildren&AccessionID=135173&Element=IncomeStatementAbstract&GroupURI=http://www.ibm.com/role/StatementCONSOLIDATEDSTATEMENTOFEARNINGS&Linkbase=Presentation&API_Key=EnterKeyHere>
 
-* **Method:**
+## **Method:**
 
   The API supports the following
 
@@ -53,11 +53,11 @@ If an element name is not provided then all the relationships for the entire net
    All calls to the API must include the `Element` parameter name and at least an `AccessionID` or an `Accession` number. In addition the extended link role must be reported.
 
 
-* **Data Params**
+## **Data Params**
 
     The API supports the same params as the URL.
 
-* **Success Response (Normal):**
+## **Success Response (Normal):**
 
 ```xml
     <dataRequest date="2015-10-06T19:34:20-0400">
@@ -99,7 +99,7 @@ If an element name is not provided then all the relationships for the entire net
 
 
 
-* **Error Response:**
+## **Error Response:**
 
     An error is returned if no value is defined for an element name.
 
@@ -143,6 +143,6 @@ If an element name is not provided then all the relationships for the entire net
 
 
 
-* **Notes:**
+## **Notes:**
 
   Any parameters defined that are not in the list above will result in an error.
