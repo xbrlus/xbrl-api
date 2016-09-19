@@ -1,10 +1,6 @@
 ﻿body {
     font-size:15px;
 }
-
-pre code {
-	background: #F5F5F5 !important;
-}
 .bs-callout {
     padding: 20px;
     margin: 20px 0;
@@ -1036,7 +1032,7 @@ ol li ul li ol li ul li{
 }
 
 table thead th code.highlighter-rouge {
-    background-color: #F5F5F5;
+    background-color: #F5F5F5 !important;
 }
 
 
