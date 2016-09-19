@@ -8,17 +8,17 @@ folder: api
 ---
 The API requires the element name and the filing number. The API will return all calculation children of the specified element plus attributes such as weight, the effective weight, the leaf node, balance type and associated network.
 
-## **URL**
+### **URL**
 
   <http://csuite.xbrl.us/php/dispatch.php?Task=xbrlParts&AccessionID=135173&Element=ProfitLoss&API_Key=EnterKeyHere>
 
-## **Method:**
+### **Method:**
 
   The API supports the following
 
   `GET` | `POST`
 
-*  **URL Params**
+### **URL Params**
 
    **Required:**
 
@@ -26,11 +26,9 @@ The API requires the element name and the filing number. The API will return all
 
   `API_Key=[uuid]` - A valid API Key must be provided. This is freely available from XBRL US at <http://xbrl.us/apirequest>
 
-  `AccessionID=[int] OR Accession=[alpha]`
-    - AccessionID: Internal Accession identifier used by the XBRL US database. This is a unique filing identifier. For example one company will have many filings. This is returned by the API and can be used in subsequent calls. This allows a comma separated list.
+  `AccessionID=[int] OR Accession=[alpha]` - AccessionID: Internal Accession identifier used by the XBRL US database. This is a unique filing identifier. For example one company will have many filings. This is returned by the API and can be used in subsequent calls. This allows a comma separated list.
 
-    - Accession: SEC Filing accession number. This is the accession number used as the filing identifier used by the SEC. This parameter allows a comma separated list.
-
+  - Accession: SEC Filing accession number. This is the accession number used as the filing identifier used by the SEC. This parameter allows a comma separated list.
 
   `Element=[alphanumeric]` - The element name in the base taxonomy. This parameter will **not** take a comma separated list.
 
@@ -47,11 +45,11 @@ The API requires the element name and the filing number. The API will return all
    All calls to the API must include the `Element` parameter name and at least an `AccessionID` or an `Accession` number. In addition the extended link role should not be used. To get the calculation children of an element in a network use the API xbrlChildren. xbrlParts is only for calculation relationships and gives a comprehensive relationship tree across all linkbases in the filing.
 
 
-## **Data Params**
+### **Data Params**
 
     The API supports the same params as the URL.
 
-## **Success Response (Normal):**
+### **Success Response (Normal):**
 
 ```xml
     <dataRequest date="2015-10-06T19:34:20-0400">
@@ -93,9 +91,9 @@ The API requires the element name and the filing number. The API will return all
 
 
 
-## **Error Response:**
+### **Error Response:**
 
-    An error is returned if no value is defined for an element name.
+  An error is returned if no value is defined for an element name.
 
 ```xml
     <error>
@@ -108,7 +106,8 @@ The API requires the element name and the filing number. The API will return all
         </message>
     </error>
 ```
-    An error is returned if an incorrect parameter is provided.
+
+  An error is returned if an incorrect parameter is provided.
 
 ```xml
     <error>
@@ -121,7 +120,8 @@ The API requires the element name and the filing number. The API will return all
       </message>
     </error>
 ```
-    An error is provided if a filing number or CIK is not provided.
+
+  An error is provided if a filing number or CIK is not provided.
 
 ```xml
     <error>
@@ -137,16 +137,17 @@ The API requires the element name and the filing number. The API will return all
 
 
 
-## **Notes:**
+### **Notes:**
 
   Any parameters defined that are not in the list above will result in an error.
-## **XBRL Database:**
+  
+### **XBRL Database:**
 
   The API calls the XBRL database using a recursive query. An example of the query is shown below. If you take a copy of the XBRL database or use the public database you can build the same API in your system using this query. Replace the $ variables with the appropriate parameters.
 
   Example query
 
-  ```
+  ```sql
   WITH RECURSIVE rels(
       relationship_id
       , network_id
