@@ -34,13 +34,13 @@ folder: api
 
     ***Filing Parameters***
 
-     `Accession=[alpha]`   - filing accession number. This is the accession number used by the SEC. This parameter does not allow a comma separated list.
+   `Accession=[alpha]`   - filing accession number. This is the accession number used by the SEC. This parameter does not allow a comma separated list.
 
-     `AccessionID=[int]` - Internal Accession identifier used by the XBRL US database. This is returned by the API and can be used in subsequent calls.
+   `AccessionID=[int]` - Internal Accession identifier used by the XBRL US database. This is returned by the API and can be used in subsequent calls.
 
-    `CIK=[integer]`   - CIK of the Company. This must be 10 digits in length. This parameter allows a comma separated list.
+  `CIK=[integer]`   - CIK of the Company. This must be 10 digits in length. This parameter allows a comma separated list.
 
-     `Restated=[boolean]` - A value of false will exclude amounts subsequently restated, a value of true will include amounts that were restated. If no value is defined the API defaults to false.
+   `Restated=[boolean]` - A value of false will exclude amounts subsequently restated, a value of true will include amounts that were restated. If no value is defined the API defaults to false.
 
     ***Element Parameters***
 
@@ -54,11 +54,11 @@ folder: api
 
    `DimReqd=[boolean]`    - True returns all facts with and without dimensions associated with fact, false returns records with no dimensions. If no value is defined the API defaults to true.
 
-    `ExtensionElement=[base|extension]` - base will return non extension elements and extension will return extension elements. If no value is provided then all elements are returned.
+  `ExtensionElement=[base|extension]` - base will return non extension elements and extension will return extension elements. If no value is provided then all elements are returned.
 
-     `ExtensionAxis=[base|extension]` - base will return non extension axes and extension will return extension axes. If no value is provided then all axes are returned. If `DimReqd` is set to false this parameter is ignored.
+   `ExtensionAxis=[base|extension]` - base will return non extension axes and extension will return extension axes. If no value is provided then all axes are returned. If `DimReqd` is set to false this parameter is ignored.
 
-     `ExtensionMember=[base|extension]` - base will return non extension members and extension will return extension members. If no value is provided then all members are returned. If `DimReqd` is set to false this parameter is ignored.
+   `ExtensionMember=[base|extension]` - base will return non extension members and extension will return extension members. If no value is provided then all members are returned. If `DimReqd` is set to false this parameter is ignored.
 
    ***Time Parameters***
 
@@ -66,7 +66,7 @@ folder: api
 
    `StartYear=[integer]`  - First Year of  data to return a range used in conjunction with the `Year` parameter to define a range.
 
-    `NoYears=[integer]`  - Use to define the number of years of data returned based on value provided for `Year`. For example if `NoYears`  is set to 3 and `Year` is set to 2014 then fact values will be returned for 2012, 2013, and 2014.  If `Year` is not provided then `NoYears` is ignored.
+  `NoYears=[integer]`  - Use to define the number of years of data returned based on value provided for `Year`. For example if `NoYears`  is set to 3 and `Year` is set to 2014 then fact values will be returned for 2012, 2013, and 2014.  If `Year` is not provided then `NoYears` is ignored.
 
    `Year=[integer]`     - Year of the data required.
 
@@ -76,9 +76,9 @@ folder: api
 
    ***Response Parameters***
 
-    `Small=[boolean]` - If this parameter is set to true the size of the XML response is cut down. This is to help Excel users who may use the webservice function which returns the response into a single cell. These cells have size limitations.
+  `Small=[boolean]` - If this parameter is set to true the size of the XML response is cut down. This is to help Excel users who may use the webservice function which returns the response into a single cell. These cells have size limitations.
 
-    `ResetCache=[boolean]` - If set to "True" then the value will be queried from the database and will not be sourced from cache. The cache will then be updated.
+  `ResetCache=[boolean]` - If set to "True" then the value will be queried from the database and will not be sourced from cache. The cache will then be updated.
 
    **Minimum:**
 
@@ -199,7 +199,7 @@ folder: api
     </dataRequest>
 ```
 
-    `dataRequest - date` - The data request date attribute is the date that the data was generated. It is not the date of the query.  Data is cached once it is requested and is returned from cache if available. The data remains in cache for a day from the request. This means that data could be up to a day old if it has been previously requested.
+  `dataRequest - date` - The data request date attribute is the date that the data was generated. It is not the date of the query.  Data is cached once it is requested and is returned from cache if available. The data remains in cache for a day from the request. This means that data could be up to a day old if it has been previously requested.
 
 
 * **Success Response (Small):**

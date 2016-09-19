@@ -29,6 +29,18 @@ entries:
     - title: XBRL Network
       url: /xbrlNetwork.html
       output: web, pdf
+    
+    - title: Part Of
+      url: /xbrlPartOf.html
+      output: web, pdf
+        
+    - title: Parts
+      url: /xbrlParts.html
+      output: web, pdf
+    
+    - title: Tax Children
+      url: /xbrlTaxChildren.html
+      output: web, pdf
 
     - title: XBRL Values
       url: /xbrlValues.html

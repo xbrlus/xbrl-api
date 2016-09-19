@@ -28,13 +28,13 @@ The API allows the user to get the attributes of an extension element and the as
 
    **Optional:**
 
-    `Element=[alphanumeric]` - The element name in the base taxonomy. This parameter will **not** take a comma separated list.
+  `Element=[alphanumeric]` - The element name in the base taxonomy. This parameter will **not** take a comma separated list.
 
-    `Namespace=[url]` - The namespace of the company filing the data is requested for. For example http://www.ovt.com/20150430.
+  `Namespace=[url]` - The namespace of the company filing the data is requested for. For example http://www.ovt.com/20150430.
 
-    `AccessionID=[int]` - Internal Accession identifier used by the XBRL US database. This is a unique filing identifier. For example one company will have many filings. This is returned by the API and can be used in subsequent calls. This allows a comma separated list.
+  `AccessionID=[int]` - Internal Accession identifier used by the XBRL US database. This is a unique filing identifier. For example one company will have many filings. This is returned by the API and can be used in subsequent calls. This allows a comma separated list.
 
-    `Accession=[alpha]` - Filing accession number. This is the accession number used as the filing identifier used by the SEC. This parameter does not allow a comma separated list.
+  `Accession=[alpha]` - Filing accession number. This is the accession number used as the filing identifier used by the SEC. This parameter does not allow a comma separated list.
 
    **Minimum:**
 
@@ -119,7 +119,7 @@ The API allows the user to get the attributes of an extension element and the as
     </dataRequest>
 ```
 
-    `dataRequest - date` - The data request date attribute is the date that the data was generated. It is not the date of the query.  Data is cached once it is requested and is returned from cache if available. The data remains in cache for a day from the request. This means that data could be up to a day old if it has been previously requested.
+  `dataRequest - date` - The data request date attribute is the date that the data was generated. It is not the date of the query.  Data is cached once it is requested and is returned from cache if available. The data remains in cache for a day from the request. This means that data could be up to a day old if it has been previously requested.
 
 
 * **Error Response:**

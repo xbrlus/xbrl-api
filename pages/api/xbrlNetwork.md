@@ -37,12 +37,12 @@ If an element name is included then all the networks in the filing are returned.
 
    **Optional:**
 
-    `Element=[alphanumeric]` - The element name in the base taxonomy. This parameter will **not** take a comma separated list.
+  `Element=[alphanumeric]` - The element name in the base taxonomy. This parameter will **not** take a comma separated list.
 
-    `Linkbase=[Calculation|Definition|Presentation]` - The type of network relationship. This could be a Presentation, Calculation or Definition. If this is not entered then the presentation links will be returned.
+  `Linkbase=[Calculation|Definition|Presentation]` - The type of network relationship. This could be a Presentation, Calculation or Definition. If this is not entered then the presentation links will be returned.
 
 
-    `CIK=[integer]`   - CIK of the Company. This must be 10 digits in length. This parameter allows a comma separated list.
+  `CIK=[integer]`   - CIK of the Company. This must be 10 digits in length. This parameter allows a comma separated list.
 
    **Minimum:**
 
@@ -79,7 +79,7 @@ If an element name is included then all the networks in the filing are returned.
     </dataRequest>
 ```
 
-    `dataRequest - date` - The data request date attribute is the date that the data was generated. It is not the date of the query.  Data is cached once it is requested and is returned from cache if available. The data remains in cache for a day from the request. This means that data could be up to a day old if it has been previously requested.
+  `dataRequest - date` - The data request date attribute is the date that the data was generated. It is not the date of the query.  Data is cached once it is requested and is returned from cache if available. The data remains in cache for a day from the request. This means that data could be up to a day old if it has been previously requested.
 
 
 * **Error Response:**
