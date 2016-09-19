@@ -149,7 +149,7 @@ This function is used when a user want to determine what elements a specified el
 
   Example query
 
-  ```sql
+```sql
   WITH RECURSIVE rels(
 		relationship_id
 		, network_id
@@ -318,4 +318,4 @@ This function is used when a user want to determine what elements a specified el
 		, min(description)
 		, min(tree_depth) desc
 		, min(tree_sequence)
-  ```
+```

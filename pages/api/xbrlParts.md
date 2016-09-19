@@ -147,7 +147,7 @@ The API requires the element name and the filing number. The API will return all
 
   Example query
 
-  ```sql
+```sql
   WITH RECURSIVE rels(
       relationship_id
       , network_id
@@ -316,4 +316,4 @@ The API requires the element name and the filing number. The API will return all
           , min(tree_sequence)
           , min(tree_depth)
 
-  ```
+```
