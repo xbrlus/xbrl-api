@@ -6,7 +6,8 @@ sidebar: api_sidebar
 permalink: xbrlValues.html
 folder: api
 ---
-### **URL**
+### **Sample URL**
+ Replace text "EnterKeyHere" (without quotes) with your API key to return data in your browser window: 
 
   <http://csuite.xbrl.us/php/dispatch.php?Task=xbrlValues&Element=OperatingLeasesFutureMinimumPaymentsDueCurrent&Period=Y&Year=2014&CIK=0000732717&Ultimus=true&NoYears=1&DimReqd=false&API_Key=EnterKeyHere>
 

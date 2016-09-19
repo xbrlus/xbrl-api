@@ -10,7 +10,8 @@ This could return multiple results as Assets for example could be in multiple lo
 
 If an element name is included then all the networks in the filing are returned.  This is a good way to identify all the networks in a given filing.
 
-### **URL**
+### **Sample URL**
+ Replace text "EnterKeyHere" (without quotes) with your API key to return data in your browser window: 
 
   <http://csuite.xbrl.us/php/dispatch.php?Task=xbrlNetwork&Element=Assets&AccessionID=143908s&API_Key=EnterKeyHere>
 
@@ -84,7 +85,7 @@ If an element name is included then all the networks in the filing are returned.
 
 ### **Error Response**
 
-    An error is returned if no value is defined for an element name.
+  An error is returned if no value is defined for an element name.
 
 ```xml
     <error>
@@ -97,7 +98,7 @@ If an element name is included then all the networks in the filing are returned.
         </message>
     </error>
 ```
-    An error is returned if an incorrect parameter is provided.
+  An error is returned if an incorrect parameter is provided.
 
 ```xml
     <error>

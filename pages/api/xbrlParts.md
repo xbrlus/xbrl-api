@@ -8,7 +8,8 @@ folder: api
 ---
 The API requires the element name and the filing number. The API will return all calculation children of the specified element plus attributes such as weight, the effective weight, the leaf node, balance type and associated network.
 
-### **URL**
+### **Sample URL**
+ Replace text "EnterKeyHere" (without quotes) with your API key to return data in your browser window: 
 
   <http://csuite.xbrl.us/php/dispatch.php?Task=xbrlParts&AccessionID=135173&Element=ProfitLoss&API_Key=EnterKeyHere>
 

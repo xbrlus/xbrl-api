@@ -6,7 +6,8 @@ sidebar: api_sidebar
 permalink: xbrlBaseElement.html
 folder: api
 ---
-### **URL**
+### **Sample URL**
+ Replace text "EnterKeyHere" (without quotes) with your API key to return data in your browser window: 
 
   <http://csuite.xbrl.us/php/dispatch.php?Task=xbrlBaseElement&Element=Assets&Namespace=http://fasb.org/us-gaap/2015-01-31&API_Key=EnterKeyHere>
 

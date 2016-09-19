@@ -68,6 +68,7 @@ Results in:
 **arrayPosition**
 
 The values returned by this function may be many and could populate many cells. To limit the number of records this parameter allows you to limit it to the first record, the last record or all records. If left blank the function defaults to `All`. The allowable values are as follows:
+
 * `First`
 * `Last`
 * `All`

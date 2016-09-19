@@ -8,7 +8,8 @@ folder: api
 ---
 The API allows the user to get the attributes of an extension element and the associated labels.  If the filing information is provided the API will return the labels used by the company in their extension filing.  As a convenience it will also return the attributes of the US GAAP taxonomy.  
 
-### **URL**
+### **Sample URL**
+ Replace text "EnterKeyHere" (without quotes) with your API key to return data in your browser window: 
 
   <http://csuite.xbrl.us/php/dispatch.php?Task=xbrlExtensionElement&Element=ResearchDevelopmentAndRelatedExpenses&API_Key=EnterKeyHere>
 
@@ -124,7 +125,7 @@ The API allows the user to get the attributes of an extension element and the as
 
 ### **Error Response**
 
-    An error is returned if no value is defined for an element name.
+  An error is returned if no value is defined for an element name.
 
 ```xml
     <error>
@@ -137,7 +138,7 @@ The API allows the user to get the attributes of an extension element and the as
         </message>
     </error>
 ```
-    An error is returned if an incorrect parameter is provided.
+  An error is returned if an incorrect parameter is provided.
 
 ```xml
     <error>

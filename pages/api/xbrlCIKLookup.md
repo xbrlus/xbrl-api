@@ -6,7 +6,8 @@ sidebar: api_sidebar
 permalink: xbrlCIKLookup.html
 folder: api
 ---
-### **URL**
+### **Sample URL**
+ Replace text "EnterKeyHere" (without quotes) with your API key to return data in your browser window: 
 
   <http://csuite.xbrl.us/php/dispatch.php?Task=xbrlCIKLookup&Ticker=aapl>
 
@@ -32,7 +33,7 @@ folder: api
 
 ### **Success Response:**
 
-    1. Valid Ticker
+1. Valid Ticker
 
 ```xml
       <dataRequest date="2015-08-26T20:25:11-0400">
@@ -45,7 +46,8 @@ folder: api
       </dataRequest>
   ```
 
-    2. Invalid Ticker
+2. Invalid Ticker
+
 ```xml
     <dataRequest date="2015-08-26T21:32:51-0400">
       <tickerLookup>
@@ -59,7 +61,7 @@ folder: api
 
 ### **Error Response**
 
-    An error is returned if any parameter other than a Ticker is provided.
+  An error is returned if any parameter other than a Ticker is provided.
 
 ```xml
     <?xml version="1.0" encoding="utf-8"?>
@@ -70,7 +72,7 @@ folder: api
     </error>
 ```
 
-    An error is returned if no ticker value is provided.
+  An error is returned if no ticker value is provided.
 
 ```xml
     <?xml version="1.0" encoding="utf-8"?>

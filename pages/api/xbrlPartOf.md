@@ -10,7 +10,8 @@ The API requires the element name and the filing number. The API will return all
 
 This function is used when a user want to determine what elements a specified element is part of.
 
-### **URL**
+### **Sample URL**
+ Replace text "EnterKeyHere" (without quotes) with your API key to return data in your browser window: 
 
   <http://csuite.xbrl.us/php/dispatch.php?Task=xbrlPartOf&AccessionID=135173&Element=ProfitLoss&API_Key=EnterKeyHere>
 
