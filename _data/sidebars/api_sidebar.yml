@@ -1,0 +1,54 @@
+# This is your sidebar TOC. The sidebar code loops through sections here and provides the appropriate formatting.
+
+
+entries:
+- title: Sidebar
+  product: API
+  version: 1.0
+  folders: 
+
+  - title: Documentation
+    output: web, pdf
+    folderitems:
+    - title: XBRL Base Element
+      url: /xbrlBaseElement.html
+      output: web, pdf
+
+    - title: XBRL Children
+      url: /xbrlChildren.html
+      output: web, pdf
+
+    - title: XBRL CIK Lookup
+      url: /xbrlCIKLookup.html
+      output: web, pdf
+
+    - title: XBRL Extension Element
+      url: /xbrlExtensionElement.html
+      output: web, pdf
+
+    - title: XBRL Network
+      url: /xbrlNetwork.html
+      output: web, pdf
+
+    - title: XBRL Values
+      url: /xbrlValues.html
+      output: web, pdf
+
+      
+  - title: Resources
+    output: web
+    folderitems:
+    - title: API key request
+      external_url: https://xbrl.us/apirequest
+      output: web
+    - title: XBRL US Web page
+      external_url: https://xbrl.us/data-toolkit
+    - title: Overview (PDF)
+      external_url: https://xbrl.us/wp-content/uploads/2015/10/HowTo-Use-the-Data-Analysis-Toolkit.pdf
+      output: web
+    - title: Screencast demo
+      external_url: https://xbrl.us/use/howto/data-analysis-toolkit/
+      output: web
+    - title: Repository view
+      external_url: https://github.com/xbrlus/data_analysis_toolkit
+      output: web
