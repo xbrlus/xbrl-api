@@ -14,7 +14,7 @@ folder: api
 
   The API supports the following
 
-  `GET` | `POST`
+   `GET` | `POST`
 
 *  **URL Params**
 
@@ -43,7 +43,7 @@ folder: api
           <sic>4813</sic>
         </tickerLookup>
       </dataRequest>
-  ```
+   ```
 
     2. Invalid Ticker
 ```xml

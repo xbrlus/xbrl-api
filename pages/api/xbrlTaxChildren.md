@@ -16,7 +16,7 @@ The API will return all children of the specified element plus attributes such a
 
   The API supports the following
 
-  `GET` | `POST`
+   `GET` | `POST`
 
 *  **URL Params**
 
@@ -26,17 +26,17 @@ The API will return all children of the specified element plus attributes such a
 
    `API_Key=[uuid]` - A valid API Key must be provided. This is freely available from XBRL US at <http://xbrl.us/apirequest>
 
-  `Element=[alphanumeric]` - The element name in the base taxonomy. This parameter will **not** take a comma separated list.
+   `Element=[alphanumeric]` - The element name in the base taxonomy. This parameter will **not** take a comma separated list.
 
-  `Taxonomy=[uri]` - The namespace of the taxonomy the element is in. The parameter allows you to get details from specific taxonomies.
+   `Taxonomy=[uri]` - The namespace of the taxonomy the element is in. The parameter allows you to get details from specific taxonomies.
 
-  `GroupURI=[uri]`  - The extended link role defined in the taxonomy url referenced in the taxonomy parameter For example http://fasb.org/us-gaap/role/statement/StatementOfIncome		
+   `GroupURI=[uri]`  - The extended link role defined in the taxonomy url referenced in the taxonomy parameter For example http://fasb.org/us-gaap/role/statement/StatementOfIncome		
 
    **Optional:**
 
-  `Linkbase=[Calculation|Definition|Presentation]` - The type of network relationship. This could be a Presentation, Calculation or Definition. If this is not entered then the relationship type found first will be returned.
+   `Linkbase=[Calculation|Definition|Presentation]` - The type of network relationship. This could be a Presentation, Calculation or Definition. If this is not entered then the relationship type found first will be returned.
 
-  `ResetCache=[boolean]` - If set to True the query will pull the data from the database and will not use a cached file if it is available. Setting the parameter to False will utilize cache and will be faster.
+   `ResetCache=[boolean]` - If set to True the query will pull the data from the database and will not use a cached file if it is available. Setting the parameter to False will utilize cache and will be faster.
 
 
 
@@ -94,17 +94,17 @@ The API will return all children of the specified element plus attributes such a
       <count>2</count>
     </dataRequest>
 ```
-  `dataRequest - date` - The data request date attribute is the date that the data was generated. It is not the date of the query.  Data is cached once it is requested and is returned from cache if available. The data remains in cache for a day from the request. This means that data could be up to a day old if it has been previously requested.
+   `dataRequest - date` - The data request date attribute is the date that the data was generated. It is not the date of the query.  Data is cached once it is requested and is returned from cache if available. The data remains in cache for a day from the request. This means that data could be up to a day old if it has been previously requested.
 
-  `treeDepth` - This is depth of the element in the tree relative to the element name requested. For example children of the element selected will have a value of 1. Grandchildren will have a value of 2.
+   `treeDepth` - This is depth of the element in the tree relative to the element name requested. For example children of the element selected will have a value of 1. Grandchildren will have a value of 2.
 
-  `treeSequence` - This is a derived sequence which allows a user to order all the elements in a sequence that matches that defined in the taxonomy. The number has no meaning itself. Its meaning is relative to the other nodes in a tree. If the nodes are sorted by this number the entire tree will be shown in the same sequence as that shown in the taxonomy.
+   `treeSequence` - This is a derived sequence which allows a user to order all the elements in a sequence that matches that defined in the taxonomy. The number has no meaning itself. Its meaning is relative to the other nodes in a tree. If the nodes are sorted by this number the entire tree will be shown in the same sequence as that shown in the taxonomy.
 
-  `calculationWeight` - This is the weight value for the relationship between two elements defined in the taxonomy.
+   `calculationWeight` - This is the weight value for the relationship between two elements defined in the taxonomy.
 
-  `calculationEffectiveWeight` - This is the weight relationship between the element in the request and the element returned in this record. This differs from the calculationWeight which is the weight to the parent element in the calculation tree. Whereas as the calculationEffectiveWeight is the weight relative to the requested element. They will often be the same but will vary as the tree depth increases.
+   `calculationEffectiveWeight` - This is the weight relationship between the element in the request and the element returned in this record. This differs from the calculationWeight which is the weight to the parent element in the calculation tree. Whereas as the calculationEffectiveWeight is the weight relative to the requested element. They will often be the same but will vary as the tree depth increases.
 
-  `leafNode` - This indicates if the element is a leaf on the tree, or a branch. If the value is 0 the element is the last node on the tree (It has no children). If the value is 1 then the element is a branch element that will have children elements.
+   `leafNode` - This indicates if the element is a leaf on the tree, or a branch. If the value is 0 the element is the last node on the tree (It has no children). If the value is 1 then the element is a branch element that will have children elements.
 
 
 

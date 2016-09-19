@@ -16,7 +16,7 @@ The API allows the user to get the attributes of an extension element and the as
 
   The API supports the following
 
-  `GET` | `POST`
+   `GET` | `POST`
 
 *  **URL Params**
 
@@ -28,13 +28,13 @@ The API allows the user to get the attributes of an extension element and the as
 
    **Optional:**
 
-  `Element=[alphanumeric]` - The element name in the base taxonomy. This parameter will **not** take a comma separated list.
+   `Element=[alphanumeric]` - The element name in the base taxonomy. This parameter will **not** take a comma separated list.
 
-  `Namespace=[url]` - The namespace of the company filing the data is requested for. For example http://www.ovt.com/20150430.
+   `Namespace=[url]` - The namespace of the company filing the data is requested for. For example http://www.ovt.com/20150430.
 
-  `AccessionID=[int]` - Internal Accession identifier used by the XBRL US database. This is a unique filing identifier. For example one company will have many filings. This is returned by the API and can be used in subsequent calls. This allows a comma separated list.
+   `AccessionID=[int]` - Internal Accession identifier used by the XBRL US database. This is a unique filing identifier. For example one company will have many filings. This is returned by the API and can be used in subsequent calls. This allows a comma separated list.
 
-  `Accession=[alpha]` - Filing accession number. This is the accession number used as the filing identifier used by the SEC. This parameter does not allow a comma separated list.
+   `Accession=[alpha]` - Filing accession number. This is the accession number used as the filing identifier used by the SEC. This parameter does not allow a comma separated list.
 
    **Minimum:**
 
@@ -49,43 +49,43 @@ The API allows the user to get the attributes of an extension element and the as
 
   All return values start with a lowercase letter. Only values that are available are returned.
 
-  `entity` - The name of the company.
+   `entity` - The name of the company.
 
-  `elementName` - The name of the xbrl base or extension element.
+   `elementName` - The name of the xbrl base or extension element.
 
-  `namespace` - The namespace of the base or extension element.
+   `namespace` - The namespace of the base or extension element.
 
-  `accessionID` - The internal number of the filing in the XBRL US database.
+   `accessionID` - The internal number of the filing in the XBRL US database.
 
-  `filingDate` - The date the filing was filed with the SEC.
+   `filingDate` - The date the filing was filed with the SEC.
 
-  `filingAccession` - The accession number allocated to the filing by the SEC.
+   `filingAccession` - The accession number allocated to the filing by the SEC.
 
-  `abstract` - True or false value. If the item is an abstract it is returned as true.
+   `abstract` - True or false value. If the item is an abstract it is returned as true.
 
-  `type` - The schema type of the XBRL elementNamee.e.g. monetaryItemType
+   `type` - The schema type of the XBRL elementNamee.e.g. monetaryItemType
 
-  `periodType` - The period type of the element. Either "Instant" or "Duration".
+   `periodType` - The period type of the element. Either "Instant" or "Duration".
 
-  `balance` - The balance type of the element. Either "debit", "credit" or none.
+   `balance` - The balance type of the element. Either "debit", "credit" or none.
 
-  `nillable` - True or false value. If the item is nillable it is returned as true.
+   `nillable` - True or false value. If the item is nillable it is returned as true.
 
-  `documentation` - The documentation label represented by http://www.xbrl.org/2003/role/documentation.
+   `documentation` - The documentation label represented by http://www.xbrl.org/2003/role/documentation.
 
-  `standard` - The standard label represented by http://www.xbrl.org/2003/role/label.
+   `standard` - The standard label represented by http://www.xbrl.org/2003/role/label.
 
-  `terse` - The terse label represented by http://www.xbrl.org/2003/role/terseLabel.
+   `terse` - The terse label represented by http://www.xbrl.org/2003/role/terseLabel.
 
-  `verbose` - The verbose label represented by http://www.xbrl.org/2003/role/verboseLabel.
+   `verbose` - The verbose label represented by http://www.xbrl.org/2003/role/verboseLabel.
 
-  `total` - The total label represented by http://www.xbrl.org/2003/role/totalLabel.
+   `total` - The total label represented by http://www.xbrl.org/2003/role/totalLabel.
 
-  `negated` - The negated label represented by http://www.xbrl.org/2009/role/negatedLabel.
+   `negated` - The negated label represented by http://www.xbrl.org/2009/role/negatedLabel.
 
-  `periodEnd` - The periodEnd label represented by http://www.xbrl.org/2003/role/periodEndLabel.
+   `periodEnd` - The periodEnd label represented by http://www.xbrl.org/2003/role/periodEndLabel.
 
-  `periodStart` - The periodStart label represented by http://www.xbrl.org/2003/role/periodStartLabel.
+   `periodStart` - The periodStart label represented by http://www.xbrl.org/2003/role/periodStartLabel.
 
 
 * **Success Response (Normal):**
@@ -119,7 +119,7 @@ The API allows the user to get the attributes of an extension element and the as
     </dataRequest>
 ```
 
-  `dataRequest - date` - The data request date attribute is the date that the data was generated. It is not the date of the query.  Data is cached once it is requested and is returned from cache if available. The data remains in cache for a day from the request. This means that data could be up to a day old if it has been previously requested.
+   `dataRequest - date` - The data request date attribute is the date that the data was generated. It is not the date of the query.  Data is cached once it is requested and is returned from cache if available. The data remains in cache for a day from the request. This means that data could be up to a day old if it has been previously requested.
 
 
 * **Error Response:**

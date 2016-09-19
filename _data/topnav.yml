@@ -21,6 +21,12 @@ topnav_dropdowns:
           url: /xbrlExtensionElement.html
         - title: Network
           url: /xbrlNetwork.html
+        - title: Part Of
+          url: /xbrlPartOf.html
+        - title: Parts
+          url: /xbrlParts.html
+        - title: Tax Children
+          url: /xbrlTaxChildren.html
         - title: Values
           url: /xbrlValues.html
     - title: Spreadsheet Templates
