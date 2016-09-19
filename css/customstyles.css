@@ -1,7 +1,10 @@
-body {
+﻿body {
     font-size:15px;
 }
 
+pre code {
+	background: #F5F5F5 !important;
+}
 .bs-callout {
     padding: 20px;
     margin: 20px 0;
@@ -275,7 +278,7 @@ div#toc ul li ul {
 }
 
 div#toc ul li ul li::before {
-    content: "–  ";
+    content: "â€“  ";
 }
 
 div#toc >ul::before {
@@ -686,7 +689,7 @@ span.otherProgrammingLanguages {
     font-style: normal;
 }
 
-a[data-toggle="tooltip"] {
+a[data-toggle=tooltip] {
     color: #649345;
     font-style: italic;
     cursor: default;
