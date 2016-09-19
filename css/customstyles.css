@@ -1032,7 +1032,7 @@ ol li ul li ol li ul li{
 }
 
 table thead th code.highlighter-rouge {
-    background-color: #F5F5F5 !important;
+    background-color: transparent;
 }
 
 
