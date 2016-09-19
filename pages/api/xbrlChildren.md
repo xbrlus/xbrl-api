@@ -55,7 +55,7 @@ If an element name is not provided then all the relationships for the entire net
 
 ### **Data Params**
 
-    The API supports the same params as the URL.
+  The API supports the same params as the URL.
 
 ### **Success Response (Normal):**
 

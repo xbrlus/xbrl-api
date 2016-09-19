@@ -51,7 +51,7 @@ If an element name is included then all the networks in the filing are returned.
 
 ### **Data Params**
 
-    The API supports the same params as the URL.
+  The API supports the same params as the URL.
 
 ### **Success Response (Normal):**
 

@@ -49,7 +49,7 @@ This function is used when a user want to determine what elements a specified el
 
 ### **Data Params**
 
-    The API supports the same params as the URL.
+  The API supports the same params as the URL.
 
 ### **Success Response (Normal):**
 

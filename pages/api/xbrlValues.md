@@ -32,7 +32,7 @@ folder: api
 
    **Optional:**
 
-    ***Filing Parameters***
+##### Filing Parameters
 
   `Accession=[alpha]`   - filing accession number. This is the accession number used by the SEC. This parameter does not allow a comma separated list.
 
@@ -42,7 +42,7 @@ folder: api
 
   `Restated=[boolean]` - A value of false will exclude amounts subsequently restated, a value of true will include amounts that were restated. If no value is defined the API defaults to false.
 
-    ***Element Parameters***
+##### Element Parameters
 
   `Element=[alphanumeric]` - The XBRL element. This parameter allows a comma separated list.
 
@@ -60,7 +60,7 @@ folder: api
 
   `ExtensionMember=[base|extension]` - base will return non extension members and extension will return extension members. If no value is provided then all members are returned. If `DimReqd` is set to false this parameter is ignored.
 
-   ***Time Parameters***
+##### Time Parameters
 
   `Period=[Y|1Q|2Q|3Q|3QCUM|4Q|1H|2H|Other]` - Period required, if not provided all periods are returned. This parameter allows a comma separated list.
 
@@ -74,7 +74,7 @@ folder: api
 
   `Align=[boolean]` - True indicates that rather than using fiscal periods calendar periods should be used.
 
-   ***Response Parameters***
+##### Response Parameters
 
   `Small=[boolean]` - If this parameter is set to true the size of the XML response is cut down. This is to help Excel users who may use the webservice function which returns the response into a single cell. These cells have size limitations.
 
@@ -88,7 +88,7 @@ folder: api
 
 ### **Data Params**
 
-    The API supports the same params as the URL.
+  The API supports the same params as the URL.
 
 ### **Return Values**
 
@@ -235,7 +235,7 @@ folder: api
 
 ### **Error Response:**
 
-    An error is returned if the CIK value entered is not numeric.
+  An error is returned if the CIK value entered is not numeric.
 
 ```xml
     <?xml version="1.0" encoding="utf-8"?>
@@ -245,7 +245,8 @@ folder: api
                   <message><![CDATA[This call returns too much data. Please revise the attributes to include at least a CIK or Accession Number.]]></message>
               </error>
 ```
-    An error is returned if the value for the CIK value is not numeric.
+
+  An error is returned if the value for the CIK value is not numeric.
 
 ```xml
     <?xml version="1.0" encoding="utf-8"?>
@@ -256,7 +257,7 @@ folder: api
           </error>
 ```
 
-    An error is returned if the value for the `Year` or `StartYear` is not a 4 character number after 1900.
+  An error is returned if the value for the `Year` or `StartYear` is not a 4 character number after 1900.
 
 ```xml
     <?xml version="1.0" encoding="utf-8"?>

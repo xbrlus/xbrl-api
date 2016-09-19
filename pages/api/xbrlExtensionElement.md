@@ -43,7 +43,7 @@ The API allows the user to get the attributes of an extension element and the as
 
 ### **Data Params**
 
-    The API supports the same params as the URL.
+  The API supports the same params as the URL.
 
 ### **Return Values**
 

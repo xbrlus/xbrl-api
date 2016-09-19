@@ -28,7 +28,7 @@ folder: api
 
 ### **Data Params:**
 
-    The API supports the same params as the URL.
+  The API supports the same params as the URL.
 
 ### **Success Response:**
 
