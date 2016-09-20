@@ -1,6 +1,7 @@
 ---
 title: Balance Sheet Comparison Template
 keywords: template
+toc: false
 summary: "This section contains balance sheet comparison worksheets using XBRL data."
 sidebar: templates_sidebar
 permalink: BSCompareTemplate.html
