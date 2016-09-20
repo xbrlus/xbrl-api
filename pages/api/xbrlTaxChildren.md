@@ -11,7 +11,7 @@ The API will return all children of the specified element plus attributes such a
 ### **Sample URL**
  In the sample URL below, replace text "EnterKeyHere" (without quotes) with your API key to return data in your browser window: 
 
-  <http://csuite.xbrl.us/php/dispatch.php?Task=xbrlTaxChildren&Taxonomy=http://fasb.org/us-gaap/2015-01-31&Element=InterestExpenseBorrowings&GroupURI=http://fasb.org/us-gaap/role/statement/StatementOfIncome&Linkbase=Calculation&ResetCache=False&API_Key=EnterKeyHere>
+<http://csuite.xbrl.us/php/dispatch.php?Task=xbrlTaxChildren&Taxonomy=http://fasb.org/us-gaap/2015-01-31&Element=InterestExpenseBorrowings&GroupURI=http://fasb.org/us-gaap/role/statement/StatementOfIncome&Linkbase=Calculation&ResetCache=False&API_Key=EnterKeyHere>
 
 ### **Method**
 

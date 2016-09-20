@@ -7,6 +7,19 @@ entries:
   version: 1.0
   folders: 
 
+  - title:
+    output: pdf
+    type: frontmatter
+    folderitems:
+    - title:
+      url: /titlepage
+      output: pdf
+      type: frontmatter
+    - title:
+      url: /tocpage
+      output: pdf
+      type: frontmatter
+
   - title: Examples
     output: web, pdf
     folderitems:
@@ -26,7 +39,6 @@ entries:
     - title: Google Sheets Functions
       url: /gsheetFunctions.html
       output: web, pdf
-
       
   - title: Resources
     output: web

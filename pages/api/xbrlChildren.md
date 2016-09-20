@@ -13,7 +13,7 @@ If an element name is not provided then all the relationships for the entire net
 ### **Sample URL**
  In the sample URL below, replace text "EnterKeyHere" (without quotes) with your API key to return data in your browser window: 
 
-  <http://csuite.xbrl.us/php/dispatch.php?Task=xbrlChildren&AccessionID=135173&Element=IncomeStatementAbstract&GroupURI=http://www.ibm.com/role/StatementCONSOLIDATEDSTATEMENTOFEARNINGS&Linkbase=Presentation&API_Key=EnterKeyHere>
+<http://csuite.xbrl.us/php/dispatch.php?Task=xbrlChildren&AccessionID=135173&Element=IncomeStatementAbstract&GroupURI=http://www.ibm.com/role/StatementCONSOLIDATEDSTATEMENTOFEARNINGS&Linkbase=Presentation&API_Key=EnterKeyHere>
 
 ### **Method**
 

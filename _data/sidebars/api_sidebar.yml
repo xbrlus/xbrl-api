@@ -5,7 +5,20 @@ entries:
 - title: Sidebar
   product: API
   version: 1.0
-  folders: 
+  folders:  
+  
+  - title:
+    output: pdf
+    type: frontmatter
+    folderitems:
+    - title:
+      url: /titlepage
+      output: pdf
+      type: frontmatter
+    - title:
+      url: /tocpage
+      output: pdf
+      type: frontmatter
 
   - title: Documentation
     output: web, pdf
