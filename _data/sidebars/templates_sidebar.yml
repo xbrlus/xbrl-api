@@ -1,0 +1,63 @@
+# This is your sidebar TOC. The sidebar code loops through sections here and provides the appropriate formatting.
+
+
+entries:
+- title: Sidebar
+  product: Templates
+  version: 1.0
+  folders: 
+
+  - title:
+    output: pdf
+    type: frontmatter
+    folderitems:
+    - title:
+      url: /titlepage
+      output: pdf
+      type: frontmatter
+    - title:
+      url: /tocpage
+      output: pdf
+      type: frontmatter
+
+  - title: Examples
+    output: web, pdf
+    folderitems:
+    
+    - title: Balance Sheet Comparison
+      url: /BSCompareTemplate.html
+      output: web, pdf
+
+    - title: Leases 
+      url: /LeasesTemplate.html
+      output: web, pdf
+
+    - title: Margin Comparison
+      url: /MarginCompareTemplate.html
+      output: web, pdf
+
+    - title: Google Sheets Functions
+      url: /gsheetFunctions.html
+      output: web, pdf
+      
+  - title: Resources
+    output: web
+    folderitems:
+    
+    - title: Getting Started
+      url: /index.html
+      output: web
+    - title: API key request
+      external_url: https://xbrl.us/apirequest
+      output: web
+    - title: XBRL US Web page
+      external_url: https://xbrl.us/data-toolkit
+    - title: Overview (PDF)
+      external_url: https://xbrl.us/wp-content/uploads/2015/10/HowTo-Use-the-Data-Analysis-Toolkit.pdf
+      output: web
+    - title: Screencast demos
+      external_url: https://www.youtube.com/playlist?list=PLEyg0bSY11l6uxlu9okMsNN3qlSbEaIDo
+      output: web
+    - title: Repository view
+      external_url: https://github.com/xbrlus/data_analysis_toolkit
+      output: web
