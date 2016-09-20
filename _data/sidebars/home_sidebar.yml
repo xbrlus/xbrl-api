@@ -9,7 +9,7 @@ entries:
   - title: Resources
     output: web
     folderitems:
-    - title: Documentation &amp; Templates
+    - title: Getting Started
       url: /index.html
       output: web
     - title: API key request
