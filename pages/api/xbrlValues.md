@@ -33,7 +33,7 @@ folder: api
 
    **Optional:**
 
-#### Filing Parameters
+**Filing Parameters**
 
   `Accession=[alpha]`   - filing accession number. This is the accession number used by the SEC. This parameter does not allow a comma separated list.
 
@@ -43,7 +43,7 @@ folder: api
 
   `Restated=[boolean]` - A value of false will exclude amounts subsequently restated, a value of true will include amounts that were restated. If no value is defined the API defaults to false.
 
-#### Element Parameters
+**Element Parameters**
 
   `Element=[alphanumeric]` - The XBRL element. This parameter allows a comma separated list.
 
@@ -61,7 +61,7 @@ folder: api
 
   `ExtensionMember=[base|extension]` - base will return non extension members and extension will return extension members. If no value is provided then all members are returned. If `DimReqd` is set to false this parameter is ignored.
 
-#### Time Parameters
+**Time Parameters**
 
   `Period=[Y|1Q|2Q|3Q|3QCUM|4Q|1H|2H|Other]` - Period required, if not provided all periods are returned. This parameter allows a comma separated list.
 
@@ -75,7 +75,7 @@ folder: api
 
   `Align=[boolean]` - True indicates that rather than using fiscal periods calendar periods should be used.
 
-#### Response Parameters
+**Response Parameters**
 
   `Small=[boolean]` - If this parameter is set to true the size of the XML response is cut down. This is to help Excel users who may use the webservice function which returns the response into a single cell. These cells have size limitations.
 
