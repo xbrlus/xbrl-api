@@ -30,15 +30,15 @@ entries:
       url: /xbrlNetwork.html
       output: web, pdf
     
-    - title: Part Of
+    - title: XBRL Part Of
       url: /xbrlPartOf.html
       output: web, pdf
         
-    - title: Parts
+    - title: XBRL Parts
       url: /xbrlParts.html
       output: web, pdf
     
-    - title: Tax Children
+    - title: XBRL Tax Children
       url: /xbrlTaxChildren.html
       output: web, pdf
 
@@ -58,8 +58,8 @@ entries:
     - title: Overview (PDF)
       external_url: https://xbrl.us/wp-content/uploads/2015/10/HowTo-Use-the-Data-Analysis-Toolkit.pdf
       output: web
-    - title: Screencast demo
-      external_url: https://xbrl.us/use/howto/data-analysis-toolkit/
+    - title: Screencast demos
+      external_url: https://www.youtube.com/playlist?list=PLEyg0bSY11l6uxlu9okMsNN3qlSbEaIDo
       output: web
     - title: Repository view
       external_url: https://github.com/xbrlus/data_analysis_toolkit

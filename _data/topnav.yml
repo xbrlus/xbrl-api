@@ -11,23 +11,23 @@ topnav_dropdowns:
   folders:
     - title: API Documentation
       folderitems:
-        - title: Base Element
+        - title: XBRL Base Element
           url: /xbrlBaseElement.html
-        - title: Children
+        - title: XBRL Children
           url: /xbrlChildren.html
-        - title: CIK Lookup
+        - title: XBRL CIK Lookup
           url: /xbrlCIKLookup.html
-        - title: Extension Element
+        - title: XBRL Extension Element
           url: /xbrlExtensionElement.html
-        - title: Network
+        - title: XBRL Network
           url: /xbrlNetwork.html
-        - title: Part Of
+        - title: XBRL Part Of
           url: /xbrlPartOf.html
-        - title: Parts
+        - title: XBRL Parts
           url: /xbrlParts.html
-        - title: Tax Children
+        - title: XBRL Tax Children
           url: /xbrlTaxChildren.html
-        - title: Values
+        - title: XBRL Values
           url: /xbrlValues.html
     - title: Spreadsheet Templates
       folderitems:
