@@ -43,7 +43,10 @@ entries:
   - title: Resources
     output: web
     folderitems:
-
+    
+    - title: Documentation &amp; Templates
+      url: /index.html
+      output: web
     - title: API key request
       external_url: https://xbrl.us/apirequest
       output: web

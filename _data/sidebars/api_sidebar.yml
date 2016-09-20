@@ -23,6 +23,10 @@ entries:
   - title: Documentation
     output: web, pdf
     folderitems:
+    
+    - title: Documentation &amp; Templates
+      url: /index.html
+      output: web
 
     - title: XBRL Base Element
       url: /xbrlBaseElement.html
