@@ -1,6 +1,7 @@
 ---
 title: Leases Template
 keywords: template
+toc: false
 summary: "This template uses the xbrlValues api to build a lease worksheet that calculates the adjustments to account for an operating lease in the same manner as a capitalized lease. The template shows how the lease payments and discount rates can be extracted from XBRL data."
 sidebar: templates_sidebar
 permalink: LeasesTemplate.html
