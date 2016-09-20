@@ -1,6 +1,7 @@
 ---
 title: Margin Comparison Template
 keywords: template
+toc: false
 summary: "This section contains margin worksheets that allow comparison of net income margins. The templates show how revenue and net income can be extracted from XBRL data."
 sidebar: templates_sidebar
 permalink: MarginCompareTemplate.html
