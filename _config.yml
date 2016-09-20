@@ -111,7 +111,7 @@ sidebars:
 - api_sidebar
 - templates_sidebar
 - home_sidebar
-- mydoc_sidebar
+#- mydoc_sidebar
 #- product1_sidebar
 #- product2_sidebar
 #- other

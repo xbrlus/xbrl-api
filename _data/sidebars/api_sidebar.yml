@@ -10,6 +10,7 @@ entries:
   - title: Documentation
     output: web, pdf
     folderitems:
+
     - title: XBRL Base Element
       url: /xbrlBaseElement.html
       output: web, pdf
@@ -50,6 +51,7 @@ entries:
   - title: Resources
     output: web
     folderitems:
+
     - title: API key request
       external_url: https://xbrl.us/apirequest
       output: web

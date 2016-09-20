@@ -10,6 +10,7 @@ entries:
   - title: Examples
     output: web, pdf
     folderitems:
+    
     - title: Balance Sheet Comparison
       url: /BSCompareTemplate.html
       output: web, pdf
@@ -30,6 +31,7 @@ entries:
   - title: Resources
     output: web
     folderitems:
+
     - title: API key request
       external_url: https://xbrl.us/apirequest
       output: web
