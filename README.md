@@ -1,6 +1,6 @@
 # Data Analysis Toolkit
 
-[browse documentation on web front end](https://xbrlus/github.io/data_analysis_toolkit)
+[browse documentation on web front end](https://xbrlus.github.io/data_analysis_toolkit)
 
 This toolkit includes API and Template resources to help you access and begin analyzing corporate XBRL data. Through the tools provided, you'll have easy access to the XBRL US Public Filings Database - updated approximately every 15 minutes from the SEC's EDGAR system.
 
