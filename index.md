@@ -3,9 +3,9 @@ title: Data Analysis Toolkit
 keywords: homepage
 sidebar: home_sidebar
 permalink: index.html
-summary: These APIs and templates are used to to analyze financial data supplied by public companies to the U. S. Securities and Exchange Commission.
+summary: NOTE -- Our Data Analysis Toolkit API's are being retired on December 1, 2018. We're replacing these older APIs with a set of APIs designed for more comprehensive, enterprise-level use with standardized financial data and resources https://xbrl.us/xbrl-api.
 ---
-This toolkit includes API and Template resources to help you access and begin analyzing corporate XBRL
+These APIs and templates are used to to analyze financial data supplied by public companies to the U. S. Securities and Exchange Commission. This toolkit includes API and Template resources to help you access and begin analyzing corporate XBRL
 data. Through the tools provided, you'll have easy access to the XBRL US Public Filings Database - updated approximately every 15 minutes from the SEC's EDGAR system.
 
 The **API Documentation** menu includes several APIs that allow users to fetch XBRL facts from the database in an XML
