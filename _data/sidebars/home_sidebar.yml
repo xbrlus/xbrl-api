@@ -12,6 +12,9 @@ entries:
     - title: Getting Started
       url: /index.html
       output: web
-    - title: XBRL US Web page
+    - title: Legacy APIs Web page (Data Toolkit)
       external_url: https://xbrl.us/home/use/data-analysis-toolkit/
+      output: web
+    - title: XBRL API Web page
+      external_url: https://xbrl.us/home/use/xbrl-api
       output: web
