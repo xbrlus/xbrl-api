@@ -13,5 +13,5 @@ entries:
       url: /index.html
       output: web
     - title: XBRL US Web page
-      external_url: https://xbrl.us/data-toolkit
+      external_url: https://xbrl.us/home/use/data-analysis-toolkit/
       output: web
