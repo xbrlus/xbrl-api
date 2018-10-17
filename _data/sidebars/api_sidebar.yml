@@ -68,11 +68,12 @@ entries:
     - title: Getting Started
       url: /index.html
       output: web
-    - title: API key request
-      external_url: https://xbrl.us/apirequest
-      output: web
     - title: XBRL US Web page
       external_url: https://xbrl.us/data-toolkit
+      output: web
+/*    - title: API key request
+      external_url: https://xbrl.us/apirequest
+      output: web
     - title: Overview (PDF)
       external_url: https://xbrl.us/wp-content/uploads/2015/10/HowTo-Use-the-Data-Analysis-Toolkit.pdf
       output: web
@@ -82,3 +83,4 @@ entries:
     - title: Repository view
       external_url: https://github.com/xbrlus/data_analysis_toolkit
       output: web
+      */
