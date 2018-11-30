@@ -102,7 +102,7 @@ GEM
     minitest (5.9.0)
     multipart-post (2.0.0)
     net-dns (0.8.0)
-    nokogiri (1.8.2)
+    nokogiri (~> 1.8.1)
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
     octokit (4.3.0)
@@ -130,6 +130,7 @@ GEM
     unicode-display_width (1.1.0)
 
 PLATFORMS
+  x64-mingw32
   ruby
 
 DEPENDENCIES
@@ -137,4 +138,4 @@ DEPENDENCIES
   jekyll
 
 BUNDLED WITH
-   1.12.5
+   1.16.1

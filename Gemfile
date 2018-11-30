@@ -1,5 +1,5 @@
 source "https://rubygems.org"
 
 # gem "rails"
-gem 'github-pages'
-gem 'jekyll'
+# Needed to publish --> gem 'github-pages'
+# Needed to publish --> gem 'jekyll'
