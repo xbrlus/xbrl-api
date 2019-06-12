@@ -3,9 +3,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>Swagger UI</title>
+    <title>XBRL API Documentation</title>
     <link rel="stylesheet" type="text/css" href="./src/swagger-ui.css" >
-    <link rel="icon" type="image/png" href="./src/favicon-32x32.png" sizes="32x32" />
+    <link rel="stylesheet" href="./src/xus-api.css">
+	<link rel="icon" type="image/png" href="./src/favicon-32x32.png" sizes="32x32" />
     <link rel="icon" type="image/png" href="./src/favicon-16x16.png" sizes="16x16" />
     <style>
       html
@@ -27,6 +28,29 @@
         margin:0;
         background: #fafafa;
       }
+	  
+	  code
+	  {
+	    background: #41444E !important;
+		color:#E2E2E2 !important;
+		padding: 2px !important;
+	  }
+	  
+	  pre
+	  {
+		padding: 2px !important
+	}
+	  
+	  .topbar-wrapper img[alt="Swagger UI"], .topbar-wrapper span 
+	  {
+		visibility: collapse;
+	  }
+
+	  .topbar-wrapper .link:before 
+	  {
+		content: url('./src/logo.png');
+		margin-top:8px;
+	  }
     </style>
   </head>
 
