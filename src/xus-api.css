@@ -578,6 +578,7 @@
 .swagger-ui button.try-out__btn {
   background-image: url('bar.png') !important;
   background-position: 330px !important;
+  font-weight:800;
 }
 
 .swagger-ui .btn[disabled] {
