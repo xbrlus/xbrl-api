@@ -572,7 +572,12 @@
   background: transparent;
   box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
   font-family: Lato, sans-serif;
-  color: #3b4151
+  color: #336E7B
+}
+
+.swagger-ui button.try-out__btn {
+  background-image: url('bar.png') !important;
+  background-position: 330px !important;
 }
 
 .swagger-ui .btn[disabled] {
@@ -593,6 +598,8 @@
 .swagger-ui .btn.authorize {
   line-height: 1;
   display: inline;
+  background: transparent;
+  background-image: url('') !important;
   color: #49cc90;
   border-color: #49cc90
 }
@@ -610,7 +617,7 @@
   -webkit-animation: pulse 2s infinite;
   animation: pulse 2s infinite;
   color: #fff;
-  border-color: #4990e2
+  border-color: #529DDD
 }
 
 @-webkit-keyframes pulse {
