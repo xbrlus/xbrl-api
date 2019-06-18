@@ -3,6 +3,8 @@ openapi: 3.0.0
 servers:
   - description: Running this application XBRL US server
     url: 'https://api.xbrl.us/'
+  - description: Running this application using the XBRL US test server
+    url: 'https://testapi.xbrl.us/'
 info:
   version: "V1"
   title: XBRL US API
@@ -24,7 +26,7 @@ info:
     1. Send an HTTP `POST` request to the tokenUrl: `/oauth2/token`:
       ```http
       POST /oauth2/token HTTP/1.1 
-      Host: <testapi.xbrl.us> 
+      Host: <api.xbrl.us> 
       Content-Type: application/x-www-form-urlencoded 
       Body: {
         "grant_type": password,
@@ -53,7 +55,7 @@ info:
     3. Add a new `Authorization` header with type `Bearer` and the contents of the above `access_token`
       ```http
       GET </some/route> HTTP/1.1
-      Host: <testapi.xbrl.us> 
+      Host: <api.xbrl.us> 
       Authorization: Bearer yJ...124nOvc
       Content-Type: application/json; charset=utf-8 
       Body: <...>
@@ -61,8 +63,6 @@ info:
 
     Once an `access_token` has been acquired, use it until it returns a `401`. If this occurs, simply request a new token using the credentials from before. 
 
-
-  
   contact:
     name: xbrl.us
     email: support@xbrl.us
@@ -85,6 +85,10 @@ tags:
     description: Used to request label information associated with a concept and a dts identifier.
   - name: Networks
     description: Used to request label information associated with a concept and a dts identifier.
+  - name: Relationships
+    description: Used to request relationship information associated with a network and/or dts identifier.
+  - name: Documents
+    description: Used to request document information associated with a DTS or report.
     
 security:
   - oauth2: [ROLE_CLIENT, ROLE_USER]
@@ -258,18 +262,18 @@ paths:
             $ref: '#/components/schemas/fact_fields'
           description: List of concepts to return.
           
-       ## - in: query
-       ##   name: aspect
-          # Wrap 'schema' into 'content.<media-type>'
-        ##  content:
-        ##    application/json:  # <---- media type indicates how to serialize / deserialize the parameter content
-        ##      schema:
-        ##        type: object
-        ##        properties:
-        ##          dimension:
-        ##           type: string
-        ##         member:
-        ##            type: string
+        # - in: query
+        #   name: aspect
+        #   # Wrap 'schema' into 'content.<media-type>'
+        #   content:
+        #     application/json:  # <---- media type indicates how to serialize / deserialize the parameter content
+        #       schema:
+        #         type: object
+        #         properties:
+        #           dimension:
+        #            type: string
+        #           member:
+        #            type: string
           
       responses:
         '200':
@@ -288,16 +292,14 @@ paths:
           # -----------------------------------------------------
           # Links
           # -----------------------------------------------------
-          #links:
-          #  GetfactId:   # <---- arbitrary name for the link
-          #    operationId: getFactBasedOnFactID
-              # or
-              # operationRef: '#/paths/~1users~1{userId}/get'
-           #   parameters:
-          #      fact.id: '$response.body#/data/fact.id'
-          #    description: >
-          #      The `fact.id` value returned in the response can be used as
-           #     the `factId` parameter in `/api/v1/fact/{fact.id}`.
+          links:
+            GetfactId:   # <---- arbitrary name for the link
+              operationId: getFactBasedOnFactID
+              parameters:
+                fact.id: '$response.body#/data/fact.id'
+              description: >
+                The `fact.id` value returned in the response can be used as
+                the `factId` parameter in `/api/v1/fact/{fact.id}`.
           # -----------------------------------------------------
         '400':
           $ref: '#/components/responses/bad_request'
@@ -985,6 +987,9 @@ paths:
                     type: string
                     default: approved
                     enum: [approved,proposed]
+                  run_rules:
+                    type: string
+                    example: 'DQC.US.0001.54'
                     
           
         responses:
@@ -1974,7 +1979,20 @@ paths:
             schema:
                  $ref: '#/components/schemas/document_fields' 
                 
-            description: List of concepts to return.
+            description: |
+                List of fields to return. 
+                Available fields are as follows: 
+                  * document.top-level
+                  * document.tree-level
+                  * document.tree-order
+                  * document.type
+                  * document.uri
+                  * dts.id
+                  * document.*
+                
+                To limit the values returned use document._limit(n)_
+                
+                To sort on a field use the field folled by .sort. For example to sort in ascending order for document.uri then enter document.uri._sort(ASC)_ as a return field.
           
         responses:
           '200':
@@ -2194,17 +2212,19 @@ components:
     document_fields:
       type: array
       items:
-        type: string
-        enum: [
-              document.top-level
-              ,document.tree-level
-              ,document.tree-order
-              ,document.type
-              ,document.uri
-              ,dts.id
-              ,document.*
-              ]
-          
+          - type: string
+            enum: [
+                document.top-level
+                ,document.tree-level
+                ,document.tree-order
+                ,document.type
+                ,document.uri
+                ,dts.id
+                ,document.*
+                ]
+          - type: string
+            
+              
     dts_fields:
       type: array
       items:
@@ -4124,7 +4144,7 @@ components:
           items:
             type: integer
         description: The dts identifier for a given group of taxonomies. XBRL facts and linkbases are typically associated with a given report that is asscociated with a dts.
-        example: 321964
+    
     dts.taxonomy_Param:
        in: query
        name: dts.taxonomy
