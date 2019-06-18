@@ -974,7 +974,7 @@ paths:
                   file:
                     type: string
                     format: binary
-                    description: Definees the XBRL file in a zip format that is to be validated.  The file must be based either on the IFRS or US GAAP taxonomy.
+                    description: Definee the XBRL file in a zip format that is to be validated.  The file must be based on either the IFRS or US GAAP taxonomies.
                   Task:
                     type: string
                     enum: [checkfiling,dqcfiling]
