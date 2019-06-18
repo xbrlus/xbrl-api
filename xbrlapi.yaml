@@ -974,22 +974,31 @@ paths:
                   file:
                     type: string
                     format: binary
+                    description: Definees the XBRL file in a zip format that is to be validated.  The file must be based either on the IFRS or US GAAP taxonomy.
                   Task:
                     type: string
                     enum: [checkfiling,dqcfiling]
+                    description: This paparameter allows the user to control which rules will be run. The option dqcfiling will run the dqc rules. The checkfiling option will run the dqc rules and the XBRL US filer membership rules.
                   format:
                     type: string
                     enum: [xml,json]
+                    description: The format parameter allows a user to specify if the results will be returned as json or xml.
                   efm:
                     type: string
                     enum: [strict,pragmatic]
+                    description: This parameter controls if the Edgar Filing Manual rules will be run. This can be left balnk if no EFM rules are run, be defined as strict, or as pragmatic.
                   Status:
                     type: string
                     default: approved
                     enum: [approved,proposed]
+                    description: Used to include proposed rules as well as approved rules.  These will usually be the same unless there is a public review in process and proposed rules are available.  The default value is approved if nothing is specified.
                   run_rules:
                     type: string
                     example: 'DQC.US.0001.54'
+                    description: |
+                      Used to run a single rule rather than all the rules. For DQC rules the full rule number is used if it is defined such as DQC.US.0001.54.  However some rules the suffix is determined at run time. This means certain rules such as DQC 15 which have the suffix defined as part of the rule must exclude the rule number suffix. To run DQC rule 15 the value of 'DQC.US.0015' is [assed as the parameter. The following rules will do not use a rule number suffix.
+                      * DQC.US.0015
+                      * DQC.IFRS.0080
                     
           
         responses:
