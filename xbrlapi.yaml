@@ -114,7 +114,7 @@ paths:
               grant_type: password
               client_id: 1223
               client_secret: xhOEnAX2M...gaIYLXOvCe25Q
-              username: campbell.pryde@xbrl.us
+              username: joe90@WorldIntelligenceNetwork.org
               password: someSecurePassword
           application/x-www-form-urlencoded:
             schema:
