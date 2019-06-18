@@ -4135,8 +4135,7 @@ components:
        name: dts.entry-point
        schema:
           type: string
-       description: The url entry point of a discoverable taxonomy set. This is also referred to as the entry point for a taxonomy. A taxonomy can have multiple entry points and the resulting set of taxonomies of using an entry point is called a dts.
-       example: http://xbrl.fasb.org/us-gaap/2019/entire/us-gaap-entryPoint-all-2019-01-31.xsd
+       description: The url entry point of a discoverable taxonomy set. This is also referred to as the entry point for a taxonomy. A taxonomy can have multiple entry points and the resulting set of taxonomies of using an entry point is called a dts. For example http://xbrl.fasb.org/us-gaap/2019/entire/us-gaap-entryPoint-all-2019-01-31.xsd
     dts.hash_Param:
        in: query
        name: dts.hash
