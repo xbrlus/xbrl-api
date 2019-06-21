@@ -2121,11 +2121,12 @@ components:
           description: Unique identifier for a given user
         password:
           type: string
+          format: password
           example: someSecurePassword
           description: Password used to authenticate the 3rd party user
         platform:
           type: string
-          example: pc
+          example: github
           description: just required
     error_message:
       type: object
