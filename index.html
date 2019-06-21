@@ -29,7 +29,7 @@
         background: #fafafa;
       }
 	  
-	  code
+	  <!--code
 	  {
 	    background: #41444E !important;
 		color:#E2E2E2 !important;
@@ -39,16 +39,11 @@
 	  pre
 	  {
 		padding: 2px !important
-	  }
+	  }-->
 	  
 	  .topbar-wrapper img[alt="Swagger UI"], .topbar-wrapper span 
 	  {
 		visibility: collapse;
-	  }
-
-	  div.auth-container:first-of-type
-	  {
-		display: none;
 	  }
 
 	  .topbar-wrapper .link:before 
@@ -68,7 +63,7 @@
     window.onload = function() {
       // Begin Swagger UI call region
       const ui = SwaggerUIBundle({
-        url: "https://raw.githubusercontent.com/xbrlus/xbrl-api/master/xbrlapi.json",
+        url: "https://raw.githubusercontent.com/xbrlus/xbrl-api/master/xbrlapi.yaml",
         dom_id: '#swagger-ui',
         deepLinking: true,
         presets: [
@@ -78,7 +73,7 @@
         plugins: [
           SwaggerUIBundle.plugins.DownloadUrl
         ],
-		docExpansion: 'full',
+		// docExpansion: 'full',
         layout: "StandaloneLayout"
       })
       // End Swagger UI call region
