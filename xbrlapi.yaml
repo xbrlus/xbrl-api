@@ -3,8 +3,8 @@ openapi: 3.0.0
 servers:
   - description: Running this application XBRL US server
     url: 'https://api.xbrl.us/'
-  - description: Running this application using the XBRL US test server
-    url: 'https://testapi.xbrl.us/'
+#  - description: Running this application using the XBRL US test server
+#    url: 'https://testapi.xbrl.us/'
 info:
   version: "V1"
   title: XBRL US API
