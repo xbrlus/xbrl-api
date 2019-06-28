@@ -969,6 +969,7 @@ paths:
           - $ref: '#/components/parameters/report.creation-software_Param'
           - $ref: '#/components/parameters/report.document-type_Param'
           - $ref: '#/components/parameters/report.entry-url_Param'
+          - $ref: '#/components/parameters/report.filing-year_Param'
           - $ref: '#/components/parameters/report.id_Param'
           - $ref: '#/components/parameters/report.sec-url_Param'
           - $ref: '#/components/parameters/report.sic-code_Param'
@@ -4599,6 +4600,7 @@ components:
        schema:
           type: string
        description: The url entry point of a discoverable taxonomy set. This is also referred to as the entry point for a taxonomy. This represents the DTS entry point for a specific report.
+    
     report.filer-category_Param:
       in: query
       name: report.filer-category
@@ -4610,7 +4612,13 @@ components:
                 - Large Accelerated Filer  
                 - Accelerated Filer  
                 - Non-accelerated Filer  
-                    
+    report.filing-year_Param:
+      in: query  
+      name: report.filing-year
+      schema:
+          type: integer 
+      description: >
+          Year in which the filing was made.
     report.id_Param:
        in: query
        name: report.id
