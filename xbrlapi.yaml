@@ -3,8 +3,8 @@ openapi: 3.0.0
 servers:
   - description: Running this application XBRL US server
     url: 'https://api.xbrl.us/'
-#  - description: Running this application using the XBRL US test server
-#    url: 'https://testapi.xbrl.us/'
+#   - description: Running this application using the XBRL US test server
+#     url: 'https://testapi.xbrl.us/'
 info:
   version: "V1"
   title: XBRL US API
@@ -966,6 +966,7 @@ paths:
           - $ref: '#/components/parameters/assertion.type_Param'
           - $ref: '#/components/parameters/entity.name_Param'
           - $ref: '#/components/parameters/report.accession_Param'
+          - $ref: '#/components/parameters/report.creation-software_Param'
           - $ref: '#/components/parameters/report.document-type_Param'
           - $ref: '#/components/parameters/report.entry-url_Param'
           - $ref: '#/components/parameters/report.id_Param'
