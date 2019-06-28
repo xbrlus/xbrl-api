@@ -2218,13 +2218,15 @@ components:
       items:
         type: string
         enum: [
-              assertion.detail
+              assertion.code
+              ,assertion.detail
               ,assertion.effective_date
               ,assertion.rule_focus
               ,assertion.run-date
               ,assertion.severity
               ,assertion.source
               ,assertion.type
+              ,entity.cik
               ,entity.name
               ,report.accepted-timestamp
               ,report.accession
@@ -2233,6 +2235,7 @@ components:
               ,report.document-type
               ,report.entry-url
               ,report.filing-date
+              ,report.filing-year
               ,report.id
               ,report.sec-url
               ,report.sic-code
