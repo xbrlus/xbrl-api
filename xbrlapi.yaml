@@ -3,8 +3,8 @@ openapi: 3.0.0
 servers:
   - description: Running this application XBRL US server
     url: 'https://api.xbrl.us/'
-  - description: Running this application using the XBRL US test server
-    url: 'https://testapi.xbrl.us/'
+#  - description: Running this application using the XBRL US test server
+#    url: 'https://testapi.xbrl.us/'
 info:
   version: "V1"
   title: XBRL US API
@@ -107,21 +107,21 @@ paths:
         __[Read more](https://oauth.net/2/grant-types/)__
       requestBody:
         content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/authorization_grant'
-            example:
-              grant_type: password
-              client_id: 1223
-              client_secret: xhOEnAX2M...gaIYLXOvCe25Q
-              username: joe90@WorldIntelligenceNetwork.org
-              password: someSecurePassword
+          # application/json:
+          #   schema:
+          #     $ref: '#/components/schemas/authorization_grant'
+          #   example:
+          #     grant_type: password
+          #     client_id: 1223
+          #     client_secret: xhOEnAX2M...gaIYLXOvCe25Q
+          #     username: joe90@WorldIntelligenceNetwork.org
+          #     password: someSecurePassword
           application/x-www-form-urlencoded:
             schema:
               $ref: '#/components/schemas/authorization_grant'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/authorization_grant'
+          # multipart/form-data:
+          #   schema:
+          #     $ref: '#/components/schemas/authorization_grant'
       responses:
         '200':
           description: > 
@@ -156,6 +156,18 @@ paths:
                     description: >
                       The token_type will always be bearer. The access_token is considered a bearer token, and thus should be placed in all subqequent requests to the resource endpoints by using the following header:
                         * Authorization: Bearer [token]
+          # -----------------------------------------------------
+          # Links
+          # -----------------------------------------------------
+          links:
+            bearerAuth:   # <---- arbitrary name for the link
+              operationId: tokenUrl
+              parameters:
+                bearerAuth: '$response.body#access_token'
+              description: >
+                The `access_token` value returned in the response can be used as
+                the `bearer token`.
+          # -----------------------------------------------------
                   
         '400':
           $ref: '#/components/responses/bad_request'
@@ -538,6 +550,7 @@ paths:
             $ref: '#/components/responses/method_not_allowed'
           '500':
             $ref: '#/components/responses/internal_server_error'
+  
   /api/v1/report/{report.id}/fact/search:
     summary: Request report from XBRL filings based on report id parameters.
     get:
@@ -718,7 +731,44 @@ paths:
           $ref: '#/components/responses/method_not_allowed'
         '500':
           $ref: '#/components/responses/internal_server_error'
-          
+  /api/v1/report/{report.id}/delete: 
+      delete:
+        operationId: deleteReportDetailsById
+        tags: [Reports]
+        security:
+          - bearerAuth: []
+        description: >
+          Deletes an xbrl report.
+        parameters:
+          - name: report.id
+            in: path
+            description: Id of the report defined by the API.
+            required: true
+            schema:
+              type: integer
+
+        responses:
+          '200':
+            description: __report details__ successfully deleted
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    paging:
+                      $ref: '#/components/schemas/paging'
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/report_details'
+          '400':
+            $ref: '#/components/responses/bad_request'
+          '401':
+            $ref: '#/components/responses/bad_token'
+          '405':
+            $ref: '#/components/responses/method_not_allowed'
+          '500':
+            $ref: '#/components/responses/internal_server_error'        
   /api/v1/entity/{entity.id}/report/search:
       summary: Request entity information based on the entity identifier. The entity ID is an internal id used by the API.
       get:
@@ -1665,6 +1715,7 @@ paths:
           - $ref: '#/components/parameters/network.arcrole-uri_Param'
           - $ref: '#/components/parameters/network.id_Param'
           - $ref: '#/components/parameters/network.link-name_Param'
+          - $ref: '#/components/parameters/network.role-description_Param'
           - $ref: '#/components/parameters/network.role-uri_Param'
           - $ref: '#/components/parameters/relationship.id_Param'
           - $ref: '#/components/parameters/relationship.order_Param'
@@ -1728,6 +1779,7 @@ paths:
           - $ref: '#/components/parameters/network.arcrole-uri_Param'
           - $ref: '#/components/parameters/network.id_Param'
           - $ref: '#/components/parameters/network.link-name_Param'
+          - $ref: '#/components/parameters/network.role-description_Param'
           - $ref: '#/components/parameters/network.role-uri_Param'
           - $ref: '#/components/parameters/relationship.id_Param'
           - $ref: '#/components/parameters/relationship.order_Param'
@@ -1844,6 +1896,7 @@ paths:
           - $ref: '#/components/parameters/network.arcrole-uri_Param'
           - $ref: '#/components/parameters/network.id_Param'
           - $ref: '#/components/parameters/network.link-name_Param'
+          - $ref: '#/components/parameters/network.role-description_Param'
           - $ref: '#/components/parameters/network.role-uri_Param'
           - $ref: '#/components/parameters/relationship.id_Param'
           - $ref: '#/components/parameters/relationship.order_Param'
@@ -1852,6 +1905,7 @@ paths:
           - $ref: '#/components/parameters/relationship.source-name_Param'
           - $ref: '#/components/parameters/relationship.source-namespace_Param'
           - $ref: '#/components/parameters/relationship.target-concept-id_Param'
+          - $ref: '#/components/parameters/relationship.target-is-abstract_Param'
           - $ref: '#/components/parameters/relationship.target-name_Param'
           - $ref: '#/components/parameters/relationship.target-namespace_Param'
           - $ref: '#/components/parameters/relationship.tree-depth_Param'
@@ -1906,18 +1960,19 @@ paths:
           - $ref: '#/components/parameters/network.arcrole-uri_Param'
           - $ref: '#/components/parameters/network.id_Param'
           - $ref: '#/components/parameters/network.link-name_Param'
+          - $ref: '#/components/parameters/network.role-description_Param'
           - $ref: '#/components/parameters/network.role-uri_Param'
-          - $ref: '#/components/parameters/relationship.id_Param'
-          - $ref: '#/components/parameters/relationship.order_Param'
-          - $ref: '#/components/parameters/relationship.preferred-label_Param'
-          - $ref: '#/components/parameters/relationship.source-concept-id_Param'
-          - $ref: '#/components/parameters/relationship.source-name_Param'
-          - $ref: '#/components/parameters/relationship.source-namespace_Param'
-          - $ref: '#/components/parameters/relationship.target-concept-id_Param'
-          - $ref: '#/components/parameters/relationship.target-name_Param'
-          - $ref: '#/components/parameters/relationship.target-namespace_Param'
-          - $ref: '#/components/parameters/relationship.tree-depth_Param'
-          - $ref: '#/components/parameters/relationship.tree-sequence_Param'
+          # - $ref: '#/components/parameters/relationship.id_Param'
+          # - $ref: '#/components/parameters/relationship.order_Param'
+          # - $ref: '#/components/parameters/relationship.preferred-label_Param'
+          # - $ref: '#/components/parameters/relationship.source-concept-id_Param'
+          # - $ref: '#/components/parameters/relationship.source-name_Param'
+          # - $ref: '#/components/parameters/relationship.source-namespace_Param'
+          # - $ref: '#/components/parameters/relationship.target-concept-id_Param'
+          # - $ref: '#/components/parameters/relationship.target-name_Param'
+          # - $ref: '#/components/parameters/relationship.target-namespace_Param'
+          # - $ref: '#/components/parameters/relationship.tree-depth_Param'
+          # - $ref: '#/components/parameters/relationship.tree-sequence_Param'
           - in: query
             name: format
             schema:
@@ -2062,15 +2117,16 @@ components:
           description: Base64 key used to authenticate the 3rd party client
         username:
           type: string
-          example: campbell.pryde@xbrl.us
+          example: joe90@WorldIntelligenceNetwork.org
           description: Unique identifier for a given user
         password:
           type: string
+          format: password
           example: someSecurePassword
           description: Password used to authenticate the 3rd party user
         platform:
           type: string
-          example: pc
+          example: github
           description: just required
     error_message:
       type: object
@@ -4317,7 +4373,7 @@ components:
       schema:
           type: integer
       description: Unique integer identifier used to identify a specific network. A different identifier is used for networks with the same role but different linkbase types.
-      example: 12345
+    
     
     network.link-name_Param:
       in: query
@@ -4327,6 +4383,13 @@ components:
       description: Name that identifies the link type. This corresponds to a linkbase i.e. presentationLink, calculationLink, definitionLink.
       example: presentationLink
     
+    network.role-description_Param:
+      in: query
+      name: network.role-description
+      schema:
+        type: string
+      description: Readable name or description of the header.
+      example: 40201 - Disclosure - Balance Sheet Components (Details)
     
     network.role-uri_Param:
       in: query
@@ -4454,7 +4517,14 @@ components:
       schema:
           type: integer
       description: The target concept identifier for the relationship.
-      
+
+    relationship.target-is-abstract_Param:
+      in: query
+      name: relationship.target-is-abstract
+      schema:
+          type: boolean
+      description: Indicates if the target element is an abstract.
+
     relationship.target-name_Param:
       in: query
       name: relationship.target-name
