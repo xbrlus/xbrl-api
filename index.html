@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8">
     <title>XBRL API Documentation</title>
-    <link rel="stylesheet" type="text/css" href="./src/swagger-ui.css" >
+    <!--<link rel="stylesheet" type="text/css" href="./src/swagger-ui.css" >-->
     <link rel="stylesheet" href="./src/xus-api.css">
 	<link rel="icon" type="image/png" href="./src/favicon-32x32.png" sizes="32x32" />
     <link rel="icon" type="image/png" href="./src/favicon-16x16.png" sizes="16x16" />
@@ -28,28 +28,31 @@
         margin:0;
         background: #fafafa;
       }
-	  
-	  <!--code
-	  {
-	    background: #41444E !important;
-		color:#E2E2E2 !important;
-		padding: 2px !important;
+	  .swagger-ui .topbar {
+		padding: 8px 30px;
+		background-color: #E2E2E2;
+		height: 12px !important;
+		background-image: url('./src/bar.png') !important;
 	  }
-	  
-	  pre
+	  .swagger-ui .title {
+	  padding-top: 20px !important;
+	  } 
+	  form .download-url-input, form .download-url-button
 	  {
-		padding: 2px !important
-	  }-->
-	  
+	  display:none !important;
+	  }
+	  div .topbar-wrapper
+	  {
+	  }
 	  .topbar-wrapper img[alt="Swagger UI"], .topbar-wrapper span 
 	  {
 		visibility: collapse;
 	  }
-
-	  .topbar-wrapper .link:before 
+	  .topbar-wrapper .link:before
 	  {
 		content: url('./src/logo.png');
 		margin-top:8px;
+		margin-left: -28px !important;
 	  }
     </style>
   </head>
