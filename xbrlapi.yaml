@@ -63,6 +63,8 @@ info:
 
     Once an `access_token` has been acquired, use it until it returns a `401`. If this occurs, simply request a new token using the credentials from before. 
 
+    To get access to the XBRL US Implementation of the API you will need a client id and secret, to use with your XBRL or Google username and password. You can request a client id and passcode from the XBRL US website in the [provisioning section](https://xbrl.us/home/use/xbrl-api-community/#provisioning).
+
   contact:
     name: xbrl.us
     email: support@xbrl.us
