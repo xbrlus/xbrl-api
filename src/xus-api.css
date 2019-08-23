@@ -575,11 +575,11 @@
   color: #336E7B
 }
 
-.swagger-ui button.try-out__btn {
+/*.swagger-ui button.try-out__btn {
   background-image: url('bar.png') !important;
   background-position: 330px !important;
   font-weight: 800
-}
+}*/
 
 .swagger-ui .btn[disabled] {
   cursor: not-allowed;
@@ -1336,6 +1336,12 @@
   padding: 3px 5px;
   border-radius: 4px;
   /*background: rgba(0, 0, 0, .05);*/
+  background: #41444E;
+  font-family: Source Code Pro, monospace;
+  font-weight: 600;
+  color: #E2E2E2;
+}
+
   background: #41444E;
   font-family: Source Code Pro, monospace;
   font-weight: 600;

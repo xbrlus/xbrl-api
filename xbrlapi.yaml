@@ -3,6 +3,8 @@ openapi: 3.0.0
 servers:
   - description: Running this application XBRL US server
     url: 'https://api.xbrl.us/'
+#   - description: Running this application using the XBRL US test server
+#     url: 'https://testapi.xbrl.us/'
 info:
   version: "V1"
   title: XBRL US API
@@ -24,7 +26,7 @@ info:
     1. Send an HTTP `POST` request to the tokenUrl: `/oauth2/token`:
       ```http
       POST /oauth2/token HTTP/1.1 
-      Host: <testapi.xbrl.us> 
+      Host: <api.xbrl.us> 
       Content-Type: application/x-www-form-urlencoded 
       Body: {
         "grant_type": password,
@@ -53,7 +55,7 @@ info:
     3. Add a new `Authorization` header with type `Bearer` and the contents of the above `access_token`
       ```http
       GET </some/route> HTTP/1.1
-      Host: <testapi.xbrl.us> 
+      Host: <api.xbrl.us> 
       Authorization: Bearer yJ...124nOvc
       Content-Type: application/json; charset=utf-8 
       Body: <...>
@@ -61,8 +63,8 @@ info:
 
     Once an `access_token` has been acquired, use it until it returns a `401`. If this occurs, simply request a new token using the credentials from before. 
 
+    To get access to the XBRL US Implementation of the API you will need a client id and secret, to use with your XBRL or Google username and password. You can request a client id and passcode from the XBRL US website in the [provisioning section](https://xbrl.us/home/use/xbrl-api-community/#provisioning).
 
-  
   contact:
     name: xbrl.us
     email: support@xbrl.us
@@ -85,6 +87,10 @@ tags:
     description: Used to request label information associated with a concept and a dts identifier.
   - name: Networks
     description: Used to request label information associated with a concept and a dts identifier.
+  - name: Relationships
+    description: Used to request relationship information associated with a network and/or dts identifier.
+  - name: Documents
+    description: Used to request document information associated with a DTS or report.
     
 security:
   - oauth2: [ROLE_CLIENT, ROLE_USER]
@@ -103,21 +109,21 @@ paths:
         __[Read more](https://oauth.net/2/grant-types/)__
       requestBody:
         content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/authorization_grant'
-            example:
-              grant_type: password
-              client_id: 1223
-              client_secret: xhOEnAX2M...gaIYLXOvCe25Q
-              username: campbell.pryde@xbrl.us
-              password: someSecurePassword
+          # application/json:
+          #   schema:
+          #     $ref: '#/components/schemas/authorization_grant'
+          #   example:
+          #     grant_type: password
+          #     client_id: 1223
+          #     client_secret: xhOEnAX2M...gaIYLXOvCe25Q
+          #     username: joe90@WorldIntelligenceNetwork.org
+          #     password: someSecurePassword
           application/x-www-form-urlencoded:
             schema:
               $ref: '#/components/schemas/authorization_grant'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/authorization_grant'
+          # multipart/form-data:
+          #   schema:
+          #     $ref: '#/components/schemas/authorization_grant'
       responses:
         '200':
           description: > 
@@ -152,6 +158,18 @@ paths:
                     description: >
                       The token_type will always be bearer. The access_token is considered a bearer token, and thus should be placed in all subqequent requests to the resource endpoints by using the following header:
                         * Authorization: Bearer [token]
+          # -----------------------------------------------------
+          # Links
+          # -----------------------------------------------------
+          links:
+            bearerAuth:   # <---- arbitrary name for the link
+              operationId: tokenUrl
+              parameters:
+                bearerAuth: '$response.body#access_token'
+              description: >
+                The `access_token` value returned in the response can be used as
+                the `bearer token`.
+          # -----------------------------------------------------
                   
         '400':
           $ref: '#/components/responses/bad_request'
@@ -167,6 +185,7 @@ paths:
       operationId: getFactDetails
       tags: [Facts]
       security:
+        - OAuth2: []
         - bearerAuth: []
       description: | 
           Allows searching for _XBRL facts_ based on the attributes of the fact, the report it was in or the source of the data.
@@ -258,18 +277,18 @@ paths:
             $ref: '#/components/schemas/fact_fields'
           description: List of concepts to return.
           
-       ## - in: query
-       ##   name: aspect
-          # Wrap 'schema' into 'content.<media-type>'
-        ##  content:
-        ##    application/json:  # <---- media type indicates how to serialize / deserialize the parameter content
-        ##      schema:
-        ##        type: object
-        ##        properties:
-        ##          dimension:
-        ##           type: string
-        ##         member:
-        ##            type: string
+        # - in: query
+        #   name: aspect
+        #   # Wrap 'schema' into 'content.<media-type>'
+        #   content:
+        #     application/json:  # <---- media type indicates how to serialize / deserialize the parameter content
+        #       schema:
+        #         type: object
+        #         properties:
+        #           dimension:
+        #            type: string
+        #           member:
+        #            type: string
           
       responses:
         '200':
@@ -288,16 +307,14 @@ paths:
           # -----------------------------------------------------
           # Links
           # -----------------------------------------------------
-          #links:
-          #  GetfactId:   # <---- arbitrary name for the link
-          #    operationId: getFactBasedOnFactID
-              # or
-              # operationRef: '#/paths/~1users~1{userId}/get'
-           #   parameters:
-          #      fact.id: '$response.body#/data/fact.id'
-          #    description: >
-          #      The `fact.id` value returned in the response can be used as
-           #     the `factId` parameter in `/api/v1/fact/{fact.id}`.
+          links:
+            GetfactId:   # <---- arbitrary name for the link
+              operationId: getFactBasedOnFactID
+              parameters:
+                fact.id: '$response.body#/data/fact.id'
+              description: >
+                The `fact.id` value returned in the response can be used as
+                the `factId` parameter in `/api/v1/fact/{fact.id}`.
           # -----------------------------------------------------
         '400':
           $ref: '#/components/responses/bad_request'
@@ -314,6 +331,7 @@ paths:
       operationId: getFactBasedOnFactID
       tags: [Facts]
       security:
+        - OAuth2: []
         - bearerAuth: []
       description: >
        Allows searching for _XBRL facts_ based on the fact ID attribute of the fact.
@@ -433,6 +451,7 @@ paths:
         operationId: getReportDetails
         tags: [Reports]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Allows searching for _XBRL reports_ based on the attributes of the report.
@@ -495,6 +514,7 @@ paths:
         operationId: getReportDetailsById
         tags: [Reports]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Allows searching for _XBRL reports_ based on the report id attribute of the report.
@@ -536,6 +556,7 @@ paths:
             $ref: '#/components/responses/method_not_allowed'
           '500':
             $ref: '#/components/responses/internal_server_error'
+  
   /api/v1/report/{report.id}/fact/search:
     summary: Request report from XBRL filings based on report id parameters.
     get:
@@ -632,6 +653,7 @@ paths:
       operationId: getReportFactDetailsBySearch
       tags: [Reports]
       security:
+        - OAuth2: []
         - bearerAuth: []
       description: >
         Allows searching for _XBRL reports_ based on any  report search attributes of the report and to return certain facts associated with that report.  The attributes of those facts can be used as search parameters.
@@ -716,7 +738,45 @@ paths:
           $ref: '#/components/responses/method_not_allowed'
         '500':
           $ref: '#/components/responses/internal_server_error'
-          
+  /api/v1/report/{report.id}/delete: 
+      delete:
+        operationId: deleteReportDetailsById
+        tags: [Reports]
+        security:
+          - OAuth2: []
+          - bearerAuth: []
+        description: >
+          Deletes an xbrl report.
+        parameters:
+          - name: report.id
+            in: path
+            description: Id of the report defined by the API.
+            required: true
+            schema:
+              type: integer
+
+        responses:
+          '200':
+            description: __report details__ successfully deleted
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    paging:
+                      $ref: '#/components/schemas/paging'
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/report_details'
+          '400':
+            $ref: '#/components/responses/bad_request'
+          '401':
+            $ref: '#/components/responses/bad_token'
+          '405':
+            $ref: '#/components/responses/method_not_allowed'
+          '500':
+            $ref: '#/components/responses/internal_server_error'        
   /api/v1/entity/{entity.id}/report/search:
       summary: Request entity information based on the entity identifier. The entity ID is an internal id used by the API.
       get:
@@ -789,6 +849,7 @@ paths:
         operationId: getEntityReportDetails
         tags: [Entity]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Allows searching for _XBRL reports_ grouped by the entity that filed the report. The API allows searching on the attributes of the entity and the report.
@@ -853,6 +914,7 @@ paths:
         operationId: getEntityDetailsBasedOnID
         tags: [Entity]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Allows searching for _Entities_ based on the entity identifier associated with the reporting entity. Use this to get ticker or CIK information quickly with a known entity id.
@@ -904,6 +966,7 @@ paths:
         operationId: getAssertionDetails
         tags: [Assertions]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Allows searching for errors in _XBRL reports_ based on validation frameworks used by regulators and Data Quality Committees. The API allows searching for errors by report, by error code, sverity of the error etc. .
@@ -914,8 +977,10 @@ paths:
           - $ref: '#/components/parameters/assertion.type_Param'
           - $ref: '#/components/parameters/entity.name_Param'
           - $ref: '#/components/parameters/report.accession_Param'
+          - $ref: '#/components/parameters/report.creation-software_Param'
           - $ref: '#/components/parameters/report.document-type_Param'
           - $ref: '#/components/parameters/report.entry-url_Param'
+          - $ref: '#/components/parameters/report.filing-year_Param'
           - $ref: '#/components/parameters/report.id_Param'
           - $ref: '#/components/parameters/report.sec-url_Param'
           - $ref: '#/components/parameters/report.sic-code_Param'
@@ -960,6 +1025,7 @@ paths:
         operationId: validateFiling
         tags: [Assertions]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description:  Allows a user to submit a zip file of an XBRL instance and associated taxonomy files to the API.  The API returns validation errors based on the validation framework selected. The results can be returned as either JSON or XML.
         requestBody:
@@ -972,19 +1038,31 @@ paths:
                   file:
                     type: string
                     format: binary
+                    description: Definee the XBRL file in a zip format that is to be validated.  The file must be based on either the IFRS or US GAAP taxonomies.
                   Task:
                     type: string
                     enum: [checkfiling,dqcfiling]
+                    description: This paparameter allows the user to control which rules will be run. The option dqcfiling will run the dqc rules. The checkfiling option will run the dqc rules and the XBRL US filer membership rules.
                   format:
                     type: string
                     enum: [xml,json]
+                    description: The format parameter allows a user to specify if the results will be returned as json or xml.
                   efm:
                     type: string
                     enum: [strict,pragmatic]
+                    description: This parameter controls if the Edgar Filing Manual rules will be run. This can be left balnk if no EFM rules are run, be defined as strict, or as pragmatic.
                   Status:
                     type: string
                     default: approved
                     enum: [approved,proposed]
+                    description: Used to include proposed rules as well as approved rules.  These will usually be the same unless there is a public review in process and proposed rules are available.  The default value is approved if nothing is specified.
+                  run_rules:
+                    type: string
+                    example: 'DQC.US.0001.54'
+                    description: |
+                      Used to run a single rule rather than all the rules. For DQC rules the full rule number is used if it is defined such as DQC.US.0001.54.  However some rules the suffix is determined at run time. This means certain rules such as DQC 15 which have the suffix defined as part of the rule must exclude the rule number suffix. To run DQC rule 15 the value of 'DQC.US.0015' is [assed as the parameter. The following rules will do not use a rule number suffix.
+                      * DQC.US.0015
+                      * DQC.IFRS.0080
                     
           
         responses:
@@ -1013,6 +1091,7 @@ paths:
         operationId: getDTSDetails
         tags: [DTS]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Allows searching for a dts based on taxonomy name, entry point, hash etc.
@@ -1064,6 +1143,7 @@ paths:
         operationId: getConceptDetailsByDTS
         tags: [DTS]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Allows searching for errors in _XBRL reports.
@@ -1120,6 +1200,7 @@ paths:
         operationId: getConceptDetailsByDTSAndLocalName
         tags: [DTS]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Allows searching for errors in _XBRL reports.
@@ -1177,6 +1258,7 @@ paths:
         operationId: getLabelDetailsByDTSAndLocalName
         tags: [DTS]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Search for references of a given concept in a given DTS.
@@ -1234,6 +1316,7 @@ paths:
         operationId: getReferenceDetailsByDTSAndLocalName
         tags: [DTS]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Search for references of a given concept in a given DTS.
@@ -1291,6 +1374,7 @@ paths:
         operationId: getNetworkDetailsByDTS
         tags: [DTS]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Request all the networks in a DTS.
@@ -1342,6 +1426,7 @@ paths:
         operationId: getNetworkDetailsWithSearchByDTS
         tags: [DTS]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Request all the networks in a DTS.
@@ -1408,6 +1493,7 @@ paths:
         operationId: getConceptDetails
         tags: [Concepts]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Allows searching for concept details for a given dts, or across a set of taxonomies. If searching for concept details it highly recomended that a dts identifier is used to limit the concept search. This is specifically the case if returning label data. If no dts is presribed and the details of Assets are requested the API will attempt to return all the labels used for Assets in every single filing made.
@@ -1458,6 +1544,7 @@ paths:
         operationId: getConceptDetailsByName
         tags: [Concepts]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Allows searching for concept details in _XBRL reports.
@@ -1516,6 +1603,7 @@ paths:
         operationId: getlabelsBasedOnDTS
         tags: [Labels]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Allows searching for concept details in XBRL reports by dts id.
@@ -1576,6 +1664,7 @@ paths:
         operationId: getlabels
         tags: [Labels]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Allows searching for concept details in XBRL reports.
@@ -1635,6 +1724,7 @@ paths:
         operationId: getNetworkRelationships
         tags: [Networks]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Allows searching for all the chracteristics and relationships in a specific network and filtering those results based on charateristics of the relationships in the network. 
@@ -1651,6 +1741,7 @@ paths:
           - $ref: '#/components/parameters/network.arcrole-uri_Param'
           - $ref: '#/components/parameters/network.id_Param'
           - $ref: '#/components/parameters/network.link-name_Param'
+          - $ref: '#/components/parameters/network.role-description_Param'
           - $ref: '#/components/parameters/network.role-uri_Param'
           - $ref: '#/components/parameters/relationship.id_Param'
           - $ref: '#/components/parameters/relationship.order_Param'
@@ -1705,6 +1796,7 @@ paths:
         operationId: getNetworkRelationshipsNoID
         tags: [Networks]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Allows searching for a specific network based on network and relationship chracteristics.
@@ -1714,6 +1806,7 @@ paths:
           - $ref: '#/components/parameters/network.arcrole-uri_Param'
           - $ref: '#/components/parameters/network.id_Param'
           - $ref: '#/components/parameters/network.link-name_Param'
+          - $ref: '#/components/parameters/network.role-description_Param'
           - $ref: '#/components/parameters/network.role-uri_Param'
           - $ref: '#/components/parameters/relationship.id_Param'
           - $ref: '#/components/parameters/relationship.order_Param'
@@ -1768,6 +1861,7 @@ paths:
         operationId: getNetworkOnID
         tags: [Networks]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Returns the characteristics of a specific network. This does not include the relationships. Use the endpoint /api/v1/network/{network.id}/relationship/search to get relationship information about the network.
@@ -1822,6 +1916,7 @@ paths:
         operationId: getRelationships
         tags: [Relationships]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Allows searching for a specific set of  relationships based on characteristics of the relationship.
@@ -1830,6 +1925,7 @@ paths:
           - $ref: '#/components/parameters/network.arcrole-uri_Param'
           - $ref: '#/components/parameters/network.id_Param'
           - $ref: '#/components/parameters/network.link-name_Param'
+          - $ref: '#/components/parameters/network.role-description_Param'
           - $ref: '#/components/parameters/network.role-uri_Param'
           - $ref: '#/components/parameters/relationship.id_Param'
           - $ref: '#/components/parameters/relationship.order_Param'
@@ -1838,6 +1934,7 @@ paths:
           - $ref: '#/components/parameters/relationship.source-name_Param'
           - $ref: '#/components/parameters/relationship.source-namespace_Param'
           - $ref: '#/components/parameters/relationship.target-concept-id_Param'
+          - $ref: '#/components/parameters/relationship.target-is-abstract_Param'
           - $ref: '#/components/parameters/relationship.target-name_Param'
           - $ref: '#/components/parameters/relationship.target-namespace_Param'
           - $ref: '#/components/parameters/relationship.tree-depth_Param'
@@ -1884,6 +1981,7 @@ paths:
         operationId: getRelationshipsAsTree
         tags: [Relationships]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Allows searching for a specific set of  relationships based on characteristics of the relationship and returning the data as a tree in different formats.
@@ -1892,18 +1990,19 @@ paths:
           - $ref: '#/components/parameters/network.arcrole-uri_Param'
           - $ref: '#/components/parameters/network.id_Param'
           - $ref: '#/components/parameters/network.link-name_Param'
+          - $ref: '#/components/parameters/network.role-description_Param'
           - $ref: '#/components/parameters/network.role-uri_Param'
-          - $ref: '#/components/parameters/relationship.id_Param'
-          - $ref: '#/components/parameters/relationship.order_Param'
-          - $ref: '#/components/parameters/relationship.preferred-label_Param'
-          - $ref: '#/components/parameters/relationship.source-concept-id_Param'
-          - $ref: '#/components/parameters/relationship.source-name_Param'
-          - $ref: '#/components/parameters/relationship.source-namespace_Param'
-          - $ref: '#/components/parameters/relationship.target-concept-id_Param'
-          - $ref: '#/components/parameters/relationship.target-name_Param'
-          - $ref: '#/components/parameters/relationship.target-namespace_Param'
-          - $ref: '#/components/parameters/relationship.tree-depth_Param'
-          - $ref: '#/components/parameters/relationship.tree-sequence_Param'
+          # - $ref: '#/components/parameters/relationship.id_Param'
+          # - $ref: '#/components/parameters/relationship.order_Param'
+          # - $ref: '#/components/parameters/relationship.preferred-label_Param'
+          # - $ref: '#/components/parameters/relationship.source-concept-id_Param'
+          # - $ref: '#/components/parameters/relationship.source-name_Param'
+          # - $ref: '#/components/parameters/relationship.source-namespace_Param'
+          # - $ref: '#/components/parameters/relationship.target-concept-id_Param'
+          # - $ref: '#/components/parameters/relationship.target-name_Param'
+          # - $ref: '#/components/parameters/relationship.target-namespace_Param'
+          # - $ref: '#/components/parameters/relationship.tree-depth_Param'
+          # - $ref: '#/components/parameters/relationship.tree-sequence_Param'
           - in: query
             name: format
             schema:
@@ -1957,6 +2056,7 @@ paths:
         operationId: getDocumentInfo
         tags: [Documents]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Allows searching for XBRL documents and their content.
@@ -1974,7 +2074,20 @@ paths:
             schema:
                  $ref: '#/components/schemas/document_fields' 
                 
-            description: List of concepts to return.
+            description: |
+                List of fields to return. 
+                Available fields are as follows: 
+                  * document.top-level
+                  * document.tree-level
+                  * document.tree-order
+                  * document.type
+                  * document.uri
+                  * dts.id
+                  * document.*
+                
+                To limit the values returned use document._limit(n)_
+                
+                To sort on a field use the field folled by .sort. For example to sort in ascending order for document.uri then enter document.uri._sort(ASC)_ as a return field.
           
         responses:
           '200':
@@ -2035,16 +2148,17 @@ components:
           description: Base64 key used to authenticate the 3rd party client
         username:
           type: string
-          example: campbell.pryde@xbrl.us
+          example: joe90@WorldIntelligenceNetwork.org
           description: Unique identifier for a given user
         password:
           type: string
+          format: password
           example: someSecurePassword
           description: Password used to authenticate the 3rd party user
         platform:
           type: string
-          example: pc
-          description: just required
+          example: github
+          description: Identifies the platform that is requesting the token (i.e. <YourProgramName>)
     error_message:
       type: object
       properties:
@@ -2133,13 +2247,15 @@ components:
       items:
         type: string
         enum: [
-              assertion.detail
+              assertion.code
+              ,assertion.detail
               ,assertion.effective_date
               ,assertion.rule_focus
               ,assertion.run-date
               ,assertion.severity
               ,assertion.source
               ,assertion.type
+              ,entity.cik
               ,entity.name
               ,report.accepted-timestamp
               ,report.accession
@@ -2148,6 +2264,7 @@ components:
               ,report.document-type
               ,report.entry-url
               ,report.filing-date
+              ,report.filing-year
               ,report.id
               ,report.sec-url
               ,report.sic-code
@@ -2194,17 +2311,19 @@ components:
     document_fields:
       type: array
       items:
-        type: string
-        enum: [
-              document.top-level
-              ,document.tree-level
-              ,document.tree-order
-              ,document.type
-              ,document.uri
-              ,dts.id
-              ,document.*
-              ]
-          
+          - type: string
+            enum: [
+                document.top-level
+                ,document.tree-level
+                ,document.tree-order
+                ,document.type
+                ,document.uri
+                ,dts.id
+                ,document.*
+                ]
+          - type: string
+            
+              
     dts_fields:
       type: array
       items:
@@ -4106,8 +4225,7 @@ components:
        name: dts.entry-point
        schema:
           type: string
-       description: The url entry point of a discoverable taxonomy set. This is also referred to as the entry point for a taxonomy. A taxonomy can have multiple entry points and the resulting set of taxonomies of using an entry point is called a dts.
-       example: http://xbrl.fasb.org/us-gaap/2019/entire/us-gaap-entryPoint-all-2019-01-31.xsd
+       description: The url entry point of a discoverable taxonomy set. This is also referred to as the entry point for a taxonomy. A taxonomy can have multiple entry points and the resulting set of taxonomies of using an entry point is called a dts. For example http://xbrl.fasb.org/us-gaap/2019/entire/us-gaap-entryPoint-all-2019-01-31.xsd
     dts.hash_Param:
        in: query
        name: dts.hash
@@ -4124,7 +4242,7 @@ components:
           items:
             type: integer
         description: The dts identifier for a given group of taxonomies. XBRL facts and linkbases are typically associated with a given report that is asscociated with a dts.
-        example: 321964
+    
     dts.taxonomy_Param:
        in: query
        name: dts.taxonomy
@@ -4289,7 +4407,7 @@ components:
       schema:
           type: integer
       description: Unique integer identifier used to identify a specific network. A different identifier is used for networks with the same role but different linkbase types.
-      example: 12345
+    
     
     network.link-name_Param:
       in: query
@@ -4299,6 +4417,13 @@ components:
       description: Name that identifies the link type. This corresponds to a linkbase i.e. presentationLink, calculationLink, definitionLink.
       example: presentationLink
     
+    network.role-description_Param:
+      in: query
+      name: network.role-description
+      schema:
+        type: string
+      description: Readable name or description of the header.
+      example: 40201 - Disclosure - Balance Sheet Components (Details)
     
     network.role-uri_Param:
       in: query
@@ -4426,7 +4551,14 @@ components:
       schema:
           type: integer
       description: The target concept identifier for the relationship.
-      
+
+    relationship.target-is-abstract_Param:
+      in: query
+      name: relationship.target-is-abstract
+      schema:
+          type: boolean
+      description: Indicates if the target element is an abstract.
+
     relationship.target-name_Param:
       in: query
       name: relationship.target-name
@@ -4500,6 +4632,7 @@ components:
        schema:
           type: string
        description: The url entry point of a discoverable taxonomy set. This is also referred to as the entry point for a taxonomy. This represents the DTS entry point for a specific report.
+    
     report.filer-category_Param:
       in: query
       name: report.filer-category
@@ -4511,7 +4644,13 @@ components:
                 - Large Accelerated Filer  
                 - Accelerated Filer  
                 - Non-accelerated Filer  
-                    
+    report.filing-year_Param:
+      in: query  
+      name: report.filing-year
+      schema:
+          type: integer 
+      description: >
+          Year in which the filing was made.
     report.id_Param:
        in: query
        name: report.id
