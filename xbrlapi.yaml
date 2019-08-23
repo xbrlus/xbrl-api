@@ -63,6 +63,8 @@ info:
 
     Once an `access_token` has been acquired, use it until it returns a `401`. If this occurs, simply request a new token using the credentials from before. 
 
+    To get access to the XBRL US Implementation of the API you will need a client id and secret, to use with your XBRL or Google username and password. You can request a client id and passcode from the XBRL US website in the [provisioning section](https://xbrl.us/home/use/xbrl-api-community/#provisioning).
+
   contact:
     name: xbrl.us
     email: support@xbrl.us
@@ -183,6 +185,7 @@ paths:
       operationId: getFactDetails
       tags: [Facts]
       security:
+        - OAuth2: []
         - bearerAuth: []
       description: | 
           Allows searching for _XBRL facts_ based on the attributes of the fact, the report it was in or the source of the data.
@@ -328,6 +331,7 @@ paths:
       operationId: getFactBasedOnFactID
       tags: [Facts]
       security:
+        - OAuth2: []
         - bearerAuth: []
       description: >
        Allows searching for _XBRL facts_ based on the fact ID attribute of the fact.
@@ -447,6 +451,7 @@ paths:
         operationId: getReportDetails
         tags: [Reports]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Allows searching for _XBRL reports_ based on the attributes of the report.
@@ -509,6 +514,7 @@ paths:
         operationId: getReportDetailsById
         tags: [Reports]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Allows searching for _XBRL reports_ based on the report id attribute of the report.
@@ -647,6 +653,7 @@ paths:
       operationId: getReportFactDetailsBySearch
       tags: [Reports]
       security:
+        - OAuth2: []
         - bearerAuth: []
       description: >
         Allows searching for _XBRL reports_ based on any  report search attributes of the report and to return certain facts associated with that report.  The attributes of those facts can be used as search parameters.
@@ -736,6 +743,7 @@ paths:
         operationId: deleteReportDetailsById
         tags: [Reports]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Deletes an xbrl report.
@@ -841,6 +849,7 @@ paths:
         operationId: getEntityReportDetails
         tags: [Entity]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Allows searching for _XBRL reports_ grouped by the entity that filed the report. The API allows searching on the attributes of the entity and the report.
@@ -905,6 +914,7 @@ paths:
         operationId: getEntityDetailsBasedOnID
         tags: [Entity]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Allows searching for _Entities_ based on the entity identifier associated with the reporting entity. Use this to get ticker or CIK information quickly with a known entity id.
@@ -956,6 +966,7 @@ paths:
         operationId: getAssertionDetails
         tags: [Assertions]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Allows searching for errors in _XBRL reports_ based on validation frameworks used by regulators and Data Quality Committees. The API allows searching for errors by report, by error code, sverity of the error etc. .
@@ -1014,6 +1025,7 @@ paths:
         operationId: validateFiling
         tags: [Assertions]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description:  Allows a user to submit a zip file of an XBRL instance and associated taxonomy files to the API.  The API returns validation errors based on the validation framework selected. The results can be returned as either JSON or XML.
         requestBody:
@@ -1079,6 +1091,7 @@ paths:
         operationId: getDTSDetails
         tags: [DTS]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Allows searching for a dts based on taxonomy name, entry point, hash etc.
@@ -1130,6 +1143,7 @@ paths:
         operationId: getConceptDetailsByDTS
         tags: [DTS]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Allows searching for errors in _XBRL reports.
@@ -1186,6 +1200,7 @@ paths:
         operationId: getConceptDetailsByDTSAndLocalName
         tags: [DTS]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Allows searching for errors in _XBRL reports.
@@ -1243,6 +1258,7 @@ paths:
         operationId: getLabelDetailsByDTSAndLocalName
         tags: [DTS]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Search for references of a given concept in a given DTS.
@@ -1300,6 +1316,7 @@ paths:
         operationId: getReferenceDetailsByDTSAndLocalName
         tags: [DTS]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Search for references of a given concept in a given DTS.
@@ -1357,6 +1374,7 @@ paths:
         operationId: getNetworkDetailsByDTS
         tags: [DTS]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Request all the networks in a DTS.
@@ -1408,6 +1426,7 @@ paths:
         operationId: getNetworkDetailsWithSearchByDTS
         tags: [DTS]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Request all the networks in a DTS.
@@ -1474,6 +1493,7 @@ paths:
         operationId: getConceptDetails
         tags: [Concepts]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Allows searching for concept details for a given dts, or across a set of taxonomies. If searching for concept details it highly recomended that a dts identifier is used to limit the concept search. This is specifically the case if returning label data. If no dts is presribed and the details of Assets are requested the API will attempt to return all the labels used for Assets in every single filing made.
@@ -1524,6 +1544,7 @@ paths:
         operationId: getConceptDetailsByName
         tags: [Concepts]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Allows searching for concept details in _XBRL reports.
@@ -1582,6 +1603,7 @@ paths:
         operationId: getlabelsBasedOnDTS
         tags: [Labels]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Allows searching for concept details in XBRL reports by dts id.
@@ -1642,6 +1664,7 @@ paths:
         operationId: getlabels
         tags: [Labels]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Allows searching for concept details in XBRL reports.
@@ -1701,6 +1724,7 @@ paths:
         operationId: getNetworkRelationships
         tags: [Networks]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Allows searching for all the chracteristics and relationships in a specific network and filtering those results based on charateristics of the relationships in the network. 
@@ -1772,6 +1796,7 @@ paths:
         operationId: getNetworkRelationshipsNoID
         tags: [Networks]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Allows searching for a specific network based on network and relationship chracteristics.
@@ -1836,6 +1861,7 @@ paths:
         operationId: getNetworkOnID
         tags: [Networks]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Returns the characteristics of a specific network. This does not include the relationships. Use the endpoint /api/v1/network/{network.id}/relationship/search to get relationship information about the network.
@@ -1890,6 +1916,7 @@ paths:
         operationId: getRelationships
         tags: [Relationships]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Allows searching for a specific set of  relationships based on characteristics of the relationship.
@@ -1954,6 +1981,7 @@ paths:
         operationId: getRelationshipsAsTree
         tags: [Relationships]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Allows searching for a specific set of  relationships based on characteristics of the relationship and returning the data as a tree in different formats.
@@ -2028,6 +2056,7 @@ paths:
         operationId: getDocumentInfo
         tags: [Documents]
         security:
+          - OAuth2: []
           - bearerAuth: []
         description: >
           Allows searching for XBRL documents and their content.
@@ -2129,7 +2158,7 @@ components:
         platform:
           type: string
           example: github
-          description: just required
+          description: Identifies the platform that is requesting the token (i.e. <YourProgramName>)
     error_message:
       type: object
       properties:
