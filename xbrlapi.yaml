@@ -152,7 +152,7 @@ paths:
                     type: string
                     example: bearer
                     description: >
-                      _The token_type will always be bearer._ The access_token is considered a bearer token, and thus should be placed in all subqequent requests to the resource endpoints by using the following header:
+                      _The token_type will always be bearer._ The access_token is considered a bearer token, and thus should be placed in all subsequent requests to the resource endpoints by using the following header:
                         * Authorization: Bearer [token]
           # -----------------------------------------------------
           # Links
@@ -246,6 +246,8 @@ paths:
         - $ref: '#/components/parameters/fact.value_Param'
         - $ref: '#/components/parameters/member.is-base_Param'
         - $ref: '#/components/parameters/member.local-name_Param'
+        - $ref: '#/components/parameters/member.typed-value_Param'
+        - $ref: '#/components/parameters/member.member-value_Param'
         - $ref: '#/components/parameters/member.namespace_Param'
         - $ref: '#/components/parameters/period.calendar-period_Param'
         - $ref: '#/components/parameters/period.fiscal-id_Param'
@@ -403,6 +405,8 @@ paths:
         - $ref: '#/components/parameters/fact.value_Param'
         - $ref: '#/components/parameters/member.is-base_Param'
         - $ref: '#/components/parameters/member.local-name_Param'
+        - $ref: '#/components/parameters/member.typed-value_Param'
+        - $ref: '#/components/parameters/member.member-value_Param'
         - $ref: '#/components/parameters/member.namespace_Param'
         - $ref: '#/components/parameters/period.calendar-period_Param'
         - $ref: '#/components/parameters/period.fiscal-id_Param'
@@ -594,6 +598,8 @@ paths:
         - $ref: '#/components/parameters/fact.value_Param'
         - $ref: '#/components/parameters/member.is-base_Param'
         - $ref: '#/components/parameters/member.local-name_Param'
+        - $ref: '#/components/parameters/member.typed-value_Param'
+        - $ref: '#/components/parameters/member.member-value_Param'
         - $ref: '#/components/parameters/member.namespace_Param'
         - $ref: '#/components/parameters/period.calendar-period_Param'
         - $ref: '#/components/parameters/period.fiscal-id_Param'
@@ -679,6 +685,8 @@ paths:
         - $ref: '#/components/parameters/fact.value_Param'
         - $ref: '#/components/parameters/member.is-base_Param'
         - $ref: '#/components/parameters/member.local-name_Param'
+        - $ref: '#/components/parameters/member.typed-value_Param'
+        - $ref: '#/components/parameters/member.member-value_Param'
         - $ref: '#/components/parameters/member.namespace_Param'
         - $ref: '#/components/parameters/period.calendar-period_Param'
         - $ref: '#/components/parameters/period.fiscal-id_Param'
@@ -2429,6 +2437,8 @@ components:
               ,fact.xml-id
               ,member.is-base
               ,member.local-name
+              ,member.typed-value
+              ,member.member-value
               ,member.namespace
               ,period.calendar-period
               ,period.end
@@ -2651,6 +2661,8 @@ components:
               ,fact.xml-id
               ,member.is-base
               ,member.local-name
+              ,member.typed-value
+              ,member.member-value
               ,member.namespace
               ,period.calendar-period
               ,period.end
@@ -2846,6 +2858,10 @@ components:
           $ref: '#/components/schemas/member_is-base'
         member.local-name:
           $ref: '#/components/schemas/member_local-name'
+        member.typed-value:
+          $ref: '#/components/schemas/member_typed-value'
+        member.member-value:
+          $ref: '#/components/schemas/member_member-value'
         member.namespace:
           $ref: '#/components/schemas/member_namespace'
         period.calendar-period:
@@ -3708,6 +3724,9 @@ components:
     member_local-name:
       type: string
       description: Local name of the member.
+    member_typed-value:
+      type: string
+      description: Typed value of the member.
     member_namespace:
       type: string
       description:  Namespace of the member.
@@ -4331,6 +4350,26 @@ components:
           items:
              type: string
        description: Local name of the member.
+    member.typed-value_Param:
+       in: query
+       name: member.typed-value
+       style: form
+       explode: false
+       schema:
+          type: array
+          items:
+             type: string
+       description: Typed member value.
+    member.member-value_Param:
+       in: query
+       name: member.member-value
+       style: form
+       explode: false
+       schema:
+          type: array
+          items:
+             type: string
+       description: Typed member or explicit member value.
     member.namespace_Param:
        in: query
        name: member.namespace
@@ -4657,7 +4696,6 @@ components:
           items:
              type: string
        description: The unit of measure associated with the fact, such as USD.
-	   
   responses:
     bad_request:
       description: >
