@@ -63,7 +63,7 @@ info:
     
   contact:
     name: XBRL US
-    email: support@xbrl.us?subject=XBRL API question (Github)
+    email: support@xbrl.us
 tags:
   - name: oauth2
     description: " -- acquire authorization, receive tokens, and check tokens"
@@ -1675,7 +1675,7 @@ paths:
           Search for _XBRL label_ details in _XBRL reports_.
         parameters:
           - name: dts.id
-            in: path
+            in: query
             required: true
             schema:
               type: integer
@@ -1686,7 +1686,7 @@ paths:
           - $ref: '#/components/parameters/concept.id_Param' 
           - $ref: '#/components/parameters/concept.local-name_Param'
           - $ref: '#/components/parameters/dts.entry-point_Param'
-          - $ref: '#/components/parameters/dts.id_Param'
+          
           
           - in: query
             name: fields
@@ -2316,8 +2316,8 @@ components:
     document_fields:
       type: array
       items:
-          - type: string
-            enum: [
+        type: string
+        enum: [
                 document.top-level
                 ,document.tree-level
                 ,document.tree-order
@@ -2325,9 +2325,7 @@ components:
                 ,document.uri
                 ,dts.id
                 ,document.*
-                ]
-          - type: string
-            
+                ]     
               
     dts_fields:
       type: array
@@ -2489,7 +2487,7 @@ components:
       type: array
       items:
         type: string
-        default: fact.*
+        default: network.arcrole-uri
         enum: [
               dts.entry-point
               ,dts.id
@@ -2504,7 +2502,7 @@ components:
       type: array
       items:
         type: string
-        default: fact.*
+        default: network.role-description
         enum: [
               dts.entry-point
               ,dts.id
@@ -2554,9 +2552,10 @@ components:
               
     relationship_fields:
       type: array
+      default: network.role-description
       items:
         type: string
-        default: fact.*
+        default: network.role-description
         enum: [
               dts.id
               ,network.arcrole-uri
@@ -3725,6 +3724,9 @@ components:
       type: string
       description: Local name of the member.
     member_typed-value:
+      type: string
+      description: Typed value of the member.
+    member_member-value:
       type: string
       description: Typed value of the member.
     member_namespace:
