@@ -258,6 +258,7 @@ paths:
         - $ref: '#/components/parameters/period.year_Param'
         - $ref: '#/components/parameters/report.accession_Param'
         - $ref: '#/components/parameters/report.creation-software_Param'
+        - $ref: '#/components/parameters/report.document-type_Param'
         - $ref: '#/components/parameters/report.entry-url_Param'
         - $ref: '#/components/parameters/report.id_Param'
         - $ref: '#/components/parameters/report.restated_Param'
@@ -2461,6 +2462,7 @@ components:
               ,period.year
               ,report.accession
               ,report.creation-software
+              ,report.document-type
               ,report.entry-url
               ,report.filing-date
               ,report.id
@@ -2907,6 +2909,8 @@ components:
           $ref: '#/components/schemas/report_accession'
         report.creation-software:
           $ref: '#/components/schemas/report_creation-software'
+        report.document-type:
+          $ref: '#/components/schemas/report_document-type'
         report.entry-url:
           $ref: '#/components/schemas/report_entry-url'
         report.filing-date:
