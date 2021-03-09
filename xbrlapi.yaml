@@ -4946,7 +4946,12 @@ components:
             body: The account is attempting to retrieve records beyond its established limit. 
     bad_request:
       description: >
-        Malformed request or missing fields. Check that Content-Type matches the format/encoding, and that all required fields are spelled correctly, have correct types, and valid values. Possible status messages include: **Invalid Parameter**, **FieldsNotFound**, **Fields With Invalid Value**, and **Invalid Limit Parameter**, **Invalid Sort Parameter**.
+        Malformed request or missing fields. Check that Content-Type matches the format/encoding, and that all required fields are spelled correctly, have correct types, and valid values. Possible status messages include:
+         * Invalid Parameter
+         * FieldsNotFound
+         * Fields With Invalid Value
+         * Invalid Limit Parameter
+         * Invalid Sort Parameter
       content:
         applications/json:
           schema:
