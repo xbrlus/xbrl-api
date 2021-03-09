@@ -110,26 +110,26 @@ info:
 tags:
   - name: oauth2
     description: " -- acquire authorization, receive tokens, and check tokens"
-  - name: Facts
+  - name: fact
     description: " -- return XBRL facts and metadata contained in a report"
-  - name: Reports
+  - name: report
     description: " -- get details about XBRL reports"
-  - name: Entity
+  - name: entity
     description: " -- get details about entities making XBRL filings"
-  - name: Assertions
+  - name: assertion
     description: " -- return error information about XBRL facts and reports in filings"
-  - name: DTS
+  - name: dts
     description: " -- get details information about the discoverable taxonomy set (taxonomy)"
-  - name: Concepts
+  - name: concept
     description: " -- get information about XBRL concepts in a taxonomy"
-  - name: Labels
+  - name: label
     description: " -- return metadata associated with a concept and a DTS identifier"
-  - name: Networks
+  - name: network
     description: " -- return network information about concepts and/or relationships in a dts"
-  - name: Relationships
+  - name: relationship
     description: " -- get relationship information associated with a network and/or DTS identifier"
-  - name: Documents
-    description: " -- request document information associated with a DTS or report"
+  - name: document
+    description: " -- request document information associated with a DTS or report (available to XBRL US Members only)"
     
 security:
   - oauth2: [ROLE_CLIENT, ROLE_USER]
@@ -222,7 +222,7 @@ paths:
     summary: Request facts from XBRL filings based on search parameters.
     get:
       operationId: getFactDetails
-      tags: [Facts]
+      tags: [fact]
       security:
         - OAuth2: []
         - bearerAuth: []
@@ -374,7 +374,7 @@ paths:
     summary: Request fact detail from an XBRL filing based on its unique identifier. The fact ID is an internal ID used by the API.
     get:
       operationId: getFactBasedOnFactID
-      tags: [Facts]
+      tags: [fact]
       security:
         - OAuth2: []
         - bearerAuth: []
@@ -422,7 +422,7 @@ paths:
     summary: Request facts from XBRL filings based on search parameters.
     get:
       operationId: getFactDetailsInOIMFormat
-      tags: [Facts]
+      tags: [fact]
       security:
         - bearerAuth: []
       description: >
@@ -497,7 +497,7 @@ paths:
       summary: Request report details from XBRL filings based on search parameters.
       get:
         operationId: getReportDetails
-        tags: [Reports]
+        tags: [report]
         security:
           - OAuth2: []
           - bearerAuth: []
@@ -560,7 +560,7 @@ paths:
       summary: Request a report from XBRL filings based on unique report identifier. The report ID is an internal ID used by the API.
       get:
         operationId: getReportDetailsById
-        tags: [Reports]
+        tags: [report]
         security:
           - OAuth2: []
           - bearerAuth: []
@@ -609,7 +609,7 @@ paths:
     summary: Request facts from XBRL filings based on specified report.id and fact parameters.
     get:
       operationId: getReportFactDetailsById
-      tags: [Reports]
+      tags: [report]
       security:
         - bearerAuth: []
       description: >
@@ -703,7 +703,7 @@ paths:
     summary: Request reports and facts from XBRL filings based on report and fact parameters.
     get:
       operationId: getReportFactDetailsBySearch
-      tags: [Reports]
+      tags: [report]
       security:
         - OAuth2: []
         - bearerAuth: []
@@ -797,7 +797,7 @@ paths:
   /api/v1/report/{report.id}/delete: 
       delete:
         operationId: deleteReportDetailsById
-        tags: [Reports]
+        tags: [report]
         security:
           - OAuth2: []
           - bearerAuth: []
@@ -837,7 +837,7 @@ paths:
       summary: Request report information based on the entity identifier. The entity ID is an internal ID used by the API.
       get:
         operationId: getEntityReportDetailsBasedOnID
-        tags: [Entity]
+        tags: [entity]
         security:
           - bearerAuth: []
         description: >
@@ -903,7 +903,7 @@ paths:
       summary: Request entity *and* report details from XBRL filings based on search parameters.
       get:
         operationId: getEntityReportDetails
-        tags: [Entity]
+        tags: [entity]
         security:
           - OAuth2: []
           - bearerAuth: []
@@ -968,7 +968,7 @@ paths:
       summary: Request entity information based on the entity identifier. The entity ID is an internal ID used by the API.
       get:
         operationId: getEntityDetailsBasedOnID
-        tags: [Entity]
+        tags: [entity]
         security:
           - OAuth2: []
           - bearerAuth: []
@@ -1020,7 +1020,7 @@ paths:
       summary: Request errors from XBRL filings based on search parameters.
       get:
         operationId: getAssertionDetails
-        tags: [Assertions]
+        tags: [assertion]
         security:
           - OAuth2: []
           - bearerAuth: []
@@ -1079,7 +1079,7 @@ paths:
       summary: Request errors from XBRL filings based on search parameters.
       post:
         operationId: validateFiling
-        tags: [Assertions]
+        tags: [assertion]
         security:
           - OAuth2: []
           - bearerAuth: []
@@ -1145,7 +1145,7 @@ paths:
       summary: Used to search discoverable taxonomy sets (dts) or taxonomies used in filings.  The DTS ID is an internal id used by the API that refers to the taxonomy schema of a filing.
       get:
         operationId: getDTSDetails
-        tags: [DTS]
+        tags: [dts]
         security:
           - OAuth2: []
           - bearerAuth: []
@@ -1197,7 +1197,7 @@ paths:
       summary: Request concept details from an XBRL filing for a specified dts.id.
       get:
         operationId: getConceptDetailsByDTS
-        tags: [DTS]
+        tags: [dts]
         security:
           - OAuth2: []
           - bearerAuth: []
@@ -1254,7 +1254,7 @@ paths:
       summary: Request concepts from an XBRL filing based on specified dts.id and concept.local-name parameters.
       get:
         operationId: getConceptDetailsByDTSAndLocalName
-        tags: [DTS]
+        tags: [dts]
         security:
           - OAuth2: []
           - bearerAuth: []
@@ -1312,7 +1312,7 @@ paths:
       summary: Request label details from an XBRL filing based on specified dts.id and concept.local-name parameters. The returned attributes of the DTS, concept and label can be used as search parameters.
       get:
         operationId: getLabelDetailsByDTSAndLocalName
-        tags: [DTS]
+        tags: [dts]
         security:
           - OAuth2: []
           - bearerAuth: []
@@ -1370,7 +1370,7 @@ paths:
       summary: Request reference details from an XBRL filing based on specified dts.id and concept.local-name parameters. The returned attributes of the DTS, concept and reference can be used as search parameters.
       get:
         operationId: getReferenceDetailsByDTSAndLocalName
-        tags: [DTS]
+        tags: [dts]
         security:
           - OAuth2: []
           - bearerAuth: []
@@ -1428,7 +1428,7 @@ paths:
       summary: Request network details from XBRL filings based on a specified dts.id.
       get:
         operationId: getNetworkDetailsByDTS
-        tags: [DTS]
+        tags: [dts]
         security:
           - OAuth2: []
           - bearerAuth: []
@@ -1480,7 +1480,7 @@ paths:
       summary: Request network and relationship details from an XBRL filing based on specified dts.id and network parameters. The returned attributes of the DTS, network and relationship can be used as search parameters.
       get:
         operationId: getNetworkDetailsWithSearchByDTS
-        tags: [DTS]
+        tags: [dts]
         security:
           - OAuth2: []
           - bearerAuth: []
@@ -1547,7 +1547,7 @@ paths:
       summary: Request concept details based on specified parameters.
       get:
         operationId: getConceptDetails
-        tags: [Concepts]
+        tags: [concept]
         security:
           - OAuth2: []
           - bearerAuth: []
@@ -1598,7 +1598,7 @@ paths:
       summary: Request concept details based on specified concept.
       get:
         operationId: getConceptDetailsByName
-        tags: [Concepts]
+        tags: [concept]
         security:
           - OAuth2: []
           - bearerAuth: []
@@ -1657,7 +1657,7 @@ paths:
       summary: Request label details based on specified dts.id.
       get:
         operationId: getlabelsBasedOnDTS
-        tags: [Labels]
+        tags: [label]
         security:
           - OAuth2: []
           - bearerAuth: []
@@ -1718,7 +1718,7 @@ paths:
       summary: Request label details based on specified parameters.
       get:
         operationId: getlabels
-        tags: [Labels]
+        tags: [label]
         security:
           - OAuth2: []
           - bearerAuth: []
@@ -1778,7 +1778,7 @@ paths:
       summary: Request relationship details from an XBRL filing based on specified network.id. The network ID is an internal ID used by the API. The returned attributes of the network and relationship can be used as search parameters.
       get:
         operationId: getNetworkRelationships
-        tags: [Networks]
+        tags: [network]
         security:
           - OAuth2: []
           - bearerAuth: []
@@ -1850,7 +1850,7 @@ paths:
       summary: Request network and relationship details from XBRL filings based on search parameters.
       get:
         operationId: getNetworkRelationshipsNoID
-        tags: [Networks]
+        tags: [network]
         security:
           - OAuth2: []
           - bearerAuth: []
@@ -1915,7 +1915,7 @@ paths:
       summary: Request networks details from an XBRL filing based on a specified network ID. The network ID is an internal id used by the API.
       get:
         operationId: getNetworkOnID
-        tags: [Networks]
+        tags: [network]
         security:
           - OAuth2: []
           - bearerAuth: []
@@ -1970,7 +1970,7 @@ paths:
       summary: Request network and relationship detail from XBRL filings based on search parameters.
       get:
         operationId: getRelationships
-        tags: [Relationships]
+        tags: [relationship]
         security:
           - OAuth2: []
           - bearerAuth: []
@@ -2036,7 +2036,7 @@ paths:
       summary: Request networks and relationships from XBRL filings based on search parameters.
       get:
         operationId: getRelationshipsAsTree
-        tags: [Relationships]
+        tags: [relationship]
         security:
           - OAuth2: []
           - bearerAuth: []
@@ -2111,7 +2111,7 @@ paths:
       summary: Request document details from XBRL filings based on search parameters.
       get:
         operationId: getDocumentInfo
-        tags: [Documents]
+        tags: [document]
         security:
           - OAuth2: []
           - bearerAuth: []
