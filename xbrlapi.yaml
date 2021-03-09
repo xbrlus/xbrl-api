@@ -3,21 +3,66 @@ openapi: 3.0.0
 servers:
   - description: Running this application XBRL US server
     url: 'https://api.xbrl.us/'
-#   - description: Running this application using the XBRL US test server
-#     url: 'https://testapi.xbrl.us/'
 info:
   version: "V1"
-  title: XBRL API
+  title: XBRL API 
   description: |
-    The xbrlapi.yaml file above defines the free XBRL API and can be [used to build and test queries below on this web page](https://xbrlus.github.io/xbrl-api/#/oauth2) to retrieve data from the [XBRL US Database of Public filings](https://xbrl.us/filings-database). The XBRL API can work with any database that conforms to the [XBRL 2.1 Specification](https://specifications.xbrl.org/work-product-index-group-base-spec-base-spec.html) 
+    #### [Skip to interactive documentation for objects](https://xbrlus.github.io/xbrl-api/#/oauth2) 
+    
+    ## Introduction
+    The xbrlapi.yaml file noted above defines the free XBRL API used to retrieve data from the [XBRL US Database of Public filings](https://xbrl.us/filings-database). The XBRL API can also work with any database that conforms to the [XBRL 2.1 Specification](https://specifications.xbrl.org/work-product-index-group-base-spec-base-spec.html).
 
-    XBRL US Members can login and use this page to generate client ID and secret pairs necessary to generate access and refresh tokens. Non-members should [email info@xbrl.us](mailto:info@xbrl.us?subject=Request to use OAuth2) to have your XBRL US Web account provisioned for OAuth2, necessary to [generate access tokens](https://xbrl.us/access-token).  There's also a free Google Sheet add-on and several templates posted on the XBRL Data Community page that can be used to retrieve data with the XBRL API which _don't require Client ID and Secret provisioning_.
+    The documentation below describes how to use the XBRL API. To use this page interactively, [generate a client ID and secret](https://xbrl.us/access-token) for your XBRL US Web account. 
 
-    ## Authorization Flow
+    The purpose of the XBRL API is to provide a unified interface to stored XBRL data which any data utility can adopt. This unified interface allows developers with limited XBRL knowledge to learn a single interface to access many data repositories. This expands access to the market for available data, while also encouraging the use of fundamental structured data.
 
-    We use [OAuth2 JWT](https://jwt.io/) flows to secure interactions. Below are **CURL** examples for typical **XBRL API** flows to request, return and use a token, which is required to process queries. Because the XBRL API is sessionless, each "session" will always begin with the [OAuth2 JWT Access Token Flow](https://jwt.io/introduction).
+    ### Structure and Syntax
+    The API is structured to allow the return of XBRL details as objects, which are used to classify XBRL data. These objects generally fall into two categories: **facts and data taxonomy**. Each object has multiple properties that can be used to define the query. Some are shared and others are unique to the object. **Objects can also be nested** allowing specific information about the main object to be retrieved.
 
-    ### Access Token Flow
+    Each object has properties that can be accessed by requesting them from the XBRL API. The property of the object is defined using a dot notation (ie. `object.property`). For example, to return the __value__ of the fact, use `fact.value`. While many of these properties can also be used to search for data, **not all properties of the object are searchable** and some properties may be defined as components of other objects and are inherited from these objects.
+
+    #### Object Search
+    The `search` keyword is used as an endpoint in many URIs. This indicates to the API that you will be searching on one or more properties of the object. A search can be performed on one object at a time, and is based on the first object that appears in the URI. 
+    
+    For example, in the following uri, `entity.cik` is the search property with the report object:
+
+    `/api/v1/report/search?entity.cik=0001493040&fields=report.*`
+
+    Multiple parameters can be included in a search and are separated by ampersands (&). In the case below, the API will return `fact.value` data for a given CIK for Assets for 2017 in the first quarter:
+
+    `/api/v1/fact/search?concept.local-name=Assets&period.fiscal-year=2017&period.fiscal.period=1Q&Entity.cik=0000001&fields=fact.value`
+
+    It is not possible to search on a property that is not a component of the object. In the example above, the endpoint is referencing the fact object (fact appears after v1) so a user must search on a valid fact property.
+    
+    **Nested objects** allow you to pull sub-object information from the main object. Sub-objects that can be used are dependent on the main object. For example, facts can be returned for specific reports, and relationships can be returned for specific networks.
+
+    In addition to accessing data through a specific object, **returned data can be managed by defining the properties of the data to be returned** and attributes of the properties:
+    -  what details about the data should be returned - `fields`; 
+    -  how many records should be returned - `limit`;
+    -  what order should the records be returned in - `sort`, and; 
+    -  from what starting position within the sequence of records should the data be returned - `offset`.
+
+    #### Fields
+    The `fields` query parameter establishes the details of the data to return for the specific query. Each field requested is separated using a comma without white space. The order of the fields returned is based on the position in the fields string.  Using the * as a wildcard on the object in the fields to return (ie. fact.*) will return all available properties of the object, and should only be used for testing, as it can slow a query considerably.
+
+    #### Limit 
+    A `limit` restricts the number of results returned by the query. **The limit attribute can only be added to an object type and not a property.** For example, to limit the number of reports in a query, the limit property is added to the fields to return as follows: `report.limit(10)`.
+
+    #### Sort 
+    Any returned value can be sorted in ascending or descending order, by adding an additional attribute to a field value (ie. `report.document-type.sort(DESC)`). **Multiple sort criteria can be defined** and the sort sequence is determined by the order defined in the fields parameter. 
+
+    #### Offset
+    The 'offset' attribute enables targeting a return to a specific starting point in a query return sequence (ie. `report.offset(120)`).  To work reliably, __at least one__ sorted property should be included in the returned fields.
+      
+    In the following example, the 10 reports returned starting with the 120th report for the search query would be sorted alpha-numerically in descending order first by document type and then by timestamp:
+
+    `fields=report.limit(10),report.document-type.sort(DESC),report.accepted-timestamp.sort(DESC),report.offset(120)`
+
+    ### Authorization Flow
+
+    We use [OAuth2 JWT](https://jwt.io/) flows to secure interactions. Below are **CURL** examples for typical **XBRL API** flows to request, return and use a token, which is required to process queries. The XBRL API is sessionless, so each "session" always begins with the [OAuth2 JWT Access Token Flow](https://jwt.io/introduction).
+
+    #### Access Token Flow
 
     This flow shows the steps required to interact with the API
 
@@ -57,10 +102,8 @@ info:
       Authorization: Bearer yJ...124nOvc
       Content-Type: application/json; charset=utf-8 
       Body: <...>
-      ```
-      
-    **Once an access_token has been acquired, it can be used on all queries with your account until it returns a 401.** If this occurs, simply request a new token using the credentials from before.
-    
+      ```    
+    **Once an access_token has been acquired, it can be used on all queries with an account until it returns a 401.** If this occurs, simply request a new token using existing `client_id`, `client_secret`, `refresh_token` and `platform` values, and set `grant_type` to **refresh_token**. 
   contact:
     name: XBRL US
     email: support@xbrl.us
