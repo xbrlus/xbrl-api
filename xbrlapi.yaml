@@ -49,7 +49,7 @@ info:
     A `limit` restricts the number of results returned by the query. **The limit attribute can only be added to an object type and not a property.** For example, to limit the number of reports in a query, the limit property is added to the fields to return as follows: `report.limit(10)`.
 
     #### Sort 
-    Any returned value can be sorted in ascending or descending order, by adding an additional attribute to a field value (ie. `report.document-type.sort(DESC)`). **Multiple sort criteria can be defined** and the sort sequence is determined by the order defined in the fields parameter. 
+    Any returned value can be sorted in ascending or descending order, by adding an additional attribute (ASC or DESC) to a field value (ie. `report.document-type.sort(DESC)`). **Multiple sort criteria can be defined** and the sort sequence is determined by the order defined in the fields parameter. 
 
     #### Offset
     The 'offset' attribute enables targeting a return to a specific starting point in a query return sequence (ie. `report.offset(120)`).  To work reliably, __at least one__ sorted property should be included in the returned fields.
@@ -209,7 +209,7 @@ paths:
                 The `access_token` value returned in the response can be used as
                 the `bearer token`.
           # -----------------------------------------------------
-                  
+
         '400':
           $ref: '#/components/responses/bad_request'
         '401':
@@ -361,6 +361,8 @@ paths:
                 The `fact.id` value returned in the response can be used as
                 the `factId` parameter in `/api/v1/fact/{fact.id}`.
           # -----------------------------------------------------
+        '201':
+          $ref: '#/components/responses/invalid_request'
         '400':
           $ref: '#/components/responses/bad_request'
         '401':
@@ -410,6 +412,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/fact_details'
+        '201':
+          $ref: '#/components/responses/invalid_request'
         '400':
           $ref: '#/components/responses/bad_request'
         '401':
@@ -485,6 +489,8 @@ paths:
                     $ref: '#/components/schemas/documentInfo_oim_json'
                   facts:
                       $ref: '#/components/schemas/facts_oim_json'
+        '201':
+          $ref: '#/components/responses/invalid_request'
         '400':
           $ref: '#/components/responses/bad_request'
         '401':
@@ -548,6 +554,8 @@ paths:
                       type: array
                       items:
                         $ref: '#/components/schemas/report_details'
+          '201':
+            $ref: '#/components/responses/invalid_request'
           '400':
             $ref: '#/components/responses/bad_request'
           '401':
@@ -596,6 +604,8 @@ paths:
                       type: array
                       items:
                         $ref: '#/components/schemas/report_details'
+          '201':
+            $ref: '#/components/responses/invalid_request'
           '400':
             $ref: '#/components/responses/bad_request'
           '401':
@@ -691,6 +701,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/report_details_with_facts'
+        '201':
+          $ref: '#/components/responses/invalid_request'
         '400':
           $ref: '#/components/responses/bad_request'
         '401':
@@ -786,6 +798,8 @@ paths:
                     type: array
                     items:
                        $ref: '#/components/schemas/report_details_with_facts'
+        '201':
+          $ref: '#/components/responses/invalid_request'
         '400':
           $ref: '#/components/responses/bad_request'
         '401':
@@ -825,6 +839,8 @@ paths:
                       type: array
                       items:
                         $ref: '#/components/schemas/report_details'
+          '201':
+            $ref: '#/components/responses/invalid_request'
           '400':
             $ref: '#/components/responses/bad_request'
           '401':
@@ -890,6 +906,8 @@ paths:
                       type: array
                       items:
                         $ref: '#/components/schemas/entity_details'
+          '201':
+            $ref: '#/components/responses/invalid_request'
           '400':
             $ref: '#/components/responses/bad_request'
           '401':
@@ -955,6 +973,8 @@ paths:
                       type: array
                       items:
                         $ref: '#/components/schemas/entity_details'
+          '201':
+            $ref: '#/components/responses/invalid_request'
           '400':
             $ref: '#/components/responses/bad_request'
           '401':
@@ -1007,6 +1027,8 @@ paths:
                       type: array
                       items:
                         $ref: '#/components/schemas/entity_details'
+          '201':
+            $ref: '#/components/responses/invalid_request'
           '400':
             $ref: '#/components/responses/bad_request'
           '401':
@@ -1066,6 +1088,8 @@ paths:
                       items:
                         $ref: '#/components/schemas/assertion_details'
                         
+          '201':
+            $ref: '#/components/responses/invalid_request'
           '400':
             $ref: '#/components/responses/bad_request'
           '401':
@@ -1132,6 +1156,8 @@ paths:
                 schema:
                   $ref: '#/components/schemas/results'
             
+          '201':
+            $ref: '#/components/responses/invalid_request'
           '400':
             $ref: '#/components/responses/bad_request'
           '401':
@@ -1184,6 +1210,8 @@ paths:
                       items:
                         $ref: '#/components/schemas/dts_details'
                         
+          '201':
+            $ref: '#/components/responses/invalid_request'
           '400':
             $ref: '#/components/responses/bad_request'
           '401':
@@ -1241,6 +1269,8 @@ paths:
                       items:
                         $ref: '#/components/schemas/concept_details'
                         
+          '201':
+            $ref: '#/components/responses/invalid_request'
           '400':
             $ref: '#/components/responses/bad_request'
           '401':
@@ -1299,6 +1329,8 @@ paths:
                       items:
                         $ref: '#/components/schemas/concept_details'
                         
+          '201':
+            $ref: '#/components/responses/invalid_request'
           '400':
             $ref: '#/components/responses/bad_request'
           '401':
@@ -1357,6 +1389,8 @@ paths:
                       items:
                         $ref: '#/components/schemas/label_details_search'
                         
+          '201':
+            $ref: '#/components/responses/invalid_request'
           '400':
             $ref: '#/components/responses/bad_request'
           '401':
@@ -1415,6 +1449,8 @@ paths:
                       items:
                         $ref: '#/components/schemas/reference_concept_details'
                         
+          '201':
+            $ref: '#/components/responses/invalid_request'
           '400':
             $ref: '#/components/responses/bad_request'
           '401':
@@ -1467,6 +1503,8 @@ paths:
                       items:
                         $ref: '#/components/schemas/network_details'
                         
+          '201':
+            $ref: '#/components/responses/invalid_request'
           '400':
             $ref: '#/components/responses/bad_request'
           '401':
@@ -1534,6 +1572,8 @@ paths:
                       items:
                         $ref: '#/components/schemas/network_details'
                         
+          '201':
+            $ref: '#/components/responses/invalid_request'
           '400':
             $ref: '#/components/responses/bad_request'
           '401':
@@ -1585,6 +1625,8 @@ paths:
                       items:
                         $ref: '#/components/schemas/concept_details'
                         
+          '201':
+            $ref: '#/components/responses/invalid_request'
           '400':
             $ref: '#/components/responses/bad_request'
           '401':
@@ -1644,6 +1686,8 @@ paths:
                       items:
                         $ref: '#/components/schemas/concept_details'
                         
+          '201':
+            $ref: '#/components/responses/invalid_request'
           '400':
             $ref: '#/components/responses/bad_request'
           '401':
@@ -1705,6 +1749,8 @@ paths:
                         
                           
                         
+          '201':
+            $ref: '#/components/responses/invalid_request'
           '400':
             $ref: '#/components/responses/bad_request'
           '401':
@@ -1765,6 +1811,8 @@ paths:
                         items:
                            $ref: '#/components/schemas/label_details_search'
                      
+          '201':
+            $ref: '#/components/responses/invalid_request'
           '400':
             $ref: '#/components/responses/bad_request'
           '401':
@@ -1837,6 +1885,8 @@ paths:
                         items:
                            $ref: '#/components/schemas/network_details'
                      
+          '201':
+            $ref: '#/components/responses/invalid_request'
           '400':
             $ref: '#/components/responses/bad_request'
           '401':
@@ -1902,6 +1952,8 @@ paths:
                         items:
                            $ref: '#/components/schemas/network_details'
                      
+          '201':
+            $ref: '#/components/responses/invalid_request'
           '400':
             $ref: '#/components/responses/bad_request'
           '401':
@@ -1957,6 +2009,8 @@ paths:
                         items:
                            $ref: '#/components/schemas/network_only_details'
                      
+          '201':
+            $ref: '#/components/responses/invalid_request'
           '400':
             $ref: '#/components/responses/bad_request'
           '401':
@@ -2023,6 +2077,8 @@ paths:
                         items:
                            $ref: '#/components/schemas/relationship_details_search'
                      
+          '201':
+            $ref: '#/components/responses/invalid_request'
           '400':
             $ref: '#/components/responses/bad_request'
           '401':
@@ -2098,6 +2154,8 @@ paths:
                         items:
                            $ref: '#/components/schemas/relationship_details_search'
                      
+          '201':
+            $ref: '#/components/responses/invalid_request'
           '400':
             $ref: '#/components/responses/bad_request'
           '401':
@@ -2164,6 +2222,8 @@ paths:
                         items:
                            $ref: '#/components/schemas/document_details'
                      
+          '201':
+            $ref: '#/components/responses/invalid_request'
           '400':
             $ref: '#/components/responses/bad_request'
           '401':
@@ -4875,9 +4935,18 @@ components:
              type: string
        description: The unit of measure associated with the fact, such as USD.
   responses:
+    invalid_request:
+      description: __each user account__ has a specific limit associated with it (ie. [100, 500 or 2,000](https://xbrl.us/access-token)) 
+      content:
+        applications/json:
+          schema:
+            $ref: '#/components/schemas/error_message'
+          example:
+            status: Invalid Limit Amount
+            body: The account is attempting to retrieve records beyond its established limit. 
     bad_request:
       description: >
-        Malformed request or missing fields. Check that Content-Type matches the format/encoding, and that all required fields are spelled correctly, have correct types, and valid values. 
+        Malformed request or missing fields. Check that Content-Type matches the format/encoding, and that all required fields are spelled correctly, have correct types, and valid values. Possible status messages include: **Invalid Parameter**, **FieldsNotFound**, **Fields With Invalid Value**, and **Invalid Limit Parameter**, **Invalid Sort Parameter**.
       content:
         applications/json:
           schema:
@@ -4892,7 +4961,7 @@ components:
           schema:
             $ref: '#/components/schemas/error_message'
           example:
-            error: unauthorized,
+            error: unauthorized
             error_description: Cannot convert access token to JSON
     unauthorized:
       description: >
