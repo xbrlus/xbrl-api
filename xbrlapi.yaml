@@ -1037,7 +1037,58 @@ paths:
             $ref: '#/components/responses/method_not_allowed'
           '500':
             $ref: '#/components/responses/internal_server_error'
+  /api/v1/entity/search:
+      summary: Request entity information based on searchable parameters like entity.name
+      get:
+        operationId: getEntityDetailsBasedOnID
+        tags: [entity]
+        security:
+          - OAuth2: []
+          - bearerAuth: []
+        description: >
+          Allows searching for _XBRL entities_ based on the entity search parameters associated with the reporting entity. Use this to get ticker or CIK information quickly with a known entity name or ticker.
+        parameters:
+          - $ref: '#/components/parameters/entity.cik_Param'
+          - $ref: '#/components/parameters/entity.id_Param'
+          - $ref: '#/components/parameters/entity.name_Param'
+          - $ref: '#/components/parameters/entity.ticker_Param' 
           
+          - in: query
+            name: fields
+            required: true
+            style: form
+            explode: false
+            allowEmptyValue : false
+            schema:
+              $ref: '#/components/schemas/entity_only_fields'
+            description: This is the list of fields that can be returned for _XBRL entities_.
+          
+          
+        responses:
+          '200':
+            description: __entity report details__ successfully accepted
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    paging:
+                      $ref: '#/components/schemas/paging'
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/entity_details'
+          '201':
+            $ref: '#/components/responses/invalid_request'
+          '400':
+            $ref: '#/components/responses/bad_request'
+          '401':
+            $ref: '#/components/responses/bad_token'
+          '405':
+            $ref: '#/components/responses/method_not_allowed'
+          '500':
+            $ref: '#/components/responses/internal_server_error'
+
   /api/v1/assertion/search:
       summary: Request errors from XBRL filings based on search parameters.
       get:
