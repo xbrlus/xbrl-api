@@ -1078,7 +1078,20 @@ paths:
                     data:
                       type: array
                       items:
-                        $ref: '#/components/schemas/entity_details'
+                        type: object
+                        properties:
+                          entity.cik:
+                            $ref: '#/components/schemas/entity_cik'
+                          entity.id:
+                            $ref: '#/components/schemas/entity_id'
+                          entity.name:
+                            $ref: '#/components/schemas/entity_name'
+                          entity.scheme:
+                            $ref: '#/components/schemas/entity_scheme'
+                          entity.ticker:
+                            $ref: '#/components/schemas/entity_ticker'
+                          entity.ticker2:
+                            $ref: '#/components/schemas/entity_ticker'
           '201':
             $ref: '#/components/responses/invalid_request'
           '400':
@@ -3823,7 +3836,8 @@ components:
       description: The name of the entity reporting.
     entity_scheme:
       type: string
-      description: The scheme of the identifier associated with a fact, report or DTS. A fact could have mutiple entity identifiers and this indicates the identifier that was used.
+      description: The scheme of the identifier associated with a fact, report or DTS. A fact could have multiple entity identifiers and this indicates the identifier that was used.
+      example: http://www.sec.gov/CIK
     entity_ticker:
       type: string
       description: The stock exchange ticker of the entity filing the report. Although a company may have multiple tickers this returns a single value.
