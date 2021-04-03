@@ -1037,10 +1037,11 @@ paths:
             $ref: '#/components/responses/method_not_allowed'
           '500':
             $ref: '#/components/responses/internal_server_error'
+
   /api/v1/entity/search:
       summary: Request entity information based on searchable parameters like entity.name
       get:
-        operationId: getEntityDetailsBasedOnID
+        operationId: getEntityDetailsBasedOnSearch
         tags: [entity]
         security:
           - OAuth2: []
