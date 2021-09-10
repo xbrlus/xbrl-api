@@ -4,7 +4,7 @@ info:
   version: "V1"
   title: XBRL API 
   description: |
-    #### [Skip to interactive documentation for objects](https://xbrlus.github.io/xbrl-api/#/oauth2) 
+    #### [Skip to interactive documentation for objects](#/oauth2) || [Additional context and background on XBRL API (PDF)](XBRL-API-V1.5.pdf)
     
     ## Introduction
     The XBRL API can work with any database that conforms to the [XBRL 2.1 Specification](https://specifications.xbrl.org/work-product-index-group-base-spec-base-spec.html). The xbrlapi.yaml file noted above defines the free XBRL API used to retrieve data from the [XBRL US Database of Public filings](https://xbrl.us/filings-database).
@@ -1187,7 +1187,7 @@ paths:
                   Task:
                     type: string
                     enum: [checkfiling,dqcfiling]
-                    description: This paparameter allows the user to control which rules will be run. The option dqcfiling will run Data Quality Committee (DQC) rules. The checkfiling option will run the DQC rules and the [XBRL US SEC Filer Membership rules](https://xbrl.us/sec-filer) for qualified accounts.
+                    description: This parameter allows the user to control which rules will be run. The option dqcfiling will run Data Quality Committee (DQC) rules. The checkfiling option will run the DQC rules and the [XBRL US SEC Filer Membership rules](https://xbrl.us/sec-filer) for qualified accounts.
                   format:
                     type: string
                     enum: [xml,json]
@@ -1196,7 +1196,7 @@ paths:
                     type: string
                     enum: [strict,pragmatic]
                     description: This parameter controls if the EDGAR Filing Manual (EFM) rules will be run. This can be left balnk if no EFM rules are run, be defined as strict, or as pragmatic.
-                  Status:
+                  status:
                     type: string
                     default: approved
                     enum: [approved,proposed]
