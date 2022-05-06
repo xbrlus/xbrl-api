@@ -128,6 +128,10 @@ tags:
     description: " -- return network information about concepts and/or relationships in a dts"
   - name: relationship
     description: " -- get relationship information associated with a network and/or DTS identifier"
+  - name: cube
+    description: " -- get information about a hypercube and the data in a hypercube"
+  - name: dimension
+    description: " -- get information about a hypercubes dimensions and members"
   - name: document
     description: " -- request document information associated with a DTS or report (available to XBRL US Members only)"
     
@@ -2228,8 +2232,174 @@ paths:
           '405':
             $ref: '#/components/responses/method_not_allowed'
           '500':
-            $ref: '#/components/responses/internal_server_error'          
-  
+            $ref: '#/components/responses/internal_server_error'  
+
+  /api/v1/cube/search:
+    summary: Request facts and primary items from XBRL hypercubes based on search parameters.
+    get:
+      operationId: getCubeDetails
+      tags: [cube]
+      security:
+        - OAuth2: []
+        - bearerAuth: []
+      description: > 
+          Search for _XBRL facts_ or _primary items_ based on the details of a hypercube.  
+          
+          ## Examples
+          
+          ### _-Get all the facts in a cube
+          
+          
+          The following call will: get all facts in the report with an id of `226471`; limit the number of records returned to `1010` facts; sort facts `A-Z by the concept name`, and; return the following values:
+            * dimensions.count
+            * dimensions
+            * period.fiscal-period
+            * period.year
+            * cube.primary-local-name.sort(ASC)
+            * fact.numerical-value
+            * fact.limit(1010)
+            * fact.value
+            * report.source-id
+          
+                  https://api.xbrl.us/api/v1/cube/search?report.id=226471&fields=dimensions.count,dimensions,period.fiscal-period,period.year,cube.primary-local-name.sort(ASC),fact.numerical-value,cube.limit(1010),fact.value
+          
+              
+          
+      parameters: 
+        - $ref: '#/components/parameters/cube.drs-role-uri_Param'
+        - $ref: '#/components/parameters/cube.id_Param'
+        - $ref: '#/components/parameters/cube.primary_local_name_Param'
+        - $ref: '#/components/parameters/cube.primary_namespace_Param'
+        - $ref: '#/components/parameters/cube.table-local-name_Param'
+        - $ref: '#/components/parameters/cube.table-namespace_Param'
+        - $ref: '#/components/parameters/cube.tree-depth_Param'
+        - $ref: '#/components/parameters/cube.tree-sequence_Param'
+        - $ref: '#/components/parameters/dimensions.count_Param'
+        - $ref: '#/components/parameters/dts.id_Param'
+        - $ref: '#/components/parameters/fact.id_Param'
+        - $ref: '#/components/parameters/fact.is-extended_Param'
+        - $ref: '#/components/parameters/fact.value_Param'
+        - $ref: '#/components/parameters/period.calendar-period_Param'
+        - $ref: '#/components/parameters/period.fiscal-period_Param'
+        - $ref: '#/components/parameters/period.fiscal-year_Param'
+        - $ref: '#/components/parameters/period.year_Param'
+        - $ref: '#/components/parameters/report.accession_Param'
+        - $ref: '#/components/parameters/report.id_Param'
+        - $ref: '#/components/parameters/unit_Param'
+        - in: query
+          name: fields
+          required: true
+          style: form
+          explode: false
+          allowEmptyValue : false
+          schema:
+            $ref: '#/components/schemas/cube_fields'
+          description: This is the list of fields that can be returned for _XBRL cubes_.
+          
+      responses:
+        '200':
+          description: __cube details__ successfully accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  paging:
+                    $ref: '#/components/schemas/paging'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/cube_details'
+        '201':
+          $ref: '#/components/responses/invalid_request'
+        '400':
+          $ref: '#/components/responses/bad_request'
+        '401':
+          $ref: '#/components/responses/bad_token'
+        '405':
+          $ref: '#/components/responses/method_not_allowed'
+        '500':
+          $ref: '#/components/responses/internal_server_error'
+
+  /api/v1/dimension/search:
+    summary: Request dimensions and members from XBRL hypercubes based on search parameters.
+    get:
+      operationId: getCubeDimensions
+      tags: [dimension]
+      security:
+        - OAuth2: []
+        - bearerAuth: []
+      description: > 
+          Search for _XBRL dimensions_ or _members_  of a specific hypercube.  
+          
+          ## Examples
+          
+          ### _-Get all the dimensions and members of a cube
+          
+          
+          The following call will: get dimensions of the dts id of `226471`;  and; return the following values:
+            * cube.table-local-name
+            * cube.id
+            * cube.drs-role-uri
+          
+                  https://api.xbrl.us/api/v1/dimension/search?dts.id=226471&fields=cube.table-local-name,cube.id,cube.drs-role-uri
+          
+              
+          
+      parameters: 
+        - $ref: '#/components/parameters/cube.default-local-name_Param'
+        #- $ref: '#/components/parameters/cube.default.namespace_Param'
+        #- $ref: '#/components/parameters/cube.description_Param'
+        - $ref: '#/components/parameters/cube.dimension-local-name_Param'
+        #- $ref: '#/components/parameters/cube.dimension.namespace_Param'
+        - $ref: '#/components/parameters/cube.drs-role-uri_Param'
+        - $ref: '#/components/parameters/cube.id_Param'
+        - $ref: '#/components/parameters/cube.is-domain_Param'
+        - $ref: '#/components/parameters/cube.is-explicit_Param'
+        - $ref: '#/components/parameters/cube.member-local-name_Param'
+        #- $ref: '#/components/parameters/cube.member-namespace_Param'
+        - $ref: '#/components/parameters/cube.member-tree-depth_Param'
+        - $ref: '#/components/parameters/cube.member-tree-sequence_Param'
+        - $ref: '#/components/parameters/cube.table-local-name_Param'
+        - $ref: '#/components/parameters/cube.table-namespace_Param'
+        #- $ref: '#/components/parameters/cube.typed-domain-element-name_Param'
+        - $ref: '#/components/parameters/dts.id_Param'
+
+        - in: query
+          name: fields
+          required: true
+          style: form
+          explode: false
+          allowEmptyValue : false
+          schema:
+            $ref: '#/components/schemas/dimension_fields'
+          description: This is the list of fields that can be returned for _XBRL cubes_.
+          
+      responses:
+        '200':
+          description: __cube details__ successfully accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  paging:
+                    $ref: '#/components/schemas/paging'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/dimension_details'
+        '201':
+          $ref: '#/components/responses/invalid_request'
+        '400':
+          $ref: '#/components/responses/bad_request'
+        '401':
+          $ref: '#/components/responses/bad_token'
+        '405':
+          $ref: '#/components/responses/method_not_allowed'
+        '500':
+          $ref: '#/components/responses/internal_server_error'
+
   /api/v1/document/search:
       summary: Request document details from XBRL filings based on search parameters.
       get:
@@ -2385,16 +2555,7 @@ components:
             type: string
           accuracy:
             type: integer
-      example:
-        xfd233befbacbc83e43d510ae01866384c65f23a60482caaa20331642: {"value": "151000",
-      "accuracy": -3,
-      "aspects": {
-        "concept": "p2:AdjustmentsToAdditionalPaidInCapitalStockIssuedIssuanceCosts",
-        "entity": "p3:0001512228",
-        "period": "2015-07-01T00:00:00/2016-07-01T00:00:00",
-        "unit": "p1:USD",
-        "p2:StatementEquityComponentsAxis": "p2:CommonStockMember"}
-        }
+      
     documentInfo_oim_json:
       type: object
       properties:
@@ -2491,8 +2652,68 @@ components:
               ,parts.order
               ,parts.part-value
               ,reference.id
-              ,parts.*] 
-              
+              ,parts.*]
+
+    cube_fields:
+      type: array
+      items:
+        type: string
+        default: cube.*
+        enum: [
+              cube.description
+              ,cube.drs-role-uri
+              ,cube.id
+              ,cube.primary-local-name
+              ,cube.primary-namespace
+              ,cube.table-local-name
+              ,cube.table-namespace
+              ,cube.tree-depth
+              ,cube.tree-sequence
+              ,dimensions
+              ,dimensions.count
+              ,dts.id
+              ,fact.decimals
+              ,fact.id
+              ,fact.is-extended
+              ,fact.numerical-value
+              ,fact.value
+              ,fact.value-link
+              ,fact.xml-id
+              ,period.calendar-period
+              ,period.fiscal-period
+              ,period.fiscal-year
+              ,period.year
+              ,report.accession
+              ,report.id
+              ,unit
+              ,cube.*]
+
+    dimension_fields:
+      type: array
+      items:
+        type: string
+        default: dimension.*
+        enum: [
+              cube.default-local-name
+              ,cube.default.namespace
+              ,cube.description
+              ,cube.drs-role-uri
+              ,cube.id
+              ,cube.dimension-local-name
+              ,cube.dimension.namespace
+              ,cube.is-domain
+              ,cube.is-explicit
+              ,cube.member-local-name
+              ,cube.member-namespace
+              ,cube.member-tree-depth
+              ,cube.member-tree-sequence
+              ,cube.table-local-name
+              ,cube.table-namespace
+              ,cube.typed-domain-element-name
+              ,dts.id
+
+              ,dimension.*]  
+
     document_fields:
       type: array
       items:
@@ -2933,6 +3154,96 @@ components:
            $ref: '#/components/schemas/report_sec-url'
         report.sic-code:
            $ref: '#/components/schemas/report_sic-code'
+
+    cube_details: 
+      type: object
+      properties:
+        cube.description:
+          $ref: '#/components/schemas/network_role-description'
+        cube.drs-role-uri:
+          $ref: '#/components/schemas/cube_drs_role-uri'
+        cube.id:
+          $ref: '#/components/schemas/cube_id'
+        cube.primary-local-name:
+          $ref: '#/components/schemas/concept_local-name'
+        cube.primary_namespace:
+          $ref: '#/components/schemas/concept_namespace'
+        cube.table-local-name:
+          $ref: '#/components/schemas/concept_local-name'
+        cube.table_namespace:
+          $ref: '#/components/schemas/concept_namespace'
+        cube.tree-depth:
+          $ref: '#/components/schemas/relationship_tree-depth'
+        cube.tree-sequence:
+          $ref: '#/components/schemas/relationship_tree-sequence'
+        dimensions:
+          $ref: '#/components/schemas/dimensions_object'
+        dimensions.count:
+          $ref: '#/components/schemas/dimensions_count'
+        dts.id:
+          $ref: '#/components/schemas/dts_id'
+        fact.decimals:
+          $ref: '#/components/schemas/fact_decimals'
+        fact.id:
+          $ref: '#/components/schemas/fact_id'
+        fact.is-extended:
+          $ref: '#/components/schemas/fact_is-extended'
+        fact.numerical-value:
+          $ref: '#/components/schemas/fact_numerical-value'
+        fact.value:
+          $ref: '#/components/schemas/fact_value'
+        period.calendar-period:
+          $ref: '#/components/schemas/period_calendar-period'
+        period.fiscal-period:
+          $ref: '#/components/schemas/period_fiscal-period'
+        period.fiscal-year:
+          $ref: '#/components/schemas/period_fiscal-year'
+        period.year:
+          $ref: '#/components/schemas/period_year'
+        report.accession:
+          $ref: '#/components/schemas/report_accession'
+        report.id:
+          $ref: '#/components/schemas/report_id'
+        unit:
+          $ref: '#/components/schemas/unit'
+
+    dimension_details: 
+      type: object
+      properties:
+        cube.default-local-name:
+          $ref: '#/components/schemas/member_local-name'
+        cube.default-namespace:
+           $ref: '#/components/schemas/member_namespace'
+        cube.description:
+          $ref: '#/components/schemas/network_role-description'
+        cube.dimension-local-name:
+          $ref: '#/components/schemas/dimension_local-name'
+        cube.dimension-namespace:
+           $ref: '#/components/schemas/dimension_namespace'
+        cube.drs-role-uri:
+          $ref: '#/components/schemas/cube_drs_role-uri'
+        cube.id:
+          $ref: '#/components/schemas/cube_id'
+        cube.is-domain:
+          $ref: '#/components/schemas/concept_local-name'
+        cube.is-explicit:
+          $ref: '#/components/schemas/concept_namespace'
+        cube.member-local-name:
+          $ref: '#/components/schemas/member_local-name'
+        cube.member-namespace:
+           $ref: '#/components/schemas/member_namespace'
+        cube.member-tree-depth:
+          $ref: '#/components/schemas/relationship_tree-depth'
+        cube.member-tree-sequence:
+          $ref: '#/components/schemas/relationship_tree-sequence'
+        cube.table-local-name:
+          $ref: '#/components/schemas/concept_local-name'
+        cube.table_namespace:
+          $ref: '#/components/schemas/concept_namespace'
+        cube.typed-domain-element-name:
+          $ref: '#/components/schemas/cube.typed-domain-element-name'
+        dts.id:
+          $ref: '#/components/schemas/dts_id'
         
     document_details: 
       type: object
@@ -3724,7 +4035,7 @@ components:
       example: true
     concept_local-name:
       type: string
-      description: The concept name in the base schema of a taxonomy exluding the namespace, such as Assets or Liabilities. Use this to search across multiple taxonomies where the local name is known to be consistent over time.
+      description: The concept name in the base schema of a taxonomy excluding the namespace, such as Assets or Liabilities. Use this to search across multiple taxonomies where the local name is known to be consistent over time.
       example: Assets
     concept_namespace:
       type: string
@@ -3961,6 +4272,8 @@ components:
       format: uri
       description: URI that identifies the link types, such as parent-child. However, this is the full URI of http://www.xbrl.org/2003/arcrole/parent-child.
       example: http://www.xbrl.org/2003/arcrole/parent-child
+    
+    
     network_id:
       type: integer
       description: Unique internal identifier used to identify a specific network. A different identifier is used for networks with the same role but different linkbase types.
@@ -3977,6 +4290,20 @@ components:
       format: uri
       description: The URI of the network role. This would appear as a URI describing the reporting group i.e. http://www.bc.com/role/DisclosureBalanceSheetComponentsDetails.
       example: http://www.bc.com/role/DisclosureBalanceSheetComponentsDetails
+
+    cube_drs_role-uri:
+      type: string
+      format: uri
+      description: The URI of the drs role. This would appear as a URI describing the reporting group that includes a cube i.e. http://ferc.gov/form/2020-01-01/roles/Schedule/F714/IdentificationAndCertification.
+      example: http://www.bc.com/role/DisclosureBalanceSheetComponentsDetails
+
+    cube_id:
+      type: integer
+      description: Unique internal identifier used to identify a specific cube. A different identifier is used for each combination of hypercube element and drs role.
+
+    cube.typed-domain-element-name:
+      type: string
+      description: Unique identifier that represents a typed dimension member.
       
     parts_object:
       type: object
@@ -4349,12 +4676,145 @@ components:
             items:
               type: string
           description: The concept name in the base schema of a taxonomy exluding the namespace, such as Assets or Liabilities. Use this to search across multiple taxonomies where the local name is known to be consistent over time.
+
     concept.namespace_Param:     
           in: query
           name: concept.namespace
           schema:
             type: string
           description: The namespace of the concept used to identify a fact.
+
+    cube.default-local-name_Param:
+          in: query
+          name: cube.default-local-name
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+          description: The concept name representing the default value of an axis. Use this to search across multiple taxonomies where the local name is known to be consistent over time.
+
+    cube.dimension-local-name_Param:
+          in: query
+          name: cube.dimension-local-name
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+          description: The concept name representing the concept name of an axis. Use this to search across multiple taxonomies where the local name is known to be consistent over time.
+
+    cube.drs-role-uri_Param:
+          in: query
+          name: cube.drs-role-uri
+          schema:
+            type: string
+            format: uri
+          description: The URI of the dimension role. This would appear as a URI describing the reporting dimension group i.e. http://www.bc.com/role/DisclosureBalanceSheetComponentsDetails.
+          example: http://www.bc.com/role/DisclosureBalanceSheetComponentsDetails
+
+    cube.id_Param:
+          in: query
+          name: cube.id
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: integer
+          description: The identifier used to identify a cube.
+
+    cube.is-domain_Param:
+          in: query
+          name: cube.is-domain
+          schema:
+            type: boolean
+          description: A boolean value that indicates if the member is the domain member.
+
+    cube.is-explicit_Param:
+          in: query
+          name: cube.is-explicit
+          schema:
+            type: boolean
+          description: A boolean value that indicates if the dimension is an explicit dimension.
+
+    cube.member-local-name_Param:
+          in: query
+          name: cube.member-local-name
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+          description: The concept name representing the concept name of a member on an axis. Use this to search across multiple taxonomies where the local name is known to be consistent over time. This will appear for every cube it appears in.
+
+    cube.member-tree-depth_Param:
+      in: query
+      name: cube.member-tree-depth
+      schema:
+          type: integer
+      description: When viewed as a tree, the value represents the number of positions the member concept is from the root node of the relationship.
+
+    cube.member-tree-sequence_Param:
+      in: query
+      name: cube.member-tree-sequence
+      schema:
+          type: integer
+      description: The order in which the member concept appears in the entire network.
+
+    cube.primary_local_name_Param:
+          in: query
+          name: cube.primary-local-name
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+          description: The concept name representing the primary concept name of a table. Use this to search across multiple taxonomies where the local name is known to be consistent over time. This will appear for every cube it appears in.
+
+    cube.primary_namespace_Param:     
+          in: query
+          name: cube.primary-namespace
+          schema:
+            type: string
+          description: The namespace of the table concept used to identify a fact.
+
+    cube.tree-depth_Param:
+      in: query
+      name: cube.tree-depth
+      schema:
+          type: integer
+      description: When viewed as a tree, the value represents the number of positions the member concept is from the root node of the relationship.
+
+    cube.tree-sequence_Param:
+      in: query
+      name: cube.tree-sequence
+      schema:
+          type: integer
+      description: The order in which the member concept appears in the entire network.
+
+    cube.table-local-name_Param:
+        in: query
+        name: cube.table-local-name
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+        description: The concept name representing the concept name of the table. Use this to search across multiple taxonomies where the local name is known to be consistent over time. This will appear for every cube it appears in.
+
+    cube.table-namespace_Param:     
+          in: query
+          name: cube.table-namespace
+          schema:
+            type: string
+          description: The namespace of the table concept used to identify a fact.
+
 
     dimension.is-base_Param:
           in: query
