@@ -2677,8 +2677,6 @@ components:
               ,fact.is-extended
               ,fact.numerical-value
               ,fact.value
-              ,fact.value-link
-              ,fact.xml-id
               ,period.calendar-period
               ,period.fiscal-period
               ,period.fiscal-year
