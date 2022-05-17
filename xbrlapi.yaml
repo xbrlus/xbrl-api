@@ -2674,8 +2674,10 @@ components:
               ,dts.id
               ,fact.decimals
               ,fact.id
+              ,fact.inline-display-value
               ,fact.is-extended
               ,fact.numerical-value
+              ,fact.ultimus
               ,fact.value
               ,period.calendar-period
               ,period.fiscal-period
@@ -3184,10 +3186,14 @@ components:
           $ref: '#/components/schemas/fact_decimals'
         fact.id:
           $ref: '#/components/schemas/fact_id'
+        fact.inline-display-value:
+          $ref: '#/components/schemas/fact_inline-display-value'
         fact.is-extended:
           $ref: '#/components/schemas/fact_is-extended'
         fact.numerical-value:
           $ref: '#/components/schemas/fact_numerical-value'
+        fact.ultimus:
+          $ref: '#/components/schemas/fact_ultimus'
         fact.value:
           $ref: '#/components/schemas/fact_value'
         period.calendar-period:
