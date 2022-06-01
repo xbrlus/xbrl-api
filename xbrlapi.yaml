@@ -2427,20 +2427,32 @@ paths:
                 
             description: |
                 List of fields to return. 
-                Available fields are as follows:  
-                  * document.example 
-                  * document.highlighted-vaule
+                Available fields are as follows:
+                  * document.example
+                  * document.highlighted-value
+                  * document.content
+                  * document.documentset  
+                  * document.id
                   * document.top-level
                   * document.tree-level
                   * document.tree-order
                   * document.type
                   * document.uri
                   * dts.id
+                  * entity.cik
+                  * entity.code
+                  * entity.name
+                  * entity.scheme
+                  * report.filing-date
+                  * report.hash
+                  * report.id
                   * document.*
                 
                 To limit the values returned use document._limit(n)_
                 
                 To sort on a field use the field followed by .sort. For example to sort in ascending order for document.uri then enter document.uri._sort(ASC)_ as a return field.
+
+                The document.example and document.highlighted-value will only return results when the search parameter document.text-search is used.the parameter  document.text-search cannot be used as a return field.  Its equivalent return values are document.example and document.highlighted-value.
           
         responses:
           '200':
@@ -3322,6 +3334,21 @@ components:
           $ref: '#/components/schemas/dts_content'
         dts.id:
           $ref: '#/components/schemas/dts_id'
+        entity.cik:
+          $ref: '#/components/schemas/entity_cik'
+        entity.code:
+          $ref: '#/components/schemas/entity_cik'
+        entity.name:
+          $ref: '#/components/schemas/entity_name'
+        entity.scheme:
+          $ref: '#/components/schemas/entity_scheme'
+        report.filing-date:
+          $ref: '#/components/schemas/report_filing-date'
+        report.hash:
+          $ref: '#/components/schemas/report_hash'
+        report.id:
+          $ref: '#/components/schemas/report_id'
+
 
     dts_details: 
       type: object
@@ -4104,7 +4131,7 @@ components:
     
     document_example:
       type: string
-      description: Excerpt of the document where text string search using document.text-search matched the request.
+      description: Excerpt of the document where text string search using document.text-search matched the request. This will opnly return a result when the document.text-search search parameter is used.
     document_highlighted-value:
       type: string
       description: Complete document containing highlighted indication of document.text-search result (search result appears in bold blue font).
@@ -4655,6 +4682,10 @@ components:
        type: integer
        description: The year that the filing was published.
        example: 2021
+    report_hash:
+      type: string
+      description: A hash string that is generated based on the semantic meaning of the report. Two identical reports expressed as XBRL JSON, XML or inline XBRL will have an identical hash string.  This makes it possible to determine if a report is a duplicate.
+      example: \\xb46b615601cd46644a3de5f91adeca28462bcde252b1d7d1d970b011
     report_id:
        type: integer
        description: The identifier used to identify a report.
