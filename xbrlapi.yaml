@@ -2265,7 +2265,8 @@ paths:
           
               
           
-      parameters: 
+      parameters:
+        - $ref: '#/components/parameters/cube.description_Param' 
         - $ref: '#/components/parameters/cube.drs-role-uri_Param'
         - $ref: '#/components/parameters/cube.id_Param'
         - $ref: '#/components/parameters/cube.primary_local_name_Param'
@@ -2349,7 +2350,7 @@ paths:
       parameters: 
         - $ref: '#/components/parameters/cube.default-local-name_Param'
         #- $ref: '#/components/parameters/cube.default.namespace_Param'
-        #- $ref: '#/components/parameters/cube.description_Param'
+        - $ref: '#/components/parameters/cube.description_Param'
         - $ref: '#/components/parameters/cube.dimension-local-name_Param'
         #- $ref: '#/components/parameters/cube.dimension.namespace_Param'
         - $ref: '#/components/parameters/cube.drs-role-uri_Param'
@@ -4810,7 +4811,6 @@ components:
             items:
               type: string
           description: The concept name in the base schema of a taxonomy exluding the namespace, such as Assets or Liabilities. Use this to search across multiple taxonomies where the local name is known to be consistent over time.
-
     concept.namespace_Param:     
           in: query
           name: concept.namespace
@@ -4838,6 +4838,13 @@ components:
             items:
               type: string
           description: The concept name representing the concept name of an axis. Use this to search across multiple taxonomies where the local name is known to be consistent over time.
+    cube.description_Param:
+          in: query
+          name: cube.description
+          schema:
+            type: string
+            format: uri
+          description: The human readable description of the network role. In some filing regimes this is used to order the networks.
     cube.drs-role-uri_Param:
           in: query
           name: cube.drs-role-uri
