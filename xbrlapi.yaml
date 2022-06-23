@@ -307,6 +307,7 @@ paths:
         - $ref: '#/components/parameters/report.accession_Param'
         - $ref: '#/components/parameters/report.creation-software_Param'
         - $ref: '#/components/parameters/report.document-type_Param'
+        - $ref: '#/components/parameters/report.document-index_Param'
         - $ref: '#/components/parameters/report.entry-url_Param'
         - $ref: '#/components/parameters/report.id_Param'
         - $ref: '#/components/parameters/report.restated_Param'
@@ -520,6 +521,7 @@ paths:
           - $ref: '#/components/parameters/entity.ticker_Param' 
           - $ref: '#/components/parameters/report.accession_Param' 
           - $ref: '#/components/parameters/report.document-type_Param'
+          - $ref: '#/components/parameters/report.document-index_Param'
           - $ref: '#/components/parameters/report.entity-name_Param'
           - $ref: '#/components/parameters/report.entry-type_Param'
           - $ref: '#/components/parameters/report.entry-url_Param'
@@ -764,6 +766,7 @@ paths:
         - $ref: '#/components/parameters/report.accession_Param'
         - $ref: '#/components/parameters/report.creation-software_Param'
         - $ref: '#/components/parameters/report.document-type_Param'
+        - $ref: '#/components/parameters/report.document-index_Param'
         - $ref: '#/components/parameters/report.entity-name_Param'
         - $ref: '#/components/parameters/report.entry-type_Param'
         - $ref: '#/components/parameters/report.entry-url_Param'
@@ -2881,6 +2884,7 @@ components:
               ,report.accession
               ,report.creation-software
               ,report.document-type
+              ,report.document-index
               ,report.entry-url
               ,report.filing-date
               ,report.id
@@ -3028,6 +3032,7 @@ components:
               ,report.base-taxonomy
               ,report.creation-software
               ,report.document-type
+              ,report.document-index
               ,report.entity-name
               ,report.entry-type
               ,report.entry-url
@@ -3113,6 +3118,7 @@ components:
               ,report.base-taxonomy
               ,report.creation-software
               ,report.document-type
+              ,report.document-index
               ,report.entity-name
               ,report.entry-type
               ,report.entry-url
@@ -3502,6 +3508,8 @@ components:
           $ref: '#/components/schemas/report_creation-software'
         report.document-type:
           $ref: '#/components/schemas/report_document-type'
+        report.document-index:
+          $ref: '#/components/schemas/report_document-index'
         report.entry-url:
           $ref: '#/components/schemas/report_entry-url'
         report.filing-date:
@@ -3697,6 +3705,8 @@ components:
            $ref: '#/components/schemas/report_creation-software'
         report.document-type:
            $ref: '#/components/schemas/report_document-type'
+        report.document-index:
+          $ref: '#/components/schemas/report_document-index'
         report.entity-name:
            $ref: '#/components/schemas/report_entity-name'
         report.entry-type:
@@ -3755,6 +3765,8 @@ components:
            $ref: '#/components/schemas/report_creation-software'
         report.document-type:
            $ref: '#/components/schemas/report_document-type'
+        report.document-index:
+          $ref: '#/components/schemas/report_document-index'
         report.entity-name:
            $ref: '#/components/schemas/report_entity-name'
         report.entry-type:
@@ -5421,6 +5433,16 @@ components:
           type: integer
       description: The order in which the relationship appears in the entire network.  
 
+    report.document-index_Param:
+      in: query
+      name: report.document-index
+      style: form
+      explode: false
+      schema:
+          type: array
+          items:
+            type: integer
+      description: Allows the retrieval of reports other than most current. A value of 1 gets the latest report. A value of 2 gets the second to last report etc.
     report.document-type_Param:
        in: query
        name: report.document-type

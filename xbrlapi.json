@@ -12,7 +12,7 @@
   "servers": [
     {
       "description": "Client credentials location is _Request body_",
-      "url": "https://api.xbrl.us/"
+      "url": "https://api.xbrl.us"
     }
   ],
   "tags": [
@@ -292,6 +292,9 @@
           },
           {
             "$ref": "#/components/parameters/report.document-type_Param"
+          },
+          {
+            "$ref": "#/components/parameters/report.document-index_Param"
           },
           {
             "$ref": "#/components/parameters/report.entry-url_Param"
@@ -681,6 +684,9 @@
           },
           {
             "$ref": "#/components/parameters/report.document-type_Param"
+          },
+          {
+            "$ref": "#/components/parameters/report.document-index_Param"
           },
           {
             "$ref": "#/components/parameters/report.entity-name_Param"
@@ -1197,6 +1203,9 @@
           },
           {
             "$ref": "#/components/parameters/report.document-type_Param"
+          },
+          {
+            "$ref": "#/components/parameters/report.document-index_Param"
           },
           {
             "$ref": "#/components/parameters/report.entity-name_Param"
@@ -3620,6 +3629,9 @@
         "description": "Search for _XBRL facts_ or _primary items_ based on the details of a hypercube.  \n## Examples\n### _-Get all the facts in a cube\n\nThe following call will: get all facts in the report with an id of `226471`; limit the number of records returned to `1010` facts; sort facts `A-Z by the concept name`, and; return the following values:\n  * dimensions.count\n  * dimensions\n  * period.fiscal-period\n  * period.year\n  * cube.primary-local-name.sort(ASC)\n  * fact.numerical-value\n  * fact.limit(1010)\n  * fact.value\n  * report.source-id\n\n        https://api.xbrl.us/api/v1/cube/search?report.id=226471&fields=dimensions.count,dimensions,period.fiscal-period,period.year,cube.primary-local-name.sort(ASC),fact.numerical-value,cube.limit(1010),fact.value\n\n    \n",
         "parameters": [
           {
+            "$ref": "#/components/parameters/cube.description_Param"
+          },
+          {
             "$ref": "#/components/parameters/cube.drs-role-uri_Param"
           },
           {
@@ -3753,6 +3765,9 @@
             "$ref": "#/components/parameters/cube.default-local-name_Param"
           },
           {
+            "$ref": "#/components/parameters/cube.description_Param"
+          },
+          {
             "$ref": "#/components/parameters/cube.dimension-local-name_Param"
           },
           {
@@ -3877,7 +3892,7 @@
             "schema": {
               "$ref": "#/components/schemas/document_fields"
             },
-            "description": "List of fields to return. \nAvailable fields are as follows:  \n  * document.example \n  * document.highlighted-vaule\n  * document.top-level\n  * document.tree-level\n  * document.tree-order\n  * document.type\n  * document.uri\n  * dts.id\n  * document.*\n\nTo limit the values returned use document._limit(n)_\n\nTo sort on a field use the field followed by .sort. For example to sort in ascending order for document.uri then enter document.uri._sort(ASC)_ as a return field.\n"
+            "description": "List of fields to return. \nAvailable fields are as follows:\n  * document.example\n  * document.highlighted-value\n  * document.content\n  * document.documentset  \n  * document.id\n  * document.top-level\n  * document.tree-level\n  * document.tree-order\n  * document.type\n  * document.uri\n  * dts.id\n  * entity.cik\n  * entity.code\n  * entity.name\n  * entity.scheme\n  * report.filing-date\n  * report.hash\n  * report.id\n  * document.*\n\nTo limit the values returned use document._limit(n)_\n\nTo sort on a field use the field followed by .sort. For example to sort in ascending order for document.uri then enter document.uri._sort(ASC)_ as a return field.\n\nThe document.example and document.highlighted-value will only return results when the search parameter document.text-search is used.the parameter  document.text-search cannot be used as a return field.  Its equivalent return values are document.example and document.highlighted-value.\n"
           }
         ],
         "responses": {
@@ -4376,6 +4391,7 @@
             "report.accession",
             "report.creation-software",
             "report.document-type",
+            "report.document-index",
             "report.entry-url",
             "report.filing-date",
             "report.id",
@@ -4531,6 +4547,7 @@
             "report.base-taxonomy",
             "report.creation-software",
             "report.document-type",
+            "report.document-index",
             "report.entity-name",
             "report.entry-type",
             "report.entry-url",
@@ -4617,6 +4634,7 @@
             "report.base-taxonomy",
             "report.creation-software",
             "report.document-type",
+            "report.document-index",
             "report.entity-name",
             "report.entry-type",
             "report.entry-url",
@@ -4933,6 +4951,27 @@
           },
           "dts.id": {
             "$ref": "#/components/schemas/dts_id"
+          },
+          "entity.cik": {
+            "$ref": "#/components/schemas/entity_cik"
+          },
+          "entity.code": {
+            "$ref": "#/components/schemas/entity_cik"
+          },
+          "entity.name": {
+            "$ref": "#/components/schemas/entity_name"
+          },
+          "entity.scheme": {
+            "$ref": "#/components/schemas/entity_scheme"
+          },
+          "report.filing-date": {
+            "$ref": "#/components/schemas/report_filing-date"
+          },
+          "report.hash": {
+            "$ref": "#/components/schemas/report_hash"
+          },
+          "report.id": {
+            "$ref": "#/components/schemas/report_id"
           }
         }
       },
@@ -5158,6 +5197,9 @@
           },
           "report.document-type": {
             "$ref": "#/components/schemas/report_document-type"
+          },
+          "report.document-index": {
+            "$ref": "#/components/schemas/report_document-index"
           },
           "report.entry-url": {
             "$ref": "#/components/schemas/report_entry-url"
@@ -5448,6 +5490,9 @@
           "report.document-type": {
             "$ref": "#/components/schemas/report_document-type"
           },
+          "report.document-index": {
+            "$ref": "#/components/schemas/report_document-index"
+          },
           "report.entity-name": {
             "$ref": "#/components/schemas/report_entity-name"
           },
@@ -5533,6 +5578,9 @@
           },
           "report.document-type": {
             "$ref": "#/components/schemas/report_document-type"
+          },
+          "report.document-index": {
+            "$ref": "#/components/schemas/report_document-index"
           },
           "report.entity-name": {
             "$ref": "#/components/schemas/report_entity-name"
@@ -6059,7 +6107,7 @@
       },
       "document_example": {
         "type": "string",
-        "description": "Excerpt of the document where text string search using document.text-search matched the request."
+        "description": "Excerpt of the document where text string search using document.text-search matched the request. This will opnly return a result when the document.text-search search parameter is used."
       },
       "document_highlighted-value": {
         "type": "string",
@@ -6787,6 +6835,11 @@
         "description": "The year that the filing was published.",
         "example": 2021
       },
+      "report_hash": {
+        "type": "string",
+        "description": "A hash string that is generated based on the semantic meaning of the report. Two identical reports expressed as XBRL JSON, XML or inline XBRL will have an identical hash string.  This makes it possible to determine if a report is a duplicate.",
+        "example": "\\\\xb46b615601cd46644a3de5f91adeca28462bcde252b1d7d1d970b011"
+      },
       "report_id": {
         "type": "integer",
         "description": "The identifier used to identify a report.",
@@ -6980,6 +7033,15 @@
           }
         },
         "description": "The concept name representing the concept name of an axis. Use this to search across multiple taxonomies where the local name is known to be consistent over time."
+      },
+      "cube.description_Param": {
+        "in": "query",
+        "name": "cube.description",
+        "schema": {
+          "type": "string",
+          "format": "uri"
+        },
+        "description": "The human readable description of the network role. In some filing regimes this is used to order the networks."
       },
       "cube.drs-role-uri_Param": {
         "in": "query",
@@ -7683,6 +7745,19 @@
           "type": "integer"
         },
         "description": "The order in which the relationship appears in the entire network."
+      },
+      "report.document-index_Param": {
+        "in": "query",
+        "name": "report.document-index",
+        "style": "form",
+        "explode": false,
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "description": "Allows the retrieval of reports other than most current. A value of 1 gets the latest report. A value of 2 gets the second to last report etc."
       },
       "report.document-type_Param": {
         "in": "query",
