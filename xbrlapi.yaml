@@ -33,6 +33,8 @@ info:
     
     **Nested objects** allow you to pull sub-object information from the main object. Sub-objects that can be used are dependent on the main object. For example, facts can be returned for specific reports, and relationships can be returned for specific networks.
 
+    **Unique results** can be achieved by including `unique` as part of the query. This evaluates displayed fields for comparison: if all displayed values match an existing result, it will not be included in the result set (ie. including a unique value like fact.id in the fields for a query that returns the same fact.value multiple times will cause the same fact.value to appear because the fact.id differentiates each result).
+
     In addition to accessing data through a specific object, **returned data can be managed by defining the properties of the data to be returned** and attributes of the properties:
     -  what details about the data should be returned - `fields`; 
     -  how many records should be returned - `limit`;
@@ -45,11 +47,11 @@ info:
     #### Limit 
     A `limit` restricts the number of results returned by the query. **The limit attribute can only be added to an object type and not a property.** For example, to limit the number of reports in a query, the limit property is added to the fields to return as follows: `report.limit(10)`.
 
-    #### Sort 
-    Any returned value can be sorted in ascending or descending order, by adding an additional attribute (ASC or DESC) to a field value (i.e. `report.document-type.sort(DESC)`). **Multiple sort criteria can be defined** and the sort sequence is determined by the order defined in the fields parameter. 
-
     #### Offset
     The 'offset' attribute enables targeting a return to a specific starting point in a query return sequence (i.e. `report.offset(120)`).  To work reliably, __at least one__ sorted property should be included in the returned fields.
+
+    #### Sort 
+    Any returned value can be sorted in ascending or descending order, by adding an additional attribute (ASC or DESC) to a field value (i.e. `report.document-type.sort(DESC)`). **Multiple sort criteria can be defined** and the sort sequence is determined by the order defined in the fields parameter. 
       
     In the following example, the 10 reports returned starting with the 120th report for the search query would be sorted alpha-numerically in descending order first by document type and then by timestamp:
 
