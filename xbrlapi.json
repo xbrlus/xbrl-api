@@ -6209,7 +6209,7 @@
       },
       "fact_accuracy-index": {
         "type": "integer",
-        "description": "When a fact is reported multiple times in a single report this value indicates how specific the fact is compared to the others.  A value of 1 is the most accurate and becomes less accurate the higher the value."
+        "description": "The accuracy-index is an integer recording the specificity of a fact within a report (or report type).  A value of 1 is the most accurate and becomes less accurate the higher the value. A value of 6 for example would indicate that the value has appeared 6 additional times in a report (or report type). If requesting values from a specific report type, an accuracy index of 1 will return the fact value from the most-recent version of the report type filed in which the fact appears."
       },
       "fact_decimals": {
         "type": "string",

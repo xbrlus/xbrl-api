@@ -286,6 +286,7 @@ paths:
         - $ref: '#/components/parameters/dts.target-namespace_Param'
         - $ref: '#/components/parameters/entity.cik_Param'
         - $ref: '#/components/parameters/entity.id_Param'
+        - $ref: '#/components/parameters/fact.accuracy-index_Param'
         - $ref: '#/components/parameters/fact.has-dimensions_Param'
         - $ref: '#/components/parameters/fact.hash_Param'
         - $ref: '#/components/parameters/fact.id_Param'
@@ -454,6 +455,7 @@ paths:
         - $ref: '#/components/parameters/dts.target-namespace_Param'
         - $ref: '#/components/parameters/entity.cik_Param'
         - $ref: '#/components/parameters/entity.id_Param'
+        - $ref: '#/components/parameters/fact.accuracy-index_Param'
         - $ref: '#/components/parameters/fact.has-dimensions_Param'
         - $ref: '#/components/parameters/fact.hash_Param'
         - $ref: '#/components/parameters/fact.id_Param'
@@ -654,6 +656,7 @@ paths:
         - $ref: '#/components/parameters/dts.target-namespace_Param'
         - $ref: '#/components/parameters/entity.cik_Param'
         - $ref: '#/components/parameters/entity.id_Param'
+        - $ref: '#/components/parameters/fact.accuracy-index_Param'
         - $ref: '#/components/parameters/fact.has-dimensions_Param'
         - $ref: '#/components/parameters/fact.hash_Param'
         - $ref: '#/components/parameters/fact.id_Param'
@@ -745,6 +748,7 @@ paths:
         - $ref: '#/components/parameters/entity.cik_Param'
         - $ref: '#/components/parameters/entity.id_Param'
         - $ref: '#/components/parameters/entity.ticker_Param'
+        - $ref: '#/components/parameters/fact.accuracy-index_Param'
         - $ref: '#/components/parameters/fact.has-dimensions_Param'
         - $ref: '#/components/parameters/fact.hash_Param'
         - $ref: '#/components/parameters/fact.id_Param'
@@ -2852,6 +2856,7 @@ components:
               ,entity.id
               ,entity.name
               ,entity.scheme
+              ,fact.accuracy-index
               ,fact.decimals
               ,fact.example
               ,fact.has-dimensions
@@ -3085,6 +3090,7 @@ components:
               ,entity.scheme
               ,fact.decimals
               ,fact.example
+              ,fact.accuracy-index
               ,fact.has-dimensions
               ,fact.hash
               ,fact.highlighted-value
@@ -3442,6 +3448,8 @@ components:
           $ref: '#/components/schemas/entity_name'
         entity.scheme:
           $ref: '#/components/schemas/entity_scheme'
+        fact.accuracy-index:
+          $ref: '#/components/schemas/fact_accuracy-index'
         fact.decimals:
           $ref: '#/components/schemas/fact_decimals'
         fact.example:
@@ -3576,6 +3584,8 @@ components:
           $ref: '#/components/schemas/entity_name'
         entity.scheme:
           $ref: '#/components/schemas/entity_scheme'
+        fact.accuracy-index:
+          $ref: '#/components/schemas/fact_accuracy-index'
         fact.decimals:
           $ref: '#/components/schemas/fact_decimals'
         fact.example:
@@ -5121,12 +5131,22 @@ components:
              type: string
        description: The stock exchange ticker of the entity filing the report. Although a company may have multiple tickers this returns a single value.
 
+    fact.accuracy-index_Param:
+       in: query
+       name: fact.accuracy-index
+       style: form
+       explode: false
+       schema:
+         type: array
+         items:
+          type:  integer
+       description: The accuracy-index is an integer recording the specificity of a fact within a report (or report type).  A value of 1 is the most accurate and becomes less accurate the higher the value. A value of 6 for example would indicate that the value has appeared 6 additional times in a report (or report type). If requesting values from a specific report type, an accuracy index of 1 will return the fact value from the most-recent version of the report type filed in which the fact appears.
     fact.has-dimensions_Param:
        in: query
        name: fact.has-dimensions
        schema:
           type: boolean
-       description: his boolean field indicates if the fact has any dimensions associated with it.
+       description: This boolean field indicates if the fact has any dimensions associated with it.
     fact.hash_Param:
        in: query
        name: fact.hash
