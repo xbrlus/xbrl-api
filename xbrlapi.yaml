@@ -11,23 +11,106 @@ info:
     
     The documentation below describes how to use the XBRL API. The purpose of the XBRL API is to provide a unified interface to stored XBRL data which any data utility can adopt. This unified interface allows developers with limited XBRL knowledge to learn a single interface to access many data repositories. This expands access to the market for available data, while also encouraging the use of fundamental structured data.
     
-    _To use this page interactively_, [generate a client ID and secret](https://xbrl.us/access-token) with your XBRL US Web account, then scroll down and click the **Authorize** button on the right-side of this page, or any of the lock icons. Enter the required details, change the "Client credentials location" to **Request body**, then click "Authorize" and "Close". Once authorized, click any **Try it out** button appearing at the top of any object's Parameters list to form a query and get results.  
+    **_To use this page interactively_**, [generate a client ID and secret](https://xbrl.us/access-token) with your XBRL US Web account, then scroll down and click the **Authorize** button on the right-side of this page, or any of the lock icons. Enter the required details, change the "Client credentials location" to **Request body**, then click "Authorize" and "Close". Once authorized, click any **Try it out** button appearing at the top of any object's Parameters list to form a query and get results.  
+
+    ## Changes
+
+    - The entity.cik and report.form-type fields were deprecated in favor of entity.code and report.document-type to allow for the inclusion of entity identifiers and reports from multiple sources. The API will continue to support entity.cik and report.form-type for backward compatibility, but they will be removed in a future release. Please update any queries using these filters/fields to use the updated values.
+
+    - This is a summary of filters added to the XBRL API since its release through May 2026.
+    #### `/api/v1/fact/search`
+    `concept.balance-type`, `entity.code`, `entity.name`, `entity.scheme`, `fact.numerical-value`, `footnote.role`, `footnote.text`, `period.instant`, `report.documentset-num`, `report.event-items`, `report.hash`, `report.html-url`, `report.is-most-current`, `report.period-focus`, `report.submission-type`, `report.year-focus`
+
+    #### `/api/v1/fact/oim/search`
+    `concept.balance-type`, `entity.code`, `entity.name`, `entity.scheme`, `fact.numerical-value`, `footnote.role`, `footnote.text`, `period.instant`, `report.document-type`, `report.document-index`, `report.documentset-num`, `report.event-items`, `report.hash`, `report.html-url`, `report.is-most-current`, `report.period-focus`, `report.submission-type`, `report.year-focus`
+
+    #### `/api/v1/report/search`
+    `entity.code`, `entity.name`, `entity.scheme`, `report.accepted-timestamp`, `report.base-taxonomy`, `report.creation-software`, `report.documentset-num`, `report.event-items`, `report.hash`, `report.html-url`, `report.period-focus`, `report.period-index`, `report.submission-type`, `report.year-focus`, `report.zip-url`
+
+    #### `/api/v1/report/{report.id}/fact/search`
+    `concept.balance-type`, `entity.code`, `entity.name`, `entity.scheme`, `fact.numerical-value`, `footnote.role`, `footnote.text`, `period.instant`, `report.accepted-timestamp`, `report.base-taxonomy`, `report.document-type`, `report.document-index`, `report.documentset-num`, `report.entity-name`, `report.entry-type`, `report.event-items`, `report.filer-category`, `report.hash`, `report.html-url`, `report.is-most-current`, `report.period-focus`, `report.period-index`, `report.submission-type`, `report.year-focus`, `report.zip-url`
+
+    #### `/api/v1/report/fact/search`
+    `concept.balance-type`, `dimensions.count`, `entity.code`, `entity.name`, `entity.scheme`, `entity.ticker`, `fact.numerical-value`, `footnote.role`, `footnote.text`, `period.instant`, `report.accepted-timestamp`, `report.base-taxonomy`, `report.documentset-num`, `report.event-items`, `report.hash`, `report.html-url`, `report.period-focus`, `report.submission-type`, `report.year-focus`, `report.zip-url`
+
+    #### `/api/v1/entity/search`
+    `entity.code`
+
+    #### `/api/v1/entity/{entity.id}/report/search`
+    `report.accepted-timestamp`, `report.base-taxonomy`, `report.creation-software`, `report.documentset-num`, `report.entity-name`, `report.event-items`, `report.hash`, `report.html-url`, `report.period-focus`, `report.submission-type`, `report.year-focus`, `report.zip-url`
+
+    #### `/api/v1/entity/report/search`
+    `entity.code`, `entity.name`, `entity.scheme`, `report.accepted-timestamp`, `report.base-taxonomy`, `report.creation-software`, `report.documentset-num`, `report.event-items`, `report.hash`, `report.html-url`, `report.period-focus`, `report.submission-type`, `report.year-focus`, `report.zip-url`
+
+    #### `/api/v1/assertion/search`
+    `entity.cik`, `entity.code`, `entity.scheme`, `report.base-taxonomy`, `report.period-focus`, `report.year-focus`, `report.zip-url`
+
+    #### `/api/v1/dts/search`
+    Added filter: `report.hash`
+
+    #### `/api/v1/cube/search`
+    `concept.balance-type`, `cube.member-value`, `entity.code`, `entity.id`, `fact.accuracy-index`, `fact.numerical-value`, `fact.ultimus`, `footnote.role`, `footnote.text`, `report.base-taxonomy`, `report.document-type`, `report.entity-name`, `report.source-id`, `report.source-name`, `report.year-focus`
+
+    #### `/api/v1/dimension/search`
+    `report.document-type`, `report.id`, `report.source-id`, `report.source-name`
+
+    #### `/api/v1/document/search`
+    `document.documentset`, `document.id`, `entity.cik`, `entity.code`, `entity.name`, `entity.scheme`, `report.hash`, `report.id`, `report.source-id`, `report.source-name`
+
+    #### `/api/v1/label/{dts.id}/search` and `/api/v1/label/search`
+    Added filter: `concept.is-abstract`
+
+    #### `/api/v1/network/{network.id}/relationship/search` and `/api/v1/network/relationship/search`
+    `network.role-description-like`, `relationship.target-label`
+
+    #### `/api/v1/relationship/search` and `/api/v1/relationship/tree/search`
+    `network.role-description-like`, `relationship.target-label`
+
+    #### `/api/v1/dts/{dts.id}/network/search`
+    `network.role-description`, `network.role-description-like`, `relationship.target-is-abstract`, `relationship.target-label`
     
+    - The following definitions were added/updated in May 2026.
+    | Field | Type | Description |
+    |-----------|------|-------------|
+    | `concept.balance-type` | string | The balance type of a concept. This can be either debit, credit or not defined. |
+    | `concept.is-abstract` | boolean | Identifies if the concept is an abstract concept. If a primary concept (Not an axis or dimension) is an abstract it cannot have a value associated with it. |
+    | `cube.member-value` | string | Typed value or local-name of the member depending on the dimension type. |
+    | `document.documentset` | boolean | Boolean attribute that indicates if the document is part of the document set, i.e. an inline document. |
+    | `document.id` | integer | An internal unique identifier of the document. |
+    | `entity.code` | array[string] | The entity identifier from its associated source (ie. SEC entity codes are the Central Index Code or CIK; FERC entity codes are Company Identifier or CID). All entity identifiers are in this field. |
+    | `entity.scheme` | string | The scheme of the identifier associated with a fact, report or DTS. A fact could have multiple entity identifiers and this indicates the identifier that was used. |
+    | `fact.numerical-value` | number | The numerical value of the fact that was reported. |
+    | `footnote.role` | string | The role used for the footnote. |
+    | `footnote.text` | string | The text content of the footnote. |
+    | `network.role-description-like` | string | The human readable description of the network role. This is used to do a text search on components of the text string. |
+    | `period.instant` | date | Instant in time at which the fact was measured, only applicable for facts with a period type of instant. |
+    | `relationship.target-label` | string | The label of the concept under the source relationship. |
+    | `report.accepted-timestamp` | date-time | Date that the report was accepted at the regulator. |
+    | `report.base-taxonomy` | string | Base taxonomy used for the filing, i.e. US-GAAP 2020. |
+    | `report.documentset-num` | integer | The number of inline xbrl documents associated with the filing. |
+    | `report.event-items` | string | The SEC 8-K event items associated with the report - see https://xbrl.us/8-k-items. |
+    | `report.hash` | string | A hash string that is generated based on the semantic meaning of the report. Two identical reports expressed as XBRL JSON, XML or inline XBRL will have an identical hash string. This makes it possible to determine if a report is a duplicate. |
+    | `report.html-url` | string | The URL of the HTML version of the report. |
+    | `report.period-focus` | string | The period the report was reported for. |
+    | `report.submission-type` | string | A FERC filing identifier indicating if it's the first time it was filed or a subsequent one. (O = Original; R = Restated) |
+    | `report.year-focus` | string | The reporting year for the filing. |
+    | `report.zip-url` | string | The url where the zip containing all the files of a filing can be accessed. |
+
     ### Structure and Syntax
     The API is structured to allow the return of XBRL details as objects, which are used to classify XBRL data. These objects generally fall into two categories: **facts and data taxonomy**. Each object has multiple properties that can be used to define the query. Some are shared and others are unique to the object. **Objects can also be nested** allowing specific information about the main object to be retrieved.
     
-    Each object has properties that can be accessed by requesting them from the XBRL API. The property of the object is defined using a dot notation (i.e. `object.property`). For example, to return the __value__ of the fact, use `fact.value`. While many of these properties can also be used to search for data, **not all properties of the object are searchable** and some properties may be defined as components of other objects and are inherited from these objects.
+    Each object has properties that can be accessed by requesting them from the XBRL API. The property of the object is defined using a dot notation (i.e. `object.property`). For example, to return the **value** of the fact, use `fact.value`. While many of these properties can also be used to search for data, **not all properties of the object are searchable** and some properties may be defined as components of other objects and are inherited from these objects.
     
     #### Object Search
     The `search` keyword is used as an endpoint in many URIs. This indicates to the API that you will be searching on one or more properties of the object. A search can be performed on one object at a time, and is based on the first object that appears in the URI. 
     
-    For example, in the following uri, `entity.cik` is the search property with the report object:
+    For example, in the following uri, `entity.code` is the search property with the report object:
     
-    `/api/v1/report/search?entity.cik=0001493040&fields=report.*`
+    `/api/v1/report/search?entity.code=0001493040&fields=report.*`
     
     Multiple parameters can be included in a search and are separated by ampersands (&). In the case below, the API will return `fact.value` data for a given CIK for Assets for 2017 in the first quarter:
     
-    `/api/v1/fact/search?concept.local-name=Assets&period.fiscal-year=2017&period.fiscal.period=1Q&Entity.cik=0000001&fields=fact.value`
+    `/api/v1/fact/search?concept.local-name=Assets&period.fiscal-year=2017&period.fiscal.period=1Q&entity.code=0001493040&fields=fact.value`
     
     It is not possible to search on a property that is not a component of the object. In the example above, the endpoint is referencing the fact object (fact appears after v1) so a user must search on a valid fact property.
     
@@ -147,7 +230,7 @@ paths:
       operationId: tokenUrl
       tags: [oauth2]
       security: []
-      description: >
+      description: |
           Assuming a valid login exists, this route allows a trusted client to aquire an access token for itself, or to request an access token for a specific user. **You may send both `client_credentials` grants and `password` grants via the following**: 
            * **application/x-www-form-urlencoded**
 
@@ -172,7 +255,7 @@ paths:
           #     $ref: '#/components/schemas/authorization_grant'
       responses:
         '200':
-          description: >
+          description: |
             The authorization grant has been validated, and an access token is granted. **[Read more](https://jwt.io/introduction/)**
           content:
             application/json:
@@ -200,7 +283,7 @@ paths:
                     example: 3600
                   token_type:
                     type: string
-                    description: >
+                    description: |
                       _The token_type will always be bearer._ The access_token is considered a bearer token, and thus should be placed in all subsequent requests to the resource endpoints by using the following header:
                         * Authorization: Bearer [token]
                     example: bearer
@@ -209,7 +292,7 @@ paths:
               operationId: tokenUrl
               parameters:
                 bearerAuth: '$response.body#access_token'
-              description: >
+              description: |
                 The `access_token` value returned in the response can be used as the `bearer token`.
         '400':
           $ref: '#/components/responses/bad_request'
@@ -228,7 +311,7 @@ paths:
       security:
         - OAuth2: []
         - bearerAuth: []
-      description: > 
+      description: | 
           Search for _XBRL facts_ based on the attributes of the fact, the report it was in, or the source of the data.  
           ## Examples
           ### _-Get all the facts in a document_
@@ -237,7 +320,6 @@ paths:
             * entity.name
             * dimensions.count
             * dimensions
-            * entity.cik
             * period.fiscal-period
             * period.end
             * period.instant
@@ -248,7 +330,7 @@ paths:
             * footnote.text
             * footnote.role
 
-                  https://api.xbrl.us/api/v1/fact/search?report.id=226471&fields=entity.name,dimensions.count,dimensions,entity.cik,period.fiscal-period,period.end,period.instant,period.year,concept.local-name.sort(ASC),fact.numerical-value,fact.limit(1010),fact.value,report.source-id,footnote.text,footnote.role
+                  https://api.xbrl.us/api/v1/fact/search?report.id=226471&fields=entity.name,dimensions.count,dimensions,entity.code,period.fiscal-period,period.end,period.instant,period.year,concept.local-name.sort(ASC),fact.numerical-value,fact.limit(1010),fact.value,report.source-id,footnote.text,footnote.role
             
 
           ### _-Get Operating Cash used by Pharma for the 2017 year_
@@ -276,7 +358,6 @@ paths:
         - $ref: '#/components/parameters/dts.entry-point_Param'
         - $ref: '#/components/parameters/dts.id_Param'
         - $ref: '#/components/parameters/dts.target-namespace_Param'
-        - $ref: '#/components/parameters/entity.cik_Param'
         - $ref: '#/components/parameters/entity.code_Param'
         - $ref: '#/components/parameters/entity.id_Param'
         - $ref: '#/components/parameters/entity.name_Param'
@@ -313,7 +394,6 @@ paths:
         - $ref: '#/components/parameters/report.documentset-num_Param'
         - $ref: '#/components/parameters/report.entry-url_Param'
         - $ref: '#/components/parameters/report.event-items_Param'
-        - $ref: '#/components/parameters/report.form-type_Param'
         - $ref: '#/components/parameters/report.hash_Param'
         - $ref: '#/components/parameters/report.html-url_Param'
         - $ref: '#/components/parameters/report.id_Param'
@@ -336,7 +416,7 @@ paths:
           allowEmptyValue : false
           schema:
             $ref: '#/components/schemas/fact_fields'
-          description: This is the list of fields that can be returned for _XBRL facts_.        
+          description: This is the list of fields that can be returned for _XBRL facts_. 
         # - in: query
         #   name: aspect
         #   # Wrap 'schema' into 'content.<media-type>'
@@ -371,7 +451,7 @@ paths:
               operationId: getFactBasedOnFactID
               parameters:
                 fact.id: '$response.body#/data/fact.id'
-              description: >
+              description: |
                 The `fact.id` value returned in the response can be used as the `factId` parameter in `/api/v1/fact/{fact.id}`.
           # -----------------------------------------------------
         '201':
@@ -393,7 +473,7 @@ paths:
       security:
         - OAuth2: []
         - bearerAuth: []
-      description: >
+      description: |
           Search for _XBRL facts_ based on the fact.id attribute of the fact.
       parameters:
         - $ref: '#/components/parameters/fact.text-search_Param'
@@ -443,7 +523,7 @@ paths:
       tags: [fact]
       security:
         - bearerAuth: []
-      description: >
+      description: |
           Returns _XBRL facts_ detail in the OIM JSON format.
       parameters:
         - $ref: '#/components/parameters/concept.balance-type_Param'
@@ -460,7 +540,6 @@ paths:
         - $ref: '#/components/parameters/dts.entry-point_Param'
         - $ref: '#/components/parameters/dts.id_Param'
         - $ref: '#/components/parameters/dts.target-namespace_Param'
-        - $ref: '#/components/parameters/entity.cik_Param'
         - $ref: '#/components/parameters/entity.code_Param'
         - $ref: '#/components/parameters/entity.id_Param'
         - $ref: '#/components/parameters/entity.name_Param'
@@ -495,7 +574,6 @@ paths:
         - $ref: '#/components/parameters/report.documentset-num_Param'
         - $ref: '#/components/parameters/report.entry-url_Param'
         - $ref: '#/components/parameters/report.event-items_Param'
-        - $ref: '#/components/parameters/report.form-type_Param'
         - $ref: '#/components/parameters/report.hash_Param'
         - $ref: '#/components/parameters/report.html-url_Param'
         - $ref: '#/components/parameters/report.id_Param'
@@ -541,21 +619,18 @@ paths:
       security:
         - OAuth2: []
         - bearerAuth: []
-      description: >
+      description: |
           Return details for _XBRL reports_ based on the attributes of the report(s).
       parameters:
         - $ref: '#/components/parameters/dts.id_Param'
-        - $ref: '#/components/parameters/entity.cik_Param'
         - $ref: '#/components/parameters/entity.code_Param'
         - $ref: '#/components/parameters/entity.id_Param'
         - $ref: '#/components/parameters/entity.name_Param'
         - $ref: '#/components/parameters/entity.scheme_Param'
         - $ref: '#/components/parameters/entity.ticker_Param'
-        - $ref: '#/components/parameters/entity.ticker2_Param'
         - $ref: '#/components/parameters/report.accepted-timestamp_Param'
         - $ref: '#/components/parameters/report.accession_Param'
         - $ref: '#/components/parameters/report.base-taxonomy_Param'
-        - $ref: '#/components/parameters/report.checks-run_Param'
         - $ref: '#/components/parameters/report.creation-software_Param'
         - $ref: '#/components/parameters/report.document-type_Param'
         - $ref: '#/components/parameters/report.document-index_Param'
@@ -565,7 +640,6 @@ paths:
         - $ref: '#/components/parameters/report.entry-url_Param'
         - $ref: '#/components/parameters/report.event-items_Param'
         - $ref: '#/components/parameters/report.filer-category_Param'
-        - $ref: '#/components/parameters/report.form-type_Param'
         - $ref: '#/components/parameters/report.hash_Param'
         - $ref: '#/components/parameters/report.html-url_Param'
         - $ref: '#/components/parameters/report.id_Param'
@@ -623,7 +697,7 @@ paths:
       security:
         - OAuth2: []
         - bearerAuth: []
-      description: >
+      description: |
           Return detail for an _XBRL report_ based on the report.id attribute.
       parameters:
         - in: path
@@ -673,7 +747,7 @@ paths:
       tags: [report]
       security:
         - bearerAuth: []
-      description: >
+      description: |
           Allows searching for _XBRL reports_ based on the report.id and returns certain _XBRL facts_ associated with that report.  The attributes of those facts can be used as search parameters.
       parameters:
         - in: path
@@ -696,7 +770,6 @@ paths:
         - $ref: '#/components/parameters/dts.entry-point_Param'
         - $ref: '#/components/parameters/dts.id_Param'
         - $ref: '#/components/parameters/dts.target-namespace_Param'
-        - $ref: '#/components/parameters/entity.cik_Param'
         - $ref: '#/components/parameters/entity.code_Param'
         - $ref: '#/components/parameters/entity.id_Param'
         - $ref: '#/components/parameters/entity.name_Param'
@@ -729,7 +802,6 @@ paths:
         - $ref: '#/components/parameters/report.accepted-timestamp_Param'
         - $ref: '#/components/parameters/report.accession_Param'
         - $ref: '#/components/parameters/report.base-taxonomy_Param'
-        - $ref: '#/components/parameters/report.checks-run_Param'
         - $ref: '#/components/parameters/report.creation-software_Param'
         - $ref: '#/components/parameters/report.document-type_Param'
         - $ref: '#/components/parameters/report.document-index_Param'
@@ -739,7 +811,6 @@ paths:
         - $ref: '#/components/parameters/report.entry-url_Param'
         - $ref: '#/components/parameters/report.event-items_Param'
         - $ref: '#/components/parameters/report.filer-category_Param'
-        - $ref: '#/components/parameters/report.form-type_Param'
         - $ref: '#/components/parameters/report.hash_Param'
         - $ref: '#/components/parameters/report.html-url_Param'
         - $ref: '#/components/parameters/report.id_Param'
@@ -798,7 +869,7 @@ paths:
       security:
         - OAuth2: []
         - bearerAuth: []
-      description: >
+      description: |
           Allows searching for _XBRL reports_ based on valid report search parameters and returns certain _XBRL facts_ associated with qualified reports.  The attributes of those facts can be used as search parameters.
       parameters:
         - $ref: '#/components/parameters/concept.balance-type_Param'
@@ -815,13 +886,11 @@ paths:
         - $ref: '#/components/parameters/dts.entry-point_Param'
         - $ref: '#/components/parameters/dts.id_Param'
         - $ref: '#/components/parameters/dts.target-namespace_Param'
-        - $ref: '#/components/parameters/entity.cik_Param'
         - $ref: '#/components/parameters/entity.code_Param'
         - $ref: '#/components/parameters/entity.id_Param'
         - $ref: '#/components/parameters/entity.name_Param'
         - $ref: '#/components/parameters/entity.scheme_Param'
         - $ref: '#/components/parameters/entity.ticker_Param'
-        - $ref: '#/components/parameters/entity.ticker2_Param'
         - $ref: '#/components/parameters/fact.accuracy-index_Param'
         - $ref: '#/components/parameters/fact.has-dimensions_Param'
         - $ref: '#/components/parameters/fact.hash_Param'
@@ -850,7 +919,6 @@ paths:
         - $ref: '#/components/parameters/report.accepted-timestamp_Param'
         - $ref: '#/components/parameters/report.accession_Param'
         - $ref: '#/components/parameters/report.base-taxonomy_Param'
-        - $ref: '#/components/parameters/report.checks-run_Param'
         - $ref: '#/components/parameters/report.creation-software_Param'
         - $ref: '#/components/parameters/report.document-type_Param'
         - $ref: '#/components/parameters/report.document-index_Param'
@@ -860,7 +928,6 @@ paths:
         - $ref: '#/components/parameters/report.entry-url_Param'
         - $ref: '#/components/parameters/report.event-items_Param'
         - $ref: '#/components/parameters/report.filer-category_Param'
-        - $ref: '#/components/parameters/report.form-type_Param'
         - $ref: '#/components/parameters/report.hash_Param'
         - $ref: '#/components/parameters/report.html-url_Param'
         - $ref: '#/components/parameters/report.id_Param'
@@ -885,7 +952,6 @@ paths:
           allowEmptyValue : false
           schema:
             $ref: '#/components/schemas/report_details_with_facts'
-
           description: Report *and* fact fields can be returned by a nested report/fact query.
       responses:
         '200':
@@ -919,7 +985,7 @@ paths:
       security:
         - OAuth2: []
         - bearerAuth: []
-      description: >
+      description: |
           Deletes an _XBRL report_.
       parameters:
         - in: path
@@ -961,15 +1027,13 @@ paths:
       security:
         - OAuth2: []
         - bearerAuth: []
-      description: >
+      description: |
           Allows searching for _XBRL entities_ based on the entity search parameters associated with the reporting entity. Use this to get ticker or CIK information quickly with a known entity name or ticker.
       parameters:
-        - $ref: '#/components/parameters/entity.cik_Param'
         - $ref: '#/components/parameters/entity.code_Param'
         - $ref: '#/components/parameters/entity.id_Param'
         - $ref: '#/components/parameters/entity.name_Param'
         - $ref: '#/components/parameters/entity.ticker_Param'
-        - $ref: '#/components/parameters/entity.ticker2_Param'
         - in: query
           name: fields
           required: true
@@ -994,17 +1058,15 @@ paths:
                     items:
                       type: object
                       properties:
-                        entity.cik:
-                          $ref: '#/components/schemas/entity_cik'
                         entity.id:
                           $ref: '#/components/schemas/entity_id'
+                        entity.code:
+                          $ref: '#/components/schemas/entity_code'
                         entity.name:
                           $ref: '#/components/schemas/entity_name'
                         entity.scheme:
                           $ref: '#/components/schemas/entity_scheme'
                         entity.ticker:
-                          $ref: '#/components/schemas/entity_ticker'
-                        entity.ticker2:
                           $ref: '#/components/schemas/entity_ticker'
         '201':
           $ref: '#/components/responses/invalid_request'
@@ -1024,7 +1086,7 @@ paths:
       tags: [entity]
       security:
         - bearerAuth: []
-      description: >
+      description: |
           Search for _XBRL reports_ based on the entity identifier associated with the reporting entity. Get entity and report information for the known entity. 
       parameters:
         - in: path
@@ -1036,7 +1098,6 @@ paths:
         - $ref: '#/components/parameters/report.accepted-timestamp_Param'
         - $ref: '#/components/parameters/report.accession_Param'
         - $ref: '#/components/parameters/report.base-taxonomy_Param'
-        - $ref: '#/components/parameters/report.checks-run_Param'
         - $ref: '#/components/parameters/report.creation-software_Param'
         - $ref: '#/components/parameters/report.document-type_Param'
         - $ref: '#/components/parameters/report.documentset-num_Param'
@@ -1045,7 +1106,6 @@ paths:
         - $ref: '#/components/parameters/report.entry-url_Param'
         - $ref: '#/components/parameters/report.event-items_Param'
         - $ref: '#/components/parameters/report.filer-category_Param'
-        - $ref: '#/components/parameters/report.form-type_Param'
         - $ref: '#/components/parameters/report.hash_Param'
         - $ref: '#/components/parameters/report.html-url_Param'
         - $ref: '#/components/parameters/report.id_Param'
@@ -1103,20 +1163,17 @@ paths:
       security:
         - OAuth2: []
         - bearerAuth: []
-      description: >
+      description: |
           Search _XBRL reports_ grouped by the entity that filed the reports. The API allows searching on the attributes of the entity and the report.
       parameters:
-        - $ref: '#/components/parameters/entity.cik_Param'
         - $ref: '#/components/parameters/entity.code_Param'
         - $ref: '#/components/parameters/entity.id_Param'
         - $ref: '#/components/parameters/entity.name_Param'
         - $ref: '#/components/parameters/entity.scheme_Param'
         - $ref: '#/components/parameters/entity.ticker_Param'
-        - $ref: '#/components/parameters/entity.ticker2_Param'
         - $ref: '#/components/parameters/report.accepted-timestamp_Param'
         - $ref: '#/components/parameters/report.accession_Param'
         - $ref: '#/components/parameters/report.base-taxonomy_Param'
-        - $ref: '#/components/parameters/report.checks-run_Param'
         - $ref: '#/components/parameters/report.creation-software_Param'
         - $ref: '#/components/parameters/report.document-type_Param'
         - $ref: '#/components/parameters/report.documentset-num_Param'
@@ -1125,7 +1182,6 @@ paths:
         - $ref: '#/components/parameters/report.entry-url_Param'
         - $ref: '#/components/parameters/report.event-items_Param'
         - $ref: '#/components/parameters/report.filer-category_Param'
-        - $ref: '#/components/parameters/report.form-type_Param'
         - $ref: '#/components/parameters/report.hash_Param'
         - $ref: '#/components/parameters/report.html-url_Param'
         - $ref: '#/components/parameters/report.id_Param'
@@ -1183,7 +1239,7 @@ paths:
       security:
         - OAuth2: []
         - bearerAuth: []
-      description: >
+      description: |
           Allows searching for _XBRL entities_ based on the entity identifier associated with the reporting entity. Use this to get ticker or CIK information quickly with a known entity.id.
       parameters:
         - in: path
@@ -1234,14 +1290,13 @@ paths:
       security:
         - OAuth2: []
         - bearerAuth: []
-      description: >
+      description: |
           Search for errors in _XBRL reports_ based on validation frameworks used by regulators and Data Quality Committees. The API allows searching for errors by report, error code, sverity of the error, etc.
       parameters:
         - $ref: '#/components/parameters/assertion.code_Param'
         - $ref: '#/components/parameters/assertion.severity_Param'
         - $ref: '#/components/parameters/assertion.source_Param'
         - $ref: '#/components/parameters/assertion.type_Param'
-        - $ref: '#/components/parameters/entity.cik_Param'
         - $ref: '#/components/parameters/entity.code_Param'
         - $ref: '#/components/parameters/entity.name_Param'
         - $ref: '#/components/parameters/entity.scheme_Param'
@@ -1251,7 +1306,6 @@ paths:
         - $ref: '#/components/parameters/report.document-type_Param'
         - $ref: '#/components/parameters/report.entry-url_Param'
         - $ref: '#/components/parameters/report.filing-year_Param'
-        - $ref: '#/components/parameters/report.form-type_Param'
         - $ref: '#/components/parameters/report.id_Param'
         - $ref: '#/components/parameters/report.period-focus_Param'
         - $ref: '#/components/parameters/report.sec-url_Param'
@@ -1312,7 +1366,7 @@ paths:
                 file:
                   type: string
                   format: binary
-                  description: Define the XBRL file in a .zip to be validated.  The file must be based on either the IFRS or US GAAP taxonomies.
+                  description: Define the XBRL file in a .zip to be validated. The file must be based on either the IFRS or US GAAP taxonomies.
                 Task:
                   type: string
                   description: This parameter allows the user to control which rules will be run. The option dqcfiling will run Data Quality Committee (DQC) rules. The checkfiling option will run the DQC rules and the [XBRL US SEC Filer Membership rules](https://xbrl.us/sec-filer) for qualified accounts.
@@ -1337,14 +1391,14 @@ paths:
                 status:
                   type: string
                   default: approved
-                  description: Used to specify either the current [Approved Data Quality Committee rules](https://xbrl.us/rules-guidance), or any [Proposed Rules  (inclusive of Approved Rules)](https://xbrl.us/public-review). The default value is approved if nothing is specified.
+                  description: Used to specify either the current [Approved Data Quality Committee rules](https://xbrl.us/rules-guidance), or any [Proposed Rules (inclusive of Approved Rules)](https://xbrl.us/public-review). The default value is approved if nothing is specified.
                   enum: [
                         approved
                         ,proposed
                         ]
                 run_rules:
                   type: string
-                  description: >
+                  description: |
                     Used to run a single rule rather than an entire set of rules. For DQC rules, the full rule number is used if it is defined such as DQC.US.0001.54.  However some rules the suffix is determined at run time. This means certain rules such as DQC 15 which have the suffix defined as part of the rule must exclude the rule number suffix. To run DQC rule 15 the value of 'DQC.US.0015' is [assed as the parameter. The following rules will do not use a rule number suffix.
                     * DQC.US.0015
                     * DQC.IFRS.0080
@@ -1378,7 +1432,7 @@ paths:
       security:
         - OAuth2: []
         - bearerAuth: []
-      description: >
+      description: |
           Search for a _XBRL discoverable taxonomy set (DTS)_ based on taxonomy name, entry point, hash, etc.
       parameters:
         - $ref: '#/components/parameters/dts.entry-point_Param'
@@ -1431,7 +1485,7 @@ paths:
       security:
         - OAuth2: []
         - bearerAuth: []
-      description: >
+      description: |
           Search for _XBRL concepts_ in a specific DTS.
       parameters:
         - in: path
@@ -1439,7 +1493,7 @@ paths:
           required: true
           schema:
             type: integer
-          description: The DTS ID for a given group of taxonomies. XBRL facts and linkbases are typically associated with a given report that is asscociated with a dts.
+          description: The DTS ID for a given group of taxonomies. XBRL facts and linkbases are typically associated with a given report that is associated with a dts.
           example: 321964
         - $ref: '#/components/parameters/concept.id_Param'
         - $ref: '#/components/parameters/concept.local-name_Param'
@@ -1488,7 +1542,7 @@ paths:
       security:
         - OAuth2: []
         - bearerAuth: []
-      description: >
+      description: |
           Search for _XBRL concept_ details based on specific dts.id and concept.local-name parameters. The returned attributes of the DTS and concept can be used as search parameters.
       parameters:
         - in: path
@@ -1496,14 +1550,14 @@ paths:
           required: true
           schema:
             type: integer
-          description: The DTS identifier for a given group of taxonomies. XBRL facts and linkbases are typically associated with a given report that is asscociated with a dts.
+          description: The DTS identifier for a given group of taxonomies. XBRL facts and linkbases are typically associated with a given report that is associated with a dts.
           example: 321964
         - in: path
           name: concept.local-name
           required: true
           schema:
             type: string
-          description: The concept name in the base schema of a taxonomy exluding the namespace, such as Assets or Liabilities. Use this to search across multiple taxonomies where the local name is known to be consistent over time.
+          description: The concept name in the base schema of a taxonomy excluding the namespace, such as Assets or Liabilities. Use this to search across multiple taxonomies where the local name is known to be consistent over time.
           example: Assets
         - in: query
           name: fields
@@ -1546,7 +1600,7 @@ paths:
       security:
         - OAuth2: []
         - bearerAuth: []
-      description: >
+      description: |
           Search for _XBRL label_ information for a given _XBRL concept_ in a specific DTS.
       parameters:
         - in: path
@@ -1554,14 +1608,14 @@ paths:
           required: true
           schema:
             type: integer
-          description: The DTS identifier for a given group of taxonomies. XBRL facts and linkbases are typically associated with a given report that is asscociated with a dts.
+          description: The DTS identifier for a given group of taxonomies. XBRL facts and linkbases are typically associated with a given report that is associated with a dts.
           example: 321964
         - in: path
           name: concept.local-name
           required: true
           schema:
             type: string
-          description: The concept name in the base schema of a taxonomy exluding the namespace, such as Assets or Liabilities. Use this to search across multiple taxonomies where the local name is known to be consistent over time.
+          description: The concept name in the base schema of a taxonomy excluding the namespace, such as Assets or Liabilities. Use this to search across multiple taxonomies where the local name is known to be consistent over time.
           example: Assets
         - in: query
           name: fields
@@ -1604,7 +1658,7 @@ paths:
       security:
         - OAuth2: []
         - bearerAuth: []
-      description: >
+      description: |
           Search for _XBRL references_ of a given _XBRL concept_ for a specific DTS.
       parameters:
         - in: path
@@ -1612,14 +1666,14 @@ paths:
           required: true
           schema:
             type: integer
-          description: The DTS identifier for a given group of taxonomies. XBRL facts and linkbases are typically associated with a given report that is asscociated with a dts.
+          description: The DTS identifier for a given group of taxonomies. XBRL facts and linkbases are typically associated with a given report that is associated with a dts.
           example: 321964
         - in: path
           name: concept.local-name
           required: true
           schema:
             type: string
-          description: The concept name in the base schema of a taxonomy exluding the namespace, such as Assets or Liabilities. Use this to search across multiple taxonomies where the local name is known to be consistent over time.
+          description: The concept name in the base schema of a taxonomy excluding the namespace, such as Assets or Liabilities. Use this to search across multiple taxonomies where the local name is known to be consistent over time.
           example: Assets
         - in: query
           name: fields
@@ -1662,7 +1716,7 @@ paths:
       security:
         - OAuth2: []
         - bearerAuth: []
-      description: >
+      description: |
           Request _XBRL network_ and _XBRL relationship_ information for a specific DTS.
       parameters:
         - in: path
@@ -1670,7 +1724,7 @@ paths:
           required: true
           schema:
             type: integer
-          description: The DTS identifier for a given group of taxonomies. XBRL facts and linkbases are typically associated with a given report that is asscociated with a dts.
+          description: The DTS identifier for a given group of taxonomies. XBRL facts and linkbases are typically associated with a given report that is associated with a dts.
           example: 321964
         - in: query
           name: fields
@@ -1713,7 +1767,7 @@ paths:
       security:
         - OAuth2: []
         - bearerAuth: []
-      description: >
+      description: |
           Search for _XBRL relationship_ details within the _XBRL networks_ of a specific DTS.
       parameters:
         - in: path
@@ -1721,7 +1775,7 @@ paths:
           required: true
           schema:
             type: integer
-          description: The DTS identifier for a given group of taxonomies. XBRL facts and linkbases are typically associated with a given report that is asscociated with a dts.
+          description: The DTS identifier for a given group of taxonomies. XBRL facts and linkbases are typically associated with a given report that is associated with a dts.
           example: 321964
         - $ref: '#/components/parameters/network.arcrole-uri_Param'
         - $ref: '#/components/parameters/network.id_Param'
@@ -1783,7 +1837,7 @@ paths:
       security:
         - OAuth2: []
         - bearerAuth: []
-      description: >
+      description: |
           Search for _XBRL concept_ details for a given DTS, or across a set of taxonomies. If searching for concept details it highly recomended that a DTS identifier is used to limit the concept search, *especially when returning label data*. For example, if _no DTS is presribed_ and the details of Assets are requested, the API will attempt to return _all the labels used for Assets in every single filing made_.
       parameters:
         - $ref: '#/components/parameters/concept.id_Param'
@@ -1834,7 +1888,7 @@ paths:
       security:
         - OAuth2: []
         - bearerAuth: []
-      description: >
+      description: |
           Allows searching for _XBRL concept_ details in _XBRL reports_.
       parameters:
         - in: path
@@ -1842,7 +1896,7 @@ paths:
           required: true
           schema:
             type: string
-          description: The concept name in the base schema of a taxonomy exluding the namespace, such as Assets or Liabilities. Use this to search across multiple taxonomies where the local name is known to be consistent over time.
+          description: The concept name in the base schema of a taxonomy excluding the namespace, such as Assets or Liabilities. Use this to search across multiple taxonomies where the local name is known to be consistent over time.
         - $ref: '#/components/parameters/concept.id_Param'
         - $ref: '#/components/parameters/concept.local-name_Param'
         - $ref: '#/components/parameters/concept.namespace_Param'
@@ -1892,15 +1946,15 @@ paths:
       security:
         - OAuth2: []
         - bearerAuth: []
-      description: >
-          Search for _XBRL label_ details in _XBRL reports_.
+      description: |
+          Search for _XBRL label_ details in one or moreDTS.
       parameters:
         - in: query
           name: dts.id
           required: true
           schema:
             type: integer
-          description: The DTS identifier for a given group of taxonomies. XBRL facts and linkbases are typically associated with a given report that is asscociated with a dts.
+          description: The DTS identifier for a given group of taxonomies. XBRL facts and linkbases are typically associated with a given report that is associated with a dts.
           example: 321964
         - $ref: '#/components/parameters/concept.is-abstract_Param'
         - $ref: '#/components/parameters/label.text_Param'
@@ -1950,15 +2004,15 @@ paths:
       security:
         - OAuth2: []
         - bearerAuth: []
-      description: >
-          Search for _XBRL label_ details in a specific _XBRL report_.
+      description: |
+          Search for _XBRL label_ details in a specific DTS.
       parameters:
         - in: path
           name: dts.id
           required: true
           schema:
             type: integer
-          description: The DTS identifier for a given group of taxonomies. XBRL facts and linkbases are typically associated with a given report that is asscociated with a dts.
+          description: The DTS identifier for a given group of taxonomies. XBRL facts and linkbases are typically associated with a given report that is associated with a dts.
           example: 321964
         - $ref: '#/components/parameters/concept.is-abstract_Param'
         - $ref: '#/components/parameters/label.text_Param'
@@ -2008,7 +2062,7 @@ paths:
       security:
         - OAuth2: []
         - bearerAuth: []
-      description: >
+      description: |
           Search all chracteristics of _XBRL relationships_ in a specific _XBRL network_ and filter results based on charateristics of the _XBRL relationships_ in the _XBRL network_. 
       parameters:
         - in: path
@@ -2079,7 +2133,7 @@ paths:
       security:
         - OAuth2: []
         - bearerAuth: []
-      description: >
+      description: |
           Search for a specific _XBRL network_ based on _XBRL network_ and _XBRL relationship_ chracteristics.
       parameters:
         - $ref: '#/components/parameters/dts.entry-point_Param'
@@ -2144,7 +2198,7 @@ paths:
       security:
         - OAuth2: []
         - bearerAuth: []
-      description: >
+      description: |
           Returns the characteristics of a specific _XBRL network_. This does __not__ include the _XBRL relationships_. Use the endpoint /api/v1/network/{network.id}/relationship/search to get relationship information about the network.
       parameters:
         - in: path
@@ -2196,7 +2250,7 @@ paths:
       security:
         - OAuth2: []
         - bearerAuth: []
-      description: >
+      description: |
           Search for a specific set of _XBRL relationships_ based on characteristics of the relationship.
       parameters:
         - $ref: '#/components/parameters/dts.id_Param'
@@ -2231,7 +2285,7 @@ paths:
           description: This is the list of dts, network and relationship fields that can be returned by the query.
       responses:
         '200':
-          description: __network details__ successfully accepted
+          description: __relationship details__ successfully accepted
           content:
             application/json:
               schema:
@@ -2262,7 +2316,7 @@ paths:
       security:
         - OAuth2: []
         - bearerAuth: []
-      description: >
+      description: |
           Search a specific set of _XBRL relationships_ based on characteristics of the relationship and returning the data as a tree in different formats.
       parameters:
         - $ref: '#/components/parameters/dts.id_Param'
@@ -2282,7 +2336,7 @@ paths:
                   ,fancytree
                   ,standard
                   ]
-          description: >
+          description: |
             Allows the list of _XBRL relationships_ to be returned in a tree format or be flat. Select from the following
               * flat: Returns a list of relationship pairs. 
               * standard: Returns as a standard tree. (No paging data is returned)
@@ -2299,7 +2353,7 @@ paths:
           description: DTS, network *and* relationship fields can be returned from a nested relationship/tree query.
       responses:
         '200':
-          description: __network details__ successfully accepted
+          description: __relationship details__ successfully accepted
           content:
             application/json:
               schema:
@@ -2330,10 +2384,12 @@ paths:
       security:
         - OAuth2: []
         - bearerAuth: []
-      description: >
-          Search for _XBRL facts_ or _primary items_ based on the details of a hypercube.  
+      description: |
+          Search for _XBRL facts_ or _primary items_ based on the details of a hypercube. 
+
           ## Examples
-          ### _-Get all the facts in a cube
+
+          ### Get all the facts in a cube
 
           The following call will: get all facts in the report with an id of `226471`; limit the number of records returned to `1010` facts; sort facts `A-Z by the concept name`, and; return the following values:
             * dimensions.count
@@ -2346,7 +2402,7 @@ paths:
             * fact.value
             * report.source-id
 
-                  https://api.xbrl.us/api/v1/cube/search?report.id=226471&fields=dimensions.count,dimensions,period.fiscal-period,period.year,cube.primary-local-name.sort(ASC),fact.numerical-value,cube.limit(1010),fact.value
+                  https://api.xbrl.us/api/v1/cube/search?report.id=226471&fields=dimensions.count,dimensions,period.fiscal-period,period.year,cube.primary-local-name.sort(ASC),fact.numerical-value,cube.limit(1010),fact.value,report.source-id
 
               
       parameters:
@@ -2428,10 +2484,12 @@ paths:
       security:
         - OAuth2: []
         - bearerAuth: []
-      description: >
+      description: |
           Search for _XBRL dimensions_ or _members_  of a specific hypercube.  
+
           ## Examples
-          ### _-Get all the dimensions and members of a cube
+
+          ### Get all the dimensions and members of a cube
 
           The following call will: get dimensions of the dts id of `226471`;  and; return the following values:
             * cube.table-local-name
@@ -2501,7 +2559,7 @@ paths:
       security:
         - OAuth2: []
         - bearerAuth: []
-      description: >
+      description: |
           Search _XBRL documents_ and their content.
       parameters:
         - $ref: '#/components/parameters/document.documentset_Param'
@@ -2510,7 +2568,6 @@ paths:
         - $ref: '#/components/parameters/document.top-level_Param'
         - $ref: '#/components/parameters/document.uri_Param'
         - $ref: '#/components/parameters/dts.id_Param'
-        - $ref: '#/components/parameters/entity.cik_Param'
         - $ref: '#/components/parameters/entity.code_Param'
         - $ref: '#/components/parameters/entity.name_Param'
         - $ref: '#/components/parameters/entity.scheme_Param'
@@ -2526,7 +2583,7 @@ paths:
           allowEmptyValue : false
           schema:
             $ref: '#/components/schemas/document_fields'
-          description: >
+          description: |
             List of fields to return. 
             Available fields are as follows:
               * document.example
@@ -2540,7 +2597,6 @@ paths:
               * document.type
               * document.uri
               * dts.id
-              * entity.cik
               * entity.code
               * entity.name
               * entity.scheme
@@ -2556,7 +2612,7 @@ paths:
             The document.example and document.highlighted-value will only return results when the search parameter document.text-search is used.the parameter  document.text-search cannot be used as a return field.  Its equivalent return values are document.example and document.highlighted-value.
       responses:
         '200':
-          description: __network details__ successfully accepted
+          description: __document details__ successfully accepted
           content:
             application/json:
               schema:
@@ -2598,7 +2654,7 @@ components:
       properties:
         grant_type:
           type: string
-          description: >
+          description: |
             Used to identify which credentials the authorization server needs to check
               * **client_credentials** - Requires a client_id and client_secret only
               * **password** - Requires a username and password as well as client_id and client_secret
@@ -2720,7 +2776,6 @@ components:
               ,assertion.severity
               ,assertion.source
               ,assertion.type
-              ,entity.cik
               ,entity.code
               ,entity.name
               ,entity.scheme
@@ -2732,7 +2787,6 @@ components:
               ,report.entry-url
               ,report.filing-date
               ,report.filing-year
-              ,report.form-type
               ,report.id
               ,report.period-focus
               ,report.sec-url
@@ -2876,7 +2930,6 @@ components:
               ,document.uri
               ,dts.content
               ,dts.id
-              ,entity.cik
               ,entity.code
               ,entity.name
               ,entity.scheme
@@ -2909,13 +2962,11 @@ components:
       items:
         type: string
         enum: [
-              entity.cik
-              ,entity.code
+              entity.code
               ,entity.id
               ,entity.name
               ,entity.scheme
               ,entity.ticker
-              ,entity.ticker2
               ,entity.*
               ]
     entity_fields:
@@ -2923,19 +2974,16 @@ components:
       items:
         type: string
         enum: [
-              entity.cik
-              ,entity.code
+              entity.code
               ,entity.id
               ,entity.name
               ,entity.scheme
               ,entity.ticker
-              ,entity.ticker2
               ,dts.id
               ,report.accepted-timestamp
               ,report.accession
               ,report.address
               ,report.base-taxonomy
-              ,report.checks-run
               ,report.creation-software
               ,report.document-type
               ,report.documentset-num
@@ -2945,7 +2993,6 @@ components:
               ,report.event-items
               ,report.filer-category
               ,report.filing-date
-              ,report.form-type
               ,report.hash
               ,report.html-url
               ,report.id
@@ -2974,8 +3021,7 @@ components:
         type: string
         default: fact.*
         enum: [
-              aspect
-              ,concept.balance-type
+              concept.balance-type
               ,concept.datatype
               ,concept.id
               ,concept.is-base
@@ -2993,7 +3039,6 @@ components:
               ,dts.entry-point
               ,dts.id
               ,dts.target-namespace
-              ,entity.cik
               ,entity.code
               ,entity.id
               ,entity.name
@@ -3042,7 +3087,6 @@ components:
               ,report.entry-url
               ,report.event-items
               ,report.filing-date
-              ,report.form-type
               ,report.hash
               ,report.html-url
               ,report.id
@@ -3186,19 +3230,16 @@ components:
         type: string
         default: report.*
         enum: [
-              entity.cik
-              ,entity.code
+              entity.code
               ,entity.id
               ,entity.name
               ,entity.scheme
               ,entity.ticker
-              ,entity.ticker2
               ,dts.id
               ,report.accepted-timestamp
               ,report.accession
               ,report.address
               ,report.base-taxonomy
-              ,report.checks-run
               ,report.creation-software
               ,report.document-type
               ,report.document-index
@@ -3209,7 +3250,6 @@ components:
               ,report.event-items
               ,report.filer-category
               ,report.filing-date
-              ,report.form-type
               ,report.hash
               ,report.html-url
               ,report.id
@@ -3237,8 +3277,7 @@ components:
         type: string
         default: fact.*
         enum: [
-              aspect
-              ,concept.balance-type
+              concept.balance-type
               ,concept.datatype
               ,concept.id
               ,concept.is-base
@@ -3256,13 +3295,11 @@ components:
               ,dts.entry-point
               ,dts.id
               ,dts.target-namespace
-              ,entity.cik
               ,entity.code
               ,entity.id
               ,entity.name
               ,entity.scheme
               ,entity.ticker
-              ,entity.ticker2
               ,fact.accuracy-index
               ,fact.decimals
               ,fact.example
@@ -3303,7 +3340,6 @@ components:
               ,report.accession
               ,report.address
               ,report.base-taxonomy
-              ,report.checks-run
               ,report.creation-software
               ,report.document-type
               ,report.document-index
@@ -3314,7 +3350,6 @@ components:
               ,report.event-items
               ,report.filer-category
               ,report.filing-date
-              ,report.form-type
               ,report.hash
               ,report.html-url
               ,report.id
@@ -3535,8 +3570,6 @@ components:
           $ref: '#/components/schemas/dts_content'
         dts.id:
           $ref: '#/components/schemas/dts_id'
-        entity.cik:
-          $ref: '#/components/schemas/entity_cik'
         entity.code:
           $ref: '#/components/schemas/entity_cik'
         entity.name:
@@ -3573,8 +3606,6 @@ components:
     entity_details:
       type: object
       properties:
-        entity.cik:
-          $ref: '#/components/schemas/entity_cik'
         entity.id:
           $ref: '#/components/schemas/entity_id'
         entity.name:
@@ -3622,8 +3653,8 @@ components:
           $ref: '#/components/schemas/dts_id'
         dts.target-namespace:
           $ref: '#/components/schemas/dts_target-namespace'
-        entity.cik:
-          $ref: '#/components/schemas/entity_cik'
+        entity.code:
+          $ref: '#/components/schemas/entity_code'
         entity.id:
           $ref: '#/components/schemas/entity_id'
         entity.name:
@@ -3877,7 +3908,7 @@ components:
       properties:
         dts.id:
           $ref: '#/components/schemas/dts_id'
-        entity.cik:
+        entity.code:
           $ref: '#/components/schemas/entity_cik'
         entity.id:
           $ref: '#/components/schemas/entity_id'
@@ -3889,8 +3920,6 @@ components:
           $ref: '#/components/schemas/report_address'
         report.base-taxonomy:
           $ref: '#/components/schemas/report_base-taxonomy'
-        report.checks-run:
-          $ref: '#/components/schemas/report_checks-run'
         report.creation-software:
           $ref: '#/components/schemas/report_creation-software'
         report.document-type:
@@ -3936,7 +3965,7 @@ components:
       properties:
         dts.id:
           $ref: '#/components/schemas/dts_id'
-        entity.cik:
+        entity.code:
           $ref: '#/components/schemas/entity_cik'
         entity.id:
           $ref: '#/components/schemas/entity_id'
@@ -3948,8 +3977,6 @@ components:
           $ref: '#/components/schemas/report_address'
         report.base-taxonomy:
           $ref: '#/components/schemas/report_base-taxonomy'
-        report.checks-run:
-          $ref: '#/components/schemas/report_checks-run'
         report.creation-software:
           $ref: '#/components/schemas/report_creation-software'
         report.document-type:
@@ -4010,8 +4037,6 @@ components:
           $ref: '#/components/schemas/report_address'
         report.base-taxonomy:
           $ref: '#/components/schemas/report_base-taxonomy'
-        report.checks-run:
-          $ref: '#/components/schemas/report_checks-run'
         report.creation-software:
           $ref: '#/components/schemas/report_creation-software'
         report.document-type:
@@ -4210,7 +4235,7 @@ components:
         namespace: 'http://www.xbrl.us/xucc/results/1.6'
     assertion_code:
       type: string
-      description: 'Unique code associated with a specific error. For example: DQC.US.0073.7648'
+      description: Unique code associated with a specific error, i.e. DQC.US.0073.7648
       example: DQC.US.0073.7648
     assertion_detail:
       type: string
@@ -4247,7 +4272,7 @@ components:
       example: monetaryItemType
     concept_id:
       type: integer
-      description: A unique identification id of the concept that can be searched on. This is a faster way to retrieve the details of a fact, however it is namespace specific and will only search for the use of a concept for a specific schema.
+      description: A unique integer for a concept that can be searched. This is a faster way to retrieve the details of a fact, however it is namespace specific and will only search for the use of a concept for a specific schema.
       example: 16261
     concept_is-abstract:
       type: boolean
@@ -4292,7 +4317,7 @@ components:
     cube_id:
       type: integer
       description: Unique internal identifier used to identify a specific cube. A different identifier is used for each combination of hypercube element and drs role.
-    cube.typed-domain-element-name:
+    cube_typed-domain-element-name:
       type: string
       description: Unique identifier that represents a typed dimension member.
     dimension_axis:
@@ -4317,7 +4342,7 @@ components:
       description: Returns an array of dimensions associated with the given fact.
     dimensions_count:
       type: integer
-      description: The number of dimensional qualifiers associated with a given fact, i.e. `2` will return facts with 2 dimensions.
+      description: The number of dimensional qualifiers associated with a given fact. A comma-delimited list will return facts with 0, 1, 2 etc. dimensions.
     dimensions_id:
       type: string
       description: The unique identifier of the dimensional aspects associated with a fact.
@@ -4346,7 +4371,7 @@ components:
     document_uri:
       type: string
       format: uri
-      description: The url at which the document comprising the DTS is located.
+      description: The URL at which the document comprising the DTS is located.
       example: 'http://www.sec.gov/Archives/edgar/data/46619/000004661918000117/hei1031201810k.htm'
     dts_content:
       type: string
@@ -4358,7 +4383,7 @@ components:
       example: Apple Inc.
     dts_entry-point:
       type: string
-      description: The url entry point of a Discoverable Taxonomy Set (DTS). This is also referred to as the entry point for a taxonomy. A taxonomy can have multiple entry points and the resulting set of taxonomies of using an entry point is called a DTS.
+      description: The URL entry point of a discoverable taxonomy set. This is also referred to as the entry point for a taxonomy. A taxonomy can have multiple entry points and the resulting set of taxonomies of using an entry point is called a DTS.
       example: http://xbrl.fasb.org/us-gaap/2017/entire/us-gaap-entryPoint-all-2017-01-31.xsd
     dts_hash:
       type: string
@@ -4385,11 +4410,11 @@ components:
       example: 2019.
     entity_cik:
       type: string
-      description: The CIK is the SEC identifier used to identify a reporting entity. This is the CIK associated with a given fact, DTS or report.  This will be replaced with the LEI when the SEC supports the LEI standard.
+      description: The CIK is the SEC identifier used to identify a reporting entity. This is the CIK associated with a given fact, DTS or report. This will be replaced with the LEI when the SEC supports the LEI standard.
       example: "0001000045"
     entity_id:
       type: integer
-      description: The internal identifier used to identify an entity.
+      description: The internal identifier used to identify an entity. This will be replaced with the LEI when the SEC supports the LEI standard.
       example: 1
     entity_name:
       type: string
@@ -4404,7 +4429,7 @@ components:
       example: nick
     fact_accuracy-index:
       type: integer
-      description: When a fact is reported multiple times in a single report this value indicates how specific the fact is compared to the others.  A value of 1 is the most accurate and becomes less accurate the higher the value.
+      description: The accuracy-index is an integer recording the specificity of a fact within a report (or report type). A value of 1 is the most accurate and becomes less accurate the higher the value. A value of 6 for example would indicate that the value has appeared 6 additional times in a report (or report type). If requesting values from a specific report type, an accuracy index of 1 will return the fact value from the most-recent version of the report type filed in which the fact appears.
     fact_decimals:
       type: string
       description: The decimal value associated with a fact. This can be either a number representing decimal places or null. Infinite values are returned as null.
@@ -4422,7 +4447,7 @@ components:
       description: Full fact value containing highlighted indication of fact.text-search result (search result appears in bold blue font).
     fact_id:
       type: integer
-      description: The unique identifier used to identify a fact.
+      description: The internal identifier used to identify a fact.
     fact_inline-display-value:
       type: string
       description: The original value that was shown in the inline filing prior to being transformed to an XBRL value.
@@ -4447,16 +4472,16 @@ components:
       description: Used to define text in a text search. Cannot be output as a field.
     fact_ultimus:
       type: boolean
-      description: A boolean that indicates if the fact is the latest value reported.  A value of true represents that it's the latest value reported.  A value of false represents that the value has been superseded with a more recent fact.
+      description: A boolean that indicates if the fact is the latest value reported. A value of true represents the latest value reported. A value of false represents that the value has been superseded with a more recent fact. If requesting values from a specific report, the ultimus should not be used as a search parameter, as all the fact values will not be returned if a subsequent report has been filed in which the fact appears.
     fact_ultimus-index:
       type: integer
-      description: An integer that records the incarnation of the fact. The same fact is reported many times and the ultimus field captures the incarnation that was reported. A value of 1 indicates that this is the latest value of the fact. A value of 6 for example would indicate that the value has been reported 5 times subsequently to first time the fact was reported. If requesting values from a specific report the ultimus filed would not be used as a search parameter as you will not get all the fact values if there has been a subsequent report filed, as the ultimus value on these facts in a specific report will be updated as additional reports come in.
+      description: An integer that records the incarnation of the fact. The same fact may be reported many times and the ultimus field represents the reverse order of incarnation for the fact's reporting. A value of 1 indicates that this is the latest value of the fact. A value of 6 for example would indicate that the value has been reported 6 times subsequent to the fact's most-recent reporting. If requesting values from a specific report, the ultimus index should not be used as a search parameter, as all the fact values will not be returned if a subsequent report has been filed in which the fact appears.
     fact_value:
       type: string
-      description: The value of the fact as a text value. This included numerical as well as non numerical values reported.
+      description: The value of the fact as a text value. This includes numerical as well as non-numerical values reported.
     fact_value-link:
       type: string
-      description: A url that renders the fact in a browser.
+      description: A URL to the rendered fact.value data. For data encoded as HTML (i.e. text block disclosures), the URL will display the formatted data excerpted from the full report.
     fact_xml-id:
       type: string
       description: The xml-id included in the filing. Many facts may not have this identifier as it is dependent on the filer adding it. In inline filings it can be used to go directly to the fact value in the filing.
@@ -4556,7 +4581,7 @@ components:
       example: 40201 - Disclosure - Balance Sheet Components (Details)
     network_role-description-like:
       type: string
-      description: The human readable description of the network role. In some filing regimes this is used to order the networks. This is used to do a text search on components of the text string.
+      description: The human readable description of the network role. This is used to do a text search on components of the text string. See *stringmatch* parameter of options to search with operators on the relationship endpoint.
     network_role-uri:
       type: string
       format: uri
@@ -4615,15 +4640,15 @@ components:
       description: The identifier of the fiscal period. Each period has an assigned hash which identifies the fiscal period. The hash can be used to search for periods that are identical. Periods with the same period and year in fact may be different as the fiscal periods and years are approximations.
     period_fiscal-period:
       type: string
-      description: The period identifier for the fact such as year(Y) quarters such as (Q1,Q2,Q3,Q4), cumulative quarters such as 3QCUM, and half years such as H1 and H2. The fiscal period aligns the periods with a fiscal year. A company with a year end of 30 September would have a fiscal 4th quarter which would be a fiscal quarter of Q4 and a calender quarter of Q3.
+      description: The period identifier for the fact such as year(Y) quarters such as (Q1,Q2,Q3,Q4), cumulative quarters such as 3QCUM, and half years such as H1 and H2. The fiscal period aligns the periods with a fiscal year. A company with a year end of 30 September would have a fiscal 4th quarter which would be a fiscal quarter of Q4 and a calendar quarter of Q3.
     period_fiscal-year:
       type: integer
       minLength: 4
       maxLength: 4
-      description: The fiscal year in which the fact is applicable.
+      description: The fiscal year in which the fact is applicable in the format 'YYYY'.
     period_id:
       type: string
-      description: The identifier of the calander period. Each period has an assigned hash which identifies the period. The hash can be used to search for periods that are identical. Periods with the same period and year in fact may be different as the fiscal period is an approximation.
+      description: The identifier of the calendar period. Each period has an assigned hash which identifies the period. The hash can be used to search for periods that are identical. Periods with the same period and year in fact may be different as the fiscal period is an approximation.
     period_instant:
       type: string
       format: date
@@ -4716,7 +4741,7 @@ components:
       description: The internal id of a relationship between two concepts.
     relationship_order:
       type: integer
-      description: The order attribute of the relationship.
+      description: The order of the relationships relative to each other.
     relationship_preferred-label:
       type: string
       description: The preferred-label attribute of the relationship.
@@ -4759,7 +4784,7 @@ components:
       example: 3
     relationship_tree-sequence:
       type: integer
-      description: The calcualted tree-sequence of the relationship relative to the network which is is contained.
+      description: The calculated tree-sequence of the relationship relative to the network which it is contained.
     relationship_weight:
       type: integer
       description: The weight attribute of the relationship.
@@ -4822,7 +4847,7 @@ components:
       example: XBRL document created with Ez-XBRL version 3.0.1.2
     report_document-index:
       type: integer
-      description: Allows the retrieval of the most current report by document-type.  For a specific document-type a value of 1 is the most recent.  A value of 2 is the second most recent, etc.
+      description: Allows the retrieval of the most current report by document-type. For a specific document-type a value of 1 is the most recent.  A value of 2 is the second most recent, etc.
       example: 1,2,3
     report_document-type:
       type: string
@@ -4838,11 +4863,11 @@ components:
       example: NICHOLAS FINANCIAL INC
     report_entry-type:
       type: string
-      description: Indicates the type of filing, i.e. instance or inline.
+      description: The entry type of the report. This could be instance, inline, JSON, etc.
       example: instance
     report_entry-url:
       type: string
-      description: The url entry point of a Discoverable Taxonomy Set. This is also referred to as the entry point for a taxonomy. This represents the DTS entry point for a specific report.
+      description: The URL entry point of a discoverable taxonomy set. This is also referred to as the entry point for a taxonomy. This represents the DTS entry point for a specific report.
       example: http://www.sec.gov/Archives/edgar/data/1000045/000119312511216128/nick-20110630.xml
     report_filer-category:
       type: string
@@ -4859,15 +4884,15 @@ components:
       example: 2021
     report_hash:
       type: string
-      description: A hash string that is generated based on the semantic meaning of the report. Two identical reports expressed as XBRL JSON, XML or inline XBRL will have an identical hash string.  This makes it possible to determine if a report is a duplicate.
+      description: A hash string that is generated based on the semantic meaning of the report. Two identical reports expressed as XBRL JSON, XML or inline XBRL will have an identical hash string. This makes it possible to determine if a report is a duplicate.
       example: \\xb46b615601cd46644a3de5f91adeca28462bcde252b1d7d1d970b011
     report_id:
       type: integer
-      description: The identifier used to identify a report.
+      description: The internal identifier assigned to a report.
       example: 1234
     report_is-most-current:
       type: boolean
-      description: A boolean indicator for whether the report is the most current.
+      description: A boolean indicator for whether the report is the most current (true).
       example: true
     report_period-end:
       type: string
@@ -4880,13 +4905,13 @@ components:
       description: The phone number of the submitter of the report.
     report_restated:
       type: boolean
-      description: A boolean that indicates if the report has been subsequently restated.  A value of true represents that the report has been subsequently restated by another report.  A value of false means that this report has not been subsequently restated by another report.
+      description: A boolean that indicates if the report has been subsequently restated. A value of true represents that the report has been subsequently restated by another report.  A value of false means that this report has not been subsequently restated by another report.
     report_restated-index:
       type: integer
       description: A numerical indicator that can be used to identify if a report has been restated. If the value is 1 it indicates that this is the latest report. If the value is 2 it means that an updated copy of the report has been filed.
     report_sec-url:
       type: string
-      description: The url at which the details of a filing can be accessed from the SEC EDGAR system.
+      description: The URL at which the details of a filing can be accessed from the SEC EDGAR system.
     report_sic-code:
       type: string
       description: Integer that represents the Standard Industrial Classification (SIC) code used by the SEC in the United States.
@@ -4895,7 +4920,7 @@ components:
       description: Unique identifier to identify an XBRL filing program.
     report_source-name:
       type: string
-      description: Name of the source of the data such as SEC.
+      description: Name of the source of the data such as SEC, FERC, ESEF or NORM (XBRL US normalized).
     report_state-of-incorporation:
       type: string
       description: The state of incorporation for the entity submitting the report.
@@ -4921,14 +4946,14 @@ components:
       description: A FERC filing identifier indicating if it's the first time it was filed or a subsequent one. (O = Original; R = Restated)
     report_year-focus:
       type: string
-      description: The year the report was reported for.
+      description: The reporting year for the filing.
     report_zip-url:
       type: string
       format: uri
       description: The url where the zip containing all the files of a filing can be accessed.
     entity_code:
       type: string
-      description: The entity identifier for whatever source it is associated with. All entity identifiers are in this field.
+      description: The entity identifier from its associated source (ie. SEC entity codes are the Central Index Code or CIK; FERC entity codes are Company Identifier or CID). All entity identifiers are in this field.
     entity_ticker2:
       type: string
       description: The stock exchange ticker of the entity filing the report.
@@ -4991,7 +5016,7 @@ components:
        name: assertion.type
        schema:
          type: string
-       description: The classification of the rule.
+       description: The rule number of the rule, i.e. 0099.
     concept.id_Param:
        in: query
        name: concept.id
@@ -5019,7 +5044,7 @@ components:
          type: array
          items:
            type: string
-       description: The concept name in the base schema of a taxonomy exluding the namespace, such as Assets or Liabilities. Use this to search across multiple taxonomies where the local name is known to be consistent over time.
+       description: The concept name in the base schema of a taxonomy excluding the namespace, such as Assets or Liabilities. Use this to search across multiple taxonomies where the local name is known to be consistent over time.
     concept.namespace_Param:
        in: query
        name: concept.namespace
@@ -5070,7 +5095,7 @@ components:
          type: array
          items:
            type: integer
-       description: The identifier used to identify a cube.
+       description: Unique internal identifier used to identify a specific cube. A different identifier is used for each combination of hypercube element and drs role.
     cube.is-domain_Param:
        in: query
        name: cube.is-domain
@@ -5164,13 +5189,13 @@ components:
          type: array
          items:
            type: string
-       description: Local name of the dimension used with the fact.
+       description: The dimension concept name in the taxonomy excluding the namespace.
     dimension.namespace_Param:
        in: query
        name: dimension.namespace
        schema:
          type: string
-       description: Namespace of the dimension used with the fact.
+       description: The namespace of the dimension concept used to identify a fact.
     dimensions.count_Param:
        in: query
        name: dimensions.count
@@ -5186,13 +5211,13 @@ components:
        name: dimensions.id
        schema:
          type: string
-       description: ID of the dimension.
+       description: The unique identifier of the dimensional aspects associated with a fact.
     document.text-search_Param:
        in: query
        name: document.text-search
        schema:
          type: string
-       description: >
+       description: |
          Search for strings within document object (i.e. to locate a specific name, topic or reference within an entire document). Fields returned include document.example and document.highlighted-vaule 
 
          The XBRL API uses the Sphinx search engine to identify text. This powerful search engine quickly identifies a given text string. Sphinx is enabled to support stemming, which means it will also return plurals of a noun i.e. ipad will also return ipads. It will also return the present, future and past form of a verb for example the word kill will also return killed and killing. To match the word exactly the character "=" can be placed in front of the word i.e. = ipad will return the occurrence of the word ipad only.
@@ -5236,7 +5261,7 @@ components:
        name: dts.hash
        schema:
          type: string
-       description: The DTS identifier for a given group of taxonomies as a hex hash. XBRL facts and linkbases are typically associated with a given report that is asscociated with a DTS.
+       description: The DTS identifier for a given group of taxonomies as a hex hash. XBRL facts and linkbases are typically associated with a given report that is associated with a DTS.
     dts.id_Param:
        in: query
        name: dts.id
@@ -5246,7 +5271,7 @@ components:
          type: array
          items:
            type: integer
-       description: A unique integer as a DTS identifier for a given group of taxonomies. XBRL facts and linkbases are typically associated with a given report that is asscociated with a DTS.
+       description: A unique integer as a DTS identifier for a given group of taxonomies. XBRL facts and linkbases are typically associated with a given report that is associated with a DTS.
     dts.taxonomy_Param:
        in: query
        name: dts.taxonomy
@@ -5274,16 +5299,6 @@ components:
          type: string
        description: The specific taxonomy version name, such as `2019` for US GAAP.
        example: 2019
-    entity.cik_Param:
-       in: query
-       name: entity.cik
-       style: form
-       explode: false
-       schema:
-         type: array
-         items:
-           type: string
-       description: The CIK is the SEC identifier used to identify a reporting entity. This is the CIK associated with a given fact, DTS or report.
     entity.id_Param:
        in: query
        name: entity.id
@@ -5319,7 +5334,7 @@ components:
          type: array
          items:
            type: integer
-       description: The accuracy-index is an integer recording the specificity of a fact within a report (or report type).  A value of 1 is the most accurate and becomes less accurate the higher the value. A value of 6 for example would indicate that the value has appeared 6 additional times in a report (or report type). If requesting values from a specific report type, an accuracy index of 1 will return the fact value from the most-recent version of the report type filed in which the fact appears.
+       description: The accuracy-index is an integer recording the specificity of a fact within a report (or report type). A value of 1 is the most accurate and becomes less accurate the higher the value. A value of 6 for example would indicate that the value has appeared 6 additional times in a report (or report type). If requesting values from a specific report type, an accuracy index of 1 will return the fact value from the most-recent version of the report type filed in which the fact appears.
     fact.has-dimensions_Param:
        in: query
        name: fact.has-dimensions
@@ -5379,7 +5394,7 @@ components:
        name: fact.ultimus
        schema:
          type: boolean
-       description: A boolean that indicates if the fact is the latest value reported.  A value of true represents the latest value reported.  A value of false represents that the value has been superceded with a more recent fact. If requesting values from a specific report, the ultimus should not be used as a search parameter, as all the fact values will not be returned if a subsequent report has been filed in which the fact appears.
+       description: A boolean that indicates if the fact is the latest value reported. A value of true represents the latest value reported.  A value of false represents that the value has been superseded with a more recent fact. If requesting values from a specific report, the ultimus should not be used as a search parameter, as all the fact values will not be returned if a subsequent report has been filed in which the fact appears.
     fact.ultimus-index_Param:
        in: query
        name: fact.ultimus-index
@@ -5481,7 +5496,7 @@ components:
        name: network.role-description
        schema:
          type: string
-       description: Readable name or description of the header.
+       description: The human readable description of the network role. In some filing regimes this is used to order the networks.
        example: 40201 - Disclosure - Balance Sheet Components (Details)
     network.role-uri_Param:
        in: query
@@ -5521,7 +5536,7 @@ components:
          items:
            type: string
            enum: [Y,1Q,2Q,3Q,4Q,3QCUM,1H,2H]
-       description: The period identifier for the fact such as year(Y) quarters such as (Q1,Q2,Q3,Q4), cumulative quarters such as 3QCUM, and half years such as H1 and H2. The fiscal period aligns the periods with a fiscal year. A company with a year end of 30 September would have a fiscal 4th quarter which would be a fiscal quarter of Q4 and a calander quarter of Q3.
+       description: The period identifier for the fact such as year(Y) quarters such as (Q1,Q2,Q3,Q4), cumulative quarters such as 3QCUM, and half years such as H1 and H2. The fiscal period aligns the periods with a fiscal year. A company with a year end of 30 September would have a fiscal 4th quarter which would be a fiscal quarter of Q4 and a calendar quarter of Q3.
     period.fiscal-year_Param:
        in: query
        name: period.fiscal-year
@@ -5539,7 +5554,7 @@ components:
        name: period.id
        schema:
          type: string
-       description: The identifier of the calander period. Each period has an assigned hash which identifies the period. The hash can be used to search for periods that are identical. Periods with the same period and year in fact may be different as the fiscal period is an approximation.
+       description: The identifier of the calendar period. Each period has an assigned hash which identifies the period. The hash can be used to search for periods that are identical. Periods with the same period and year in fact may be different as the fiscal period is an approximation.
     period.year_Param:
        in: query
        name: period.year
@@ -5582,7 +5597,7 @@ components:
        name: relationship.source-name
        schema:
          type: string
-       description: The name of the concept that is the basis of the relationship.
+       description: The local-name of the source concept in a relationship between two concepts.
     relationship.source-namespace_Param:
        in: query
        name: relationship.source-namespace
@@ -5626,7 +5641,7 @@ components:
        name: relationship.tree-sequence
        schema:
          type: integer
-       description: The order in which the relationship appears in the entire network.
+       description: The calculated tree-sequence of the relationship relative to the network which it is contained.
     report.document-index_Param:
        in: query
        name: report.document-index
@@ -5636,7 +5651,7 @@ components:
          type: array
          items:
            type: integer
-       description: Allows the retrieval of reports other than most current. A value of 1 gets the latest report. A value of 2 gets the second to last report etc.
+       description: Allows the retrieval of the most current report by document-type. For a specific document-type a value of 1 is the most recent. A value of 2 is the second most recent, etc.
     report.document-type_Param:
        in: query
        name: report.document-type
@@ -5648,7 +5663,7 @@ components:
          uniqueItems: true
          items:
            type: string
-       description: The document type of the report e.g. 10-K, 10-Q, etc.
+       description: The document type of the report, i.e. 10-K, 10-Q.
     report.accession_Param:
        in: query
        name: report.accession
@@ -5660,13 +5675,13 @@ components:
        name: report.creation-software
        schema:
          type: string
-       description: The creation software that was used to create a report.
+       description: The software used to create the report.
     report.entity-name_Param:
        in: query
        name: report.entity-name
        schema:
          type: string
-       description: The name of the entity submitting the report. Enter the full entity name, or a portion of the entity name.
+       description: The name of the entity submitting the report. To search enter the full entity name, or a portion of the entity name.
     report.entry-type_Param:
        in: query
        name: report.entry-type
@@ -5693,11 +5708,7 @@ components:
                ,Accelerated Filer
                ,Non-accelerated Filer
                ]
-       description: >
-         Filer category of the report. Can be one of the following:  
-           - Large Accelerated Filer  
-           - Accelerated Filer  
-           - Non-accelerated Filer  
+       description: 'Identifies filer size associated with the report. Can be one of the following: - Large Accelerated Filer - Accelerated Filer - Non-accelerated Filer'
     report.filing-year_Param:
        in: query
        name: report.filing-year
@@ -5738,7 +5749,7 @@ components:
        name: report.restated
        schema:
          type: boolean
-       description: A boolean that indicates if the report has been subsequently restated.  A value of true represents that the report has been subsequently restated by another report.  A value of false means that this report has not been subsequently restated by another report.
+       description: A boolean that indicates if the report has been subsequently restated. A value of true represents that the report has been subsequently restated by another report.  A value of false means that this report has not been subsequently restated by another report.
     report.restated-index_Param:
        in: query
        name: report.restated-index
@@ -5764,26 +5775,26 @@ components:
          type: array
          items:
            type: string
-       description: Integer that representsthe Standard Industrial Classification (SIC) code used by the SEC in the United States.
+       description: Integer that represents the Standard Industrial Classification (SIC) code used by the SEC in the United States.
     report.source-id_Param:
        in: query
        name: report.source-id
        schema:
          type: integer
-       description: ID of the filing program.
+       description: Unique identifier to identify an XBRL filing program.
     report.source-name_Param:
        in: query
        name: report.source-name
        schema:
          type: string
-       description: Name of the source of the data such as SEC.
+       description: Name of the source of the data such as SEC, FERC, ESEF or NORM (XBRL US normalized).
     stringmatch_Param:
        in: query
        name: stringmatch
        schema:
          type: string
        description: |
-         Enables simple text search functionality with the network.role-description parameter on the relationship object.
+         Enables simple text search functionality with the **network.role-description** parameter on the relationship object.
 
          Use the **like** switch to find a specific text string, for example
 
@@ -5818,7 +5829,7 @@ components:
        name: concept.is-abstract
        schema:
          type: boolean
-       description: Identifies if the concept is an abstract concept.
+       description: Identifies if the concept is an abstract concept. If a primary concept (Not an axis or dimension) is an abstract it cannot have a value associated with it.
     cube.member-value_Param:
        in: query
        name: cube.member-value
@@ -5846,23 +5857,13 @@ components:
          type: array
          items:
            type: string
-       description: The entity identifier for whatever source it is associated with. All entity identifiers are in this field.
+       description: The entity identifier from its associated source (ie. SEC entity codes are the Central Index Code or CIK; FERC entity codes are Company Identifier or CID). All entity identifiers are in this field.
     entity.scheme_Param:
        in: query
        name: entity.scheme
        schema:
          type: string
-       description: The scheme of the identifier associated with a fact, report or DTS.
-    entity.ticker2_Param:
-       in: query
-       name: entity.ticker2
-       style: form
-       explode: false
-       schema:
-         type: array
-         items:
-           type: string
-       description: The stock exchange ticker of the entity filing the report.
+       description: The scheme of the identifier associated with a fact, report or DTS. A fact could have multiple entity identifiers and this indicates the identifier that was used.
     fact.numerical-value_Param:
        in: query
        name: fact.numerical-value
@@ -5886,7 +5887,7 @@ components:
        name: network.role-description-like
        schema:
          type: string
-       description: The human readable description of the network role. This is used to do a text search on components of the text string.
+       description: The human readable description of the network role. This is used to do a text search on components of the text string. See *stringmatch* parameter of options to search with operators on the relationship endpoint.
     period.instant_Param:
        in: query
        name: period.instant
@@ -5912,13 +5913,7 @@ components:
        name: report.base-taxonomy
        schema:
          type: string
-       description: Base taxonomy used for the filing, e.g. US-GAAP 2020.
-    report.checks-run_Param:
-       in: query
-       name: report.checks-run
-       schema:
-         type: boolean
-       description: Boolean flag that indicates if the Data Quality Committee checks have run for this report.
+       description: Base taxonomy used for the filing, i.e. US-GAAP 2020.
     report.documentset-num_Param:
        in: query
        name: report.documentset-num
@@ -5930,19 +5925,13 @@ components:
        name: report.event-items
        schema:
          type: string
-       description: The event items associated with the report.
-    report.form-type_Param:
-       in: query
-       name: report.form-type
-       schema:
-         type: string
-       description: The document type of the FERC report e.g. 1, 2-A.
+       description: The SEC 8-K event items associated with the report - see https://xbrl.us/8-k-items.
     report.hash_Param:
        in: query
        name: report.hash
        schema:
          type: string
-       description: A hash of all the filings information, facts, footnotes, etc. Unique to each filing.
+       description: A hash string that is generated based on the semantic meaning of the report. Two identical reports expressed as XBRL JSON, XML or inline XBRL will have an identical hash string. This makes it possible to determine if a report is a duplicate.
     report.html-url_Param:
        in: query
        name: report.html-url
@@ -5966,7 +5955,7 @@ components:
        name: report.year-focus
        schema:
          type: string
-       description: The year the report was reported for.
+       description: The reporting year for the filing.
     report.zip-url_Param:
        in: query
        name: report.zip-url
@@ -5984,7 +5973,7 @@ components:
             status: Invalid Limit Amount
             body: The account is attempting to retrieve records beyond its established limit.
     bad_request:
-      description: >
+      description: |
         Malformed request or missing fields. Check that Content-Type matches the format/encoding, and that all required fields are spelled correctly, have correct types, and valid values. Possible status messages include:
          * Invalid Parameter
          * FieldsNotFound
@@ -6008,7 +5997,7 @@ components:
             error: unauthorized
             error_description: Cannot convert access token to JSON
     unauthorized:
-      description: >
+      description: |
         Bad credentials, or could not read credentials due to malformed JSON.
          * "Full authentication is required..." -> malformed JSON
          * "Bad client credentials" -> client_id/client_secret pair invalid
