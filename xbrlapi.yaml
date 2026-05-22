@@ -18,58 +18,55 @@ info:
     - The entity.cik and report.form-type fields were deprecated in favor of entity.code and report.document-type to allow for the inclusion of entity identifiers and reports from multiple sources. The API will continue to support entity.cik and report.form-type for backward compatibility, but they will be removed in a future release. Please update any queries using these filters/fields to use the updated values.
 
     - This is a summary of filters added to the XBRL API since its release through May 2026.
-    #### `/api/v1/fact/search`
+    #### /api/v1/fact/search
     `concept.balance-type`, `entity.code`, `entity.name`, `entity.scheme`, `fact.numerical-value`, `footnote.role`, `footnote.text`, `period.instant`, `report.documentset-num`, `report.event-items`, `report.hash`, `report.html-url`, `report.is-most-current`, `report.period-focus`, `report.submission-type`, `report.year-focus`
 
-    #### `/api/v1/fact/oim/search`
+    #### /api/v1/fact/oim/search
     `concept.balance-type`, `entity.code`, `entity.name`, `entity.scheme`, `fact.numerical-value`, `footnote.role`, `footnote.text`, `period.instant`, `report.document-type`, `report.document-index`, `report.documentset-num`, `report.event-items`, `report.hash`, `report.html-url`, `report.is-most-current`, `report.period-focus`, `report.submission-type`, `report.year-focus`
 
-    #### `/api/v1/report/search`
+    #### /api/v1/report/search
     `entity.code`, `entity.name`, `entity.scheme`, `report.accepted-timestamp`, `report.base-taxonomy`, `report.creation-software`, `report.documentset-num`, `report.event-items`, `report.hash`, `report.html-url`, `report.period-focus`, `report.period-index`, `report.submission-type`, `report.year-focus`, `report.zip-url`
 
-    #### `/api/v1/report/{report.id}/fact/search`
+    #### /api/v1/report/{report.id}/fact/search
     `concept.balance-type`, `entity.code`, `entity.name`, `entity.scheme`, `fact.numerical-value`, `footnote.role`, `footnote.text`, `period.instant`, `report.accepted-timestamp`, `report.base-taxonomy`, `report.document-type`, `report.document-index`, `report.documentset-num`, `report.entity-name`, `report.entry-type`, `report.event-items`, `report.filer-category`, `report.hash`, `report.html-url`, `report.is-most-current`, `report.period-focus`, `report.period-index`, `report.submission-type`, `report.year-focus`, `report.zip-url`
 
-    #### `/api/v1/report/fact/search`
+    #### /api/v1/report/fact/search
     `concept.balance-type`, `dimensions.count`, `entity.code`, `entity.name`, `entity.scheme`, `entity.ticker`, `fact.numerical-value`, `footnote.role`, `footnote.text`, `period.instant`, `report.accepted-timestamp`, `report.base-taxonomy`, `report.documentset-num`, `report.event-items`, `report.hash`, `report.html-url`, `report.period-focus`, `report.submission-type`, `report.year-focus`, `report.zip-url`
 
-    #### `/api/v1/entity/search`
+    #### /api/v1/entity/search
     `entity.code`
 
-    #### `/api/v1/entity/{entity.id}/report/search`
+    #### /api/v1/entity/{entity.id}/report/search
     `report.accepted-timestamp`, `report.base-taxonomy`, `report.creation-software`, `report.documentset-num`, `report.entity-name`, `report.event-items`, `report.hash`, `report.html-url`, `report.period-focus`, `report.submission-type`, `report.year-focus`, `report.zip-url`
 
-    #### `/api/v1/entity/report/search`
+    #### /api/v1/entity/report/search
     `entity.code`, `entity.name`, `entity.scheme`, `report.accepted-timestamp`, `report.base-taxonomy`, `report.creation-software`, `report.documentset-num`, `report.event-items`, `report.hash`, `report.html-url`, `report.period-focus`, `report.submission-type`, `report.year-focus`, `report.zip-url`
 
-    #### `/api/v1/assertion/search`
+    #### /api/v1/assertion/search
     `entity.cik`, `entity.code`, `entity.scheme`, `report.base-taxonomy`, `report.period-focus`, `report.year-focus`, `report.zip-url`
 
-    #### `/api/v1/dts/search`
-    Added filter: `report.hash`
+    #### /api/v1/dts/search
+    `report.hash`
 
-    #### `/api/v1/cube/search`
+    #### /api/v1/cube/search
     `concept.balance-type`, `cube.member-value`, `entity.code`, `entity.id`, `fact.accuracy-index`, `fact.numerical-value`, `fact.ultimus`, `footnote.role`, `footnote.text`, `report.base-taxonomy`, `report.document-type`, `report.entity-name`, `report.source-id`, `report.source-name`, `report.year-focus`
 
-    #### `/api/v1/dimension/search`
+    #### /api/v1/dimension/search
     `report.document-type`, `report.id`, `report.source-id`, `report.source-name`
 
-    #### `/api/v1/document/search`
+    #### /api/v1/document/search
     `document.documentset`, `document.id`, `entity.cik`, `entity.code`, `entity.name`, `entity.scheme`, `report.hash`, `report.id`, `report.source-id`, `report.source-name`
 
-    #### `/api/v1/label/{dts.id}/search` and `/api/v1/label/search`
-    Added filter: `concept.is-abstract`
+    #### /api/v1/label/{dts.id}/search and /api/v1/label/search
+    `concept.is-abstract`
 
-    #### `/api/v1/network/{network.id}/relationship/search` and `/api/v1/network/relationship/search`
+    #### /api/v1/network/{network.id}/relationship/search, /api/v1/network/relationship/search, /api/v1/relationship/search and /api/v1/relationship/tree/search
     `network.role-description-like`, `relationship.target-label`
 
-    #### `/api/v1/relationship/search` and `/api/v1/relationship/tree/search`
-    `network.role-description-like`, `relationship.target-label`
-
-    #### `/api/v1/dts/{dts.id}/network/search`
+    #### /api/v1/dts/{dts.id}/network/search
     `network.role-description`, `network.role-description-like`, `relationship.target-is-abstract`, `relationship.target-label`
     
-    - The following definitions were added/updated in May 2026.
+    ### The following definitions were added/updated in May 2026.
     | Field | Type | Description |
     |-----------|------|-------------|
     | `concept.balance-type` | string | The balance type of a concept. This can be either debit, credit or not defined. |
@@ -96,12 +93,12 @@ info:
     | `report.year-focus` | string | The reporting year for the filing. |
     | `report.zip-url` | string | The url where the zip containing all the files of a filing can be accessed. |
 
-    ### Structure and Syntax
+    ## Structure and Syntax
     The API is structured to allow the return of XBRL details as objects, which are used to classify XBRL data. These objects generally fall into two categories: **facts and data taxonomy**. Each object has multiple properties that can be used to define the query. Some are shared and others are unique to the object. **Objects can also be nested** allowing specific information about the main object to be retrieved.
     
     Each object has properties that can be accessed by requesting them from the XBRL API. The property of the object is defined using a dot notation (i.e. `object.property`). For example, to return the **value** of the fact, use `fact.value`. While many of these properties can also be used to search for data, **not all properties of the object are searchable** and some properties may be defined as components of other objects and are inherited from these objects.
     
-    #### Object Search
+    ### Object Search
     The `search` keyword is used as an endpoint in many URIs. This indicates to the API that you will be searching on one or more properties of the object. A search can be performed on one object at a time, and is based on the first object that appears in the URI. 
     
     For example, in the following uri, `entity.code` is the search property with the report object:
@@ -124,27 +121,27 @@ info:
     -  what order should the records be returned in - `sort`, and; 
     -  from what starting position within the sequence of records should the data be returned - `offset`.
     
-    #### Fields
+    ### Fields
     The `fields` query parameter establishes the details of the data to return for the specific query. Each field requested is separated using a comma without white space. The order of the fields returned is based on the position in the fields string.  Using the * as a wildcard on the object in the fields to return (i.e. fact.*) will return all available properties of the object, and should only be used for testing, as it can slow a query considerably.
     
-    #### Limit 
+    ### Limit 
     A `limit` restricts the number of results returned by the query. **The limit attribute can only be added to an object type and not a property.** For example, to limit the number of reports in a query, the limit property is added to the fields to return as follows: `report.limit(10)`.
     
-    #### Offset
+    ### Offset
     The 'offset' attribute enables targeting a return to a specific starting point in a query return sequence (i.e. `report.offset(120)`).  To work reliably, __at least one__ sorted property should be included in the returned fields.
     
-    #### Sort 
+    ### Sort 
     Any returned value can be sorted in ascending or descending order, by adding an additional attribute (ASC or DESC) to a field value (i.e. `report.document-type.sort(DESC)`). **Multiple sort criteria can be defined** and the sort sequence is determined by the order defined in the fields parameter. 
     
     In the following example, the 10 reports returned starting with the 120th report for the search query would be sorted alpha-numerically in descending order first by document type and then by timestamp:
     
     `fields=report.limit(10),report.document-type.sort(DESC),report.accepted-timestamp.sort(DESC),report.offset(120)`
     
-    ### Authorization Flow
+    ## Authorization Flow
     
     We use [OAuth2 JWT](https://jwt.io/) flows to secure interactions. Below are **CURL** examples for typical **XBRL API** flows to request, return and use a token, which is required to process queries. The XBRL API is sessionless, so each "session" always begins with the [OAuth2 JWT Access Token Flow](https://jwt.io/introduction).
     
-    #### Access Token Flow
+    ### Access Token Flow
     
     This flow shows the steps required to interact with the API
     
