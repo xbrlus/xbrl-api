@@ -47,31 +47,31 @@ info:
     <a name="comparison"></a>
 
     #### Fact endpoint comparison queries with `fact.value` and `period.fiscal-year` filters
-    Use the following options defined in the tables to return results based on a comparison of the value to a specified value or range. To use a comparison, include it in brackets directly after the parameter name. The following search example returns fiscal years AFTER (greater than) 2023:
+    Use the following options defined in the tables to return results based on a comparison of the value to a specified value or range. To use a comparison, include it in brackets directly after the parameter name. The following search example returns fiscal years AFTER (greater than) 2017:
     
-    `/api/v1/fact/search?concept.local-name=Assets&period.fiscal-year[gt]=2023`
+    `/api/v1/fact/search?concept.local-name=Assets&period.fiscal-year[gt]=2017`
     
     | Numeric and non-numeric comparisons | Comparison | Example | Notes |
     |---|---|---|---|
-    |Equal | eq | period.fiscal-year[eq]=2017 | Default |
-    |In a list of values | in | fact.value[in]=100,200,300 | Commas separate the values in the list |
-    |Not in a list of values | nin | fact.value[nin]=100,200,300 | Commas separate the values in the list |
-    |or | or | fact.value[or]=100,200 | Commas separated list |
-    |not or | nor | fact.value[nor]=100,200 | Commas separated list |
-    |and | and | fact.value[and]=100,200 | Commas separated list |
-    |not and | nand | fact.value[nand]=100,200 | Every comma delimited value is not in the value |
-    |is null | isnull | fact.value[isnull] | Returns records where the value is null |
-    |isn't null | isnotnull | fact.value[isnotnull] | Returns records where the value is not null |
+    | Equal | eq | `period.fiscal-year[eq]=2017` | Default |
+    | In a list of values | in | `fact.value[in]=100,200,300` | Commas separate the values in the list |
+    | Not in a list of values | nin | `fact.value[nin]=100,200,300` | Commas separate the values in the list |
+    | or | or | `fact.value[or]=100,200` | Commas separated list |
+    | not or | nor | `fact.value[nor]=100,200` | Commas separated list |
+    | and | and | `fact.value[and]=100,200` | Commas separated list |
+    | not and | nand | `fact.value[nand]=100,200` | Every comma delimited value is not in the value |
+    | is null | isnull | `fact.value[isnull]` | Returns records where the value is null |
+    | isn't null | isnotnull | `fact.value[isnotnull]` | Returns records where the value is not null |
 
-    |Numeric and timestamp only comparisons | Comparison | Example | Notes |
+    | Numeric and timestamp only comparisons | Comparison | Example | Notes |
     |---|---|---|---|
-    |Not equal | ne | period.fiscal-year[ne]=2017 | Any existing value not '2017' will be returned |
-    |Greater than | gt | period.fiscal-year[gt]=2017 | Any existing value greater than '2017' will be returned |
-    |Greater than or equal to | gte | fact.value[ge]=100 | |
-    |Less than | lt | fact.value[lt]=100 | |
-    |Less than or equal to | lte | fact.value[le]=100 | |
-    |Between two values | between | fact.value[between]=100,200 | Commas separated list with two values |
-    |Not between two values | nbetween | fact.value[nbetween]=100,200 | Commas separated list with two values |
+    | Not equal | ne | `period.fiscal-year[ne]=2017` | Any existing value not '2017' will be returned |
+    | Greater than | gt | `period.fiscal-year[gt]=2017` | Any existing value greater than '2017' will be returned |
+    | Greater than or equal to | gte | `fact.value[ge]=100` | |
+    | Less than | lt | `fact.value[lt]=100` | |
+    | Less than or equal to | lte | `fact.value[le]=100` | |
+    | Between two values | between | `fact.value[between]=100,200` | Commas separated list with two values |
+    | Not between two values | nbetween | `fact.value[nbetween]=100,200` | Commas separated list with two values |]
     
     #### Nested objects
     Nesting objects (i.e. `/report/fact/`) allows querying for sub-object information from the main object. Sub-objects that can be used are dependent on the main object. For example, facts can be returned for specific reports, and relationships can be returned for specific networks.
@@ -5239,7 +5239,7 @@ components:
 
          The Sphinx search characters that can be used are summarized in the table below:
 
-         |Operator Name | Symbol | Example |
+         | Operator Name | Symbol | Example |
          | ------- | ------- | ------- | 
          | OR operator  | &#124; | Tsunami &#124; Earthquake will return text that contain either Earthquake or Tsunami. |
          | AND Operator	| & |	Tsunami & Earthquake will return text that contains both Tsunami and Earthquake. If you leave a space between 2 words it is assumed to represent an &, i.e. Tsunami Japan |
@@ -5428,33 +5428,7 @@ components:
        name: fact.value
        schema:
          type: string
-       description: |
-        The value of the fact as a text value. This includes numerical as well as non-numerical values reported. The following options defined in the table can be used to return results based on a comparison of the fact value to a specified string, integer or range. To use a comparison, include it in brackets directly after the parameter name. The following search example returns Assets greater than 100000000000 for fiscal years AFTER (greater than) 2023:
-        
-        `/api/v1/fact/search?concept.local-name=Assets&period.fiscal-year[gt]=2023&period.fiscal-period=Y&fact.value[gt]=100000000000`
-        
-        | Numeric and non-numeric comparisons | Comparison | Example | Notes |
-        |---|---|---|---|
-        | Equal | eq | period.fiscal-year[eq]=2017 | Default |
-        | In a list of values | in | fact.value[in]=100,200,300 | Commas separate the values in the list |
-        | Not in a list of values | nin | fact.value[nin]=100,200,300 | Commas separate the values in the list |
-        | or | or | fact.value[or]=100,200 | Commas separated list |
-        | not or | nor | fact.value[nor]=100,200 | Commas separated list |
-        | and | and | fact.value[and]=100,200 | Commas separated list |
-        | not and | nand | fact.value[nand]=100,200 | Every comma delimited value is not in the value |
-        | is null | isnull | fact.value[isnull] | Returns records where the value is null |
-        | isn't null | isnotnull | fact.value[isnotnull] | Returns records where the value is not null |
-
-        | Numeric and timestamp only comparisons | Comparison | Example | Notes |
-        |---|---|---|---|
-        | Not equal | ne | period.fiscal-year[ne]=2017 | Any existing value not '2017' will be returned |
-        | Greater than | gt | period.fiscal-year[gt]=2017 | Any existing value greater than '2017' will be returned |
-        | Greater than or equal to | gte | fact.value[ge]=100 | |
-        | Less than | lt | fact.value[lt]=100 | |
-        | Less than or equal to | lte | fact.value[le]=100 | |
-        | Between two values | between | fact.value[between]=100,200 | Commas separated list with two values |
-        | Not between two values | nbetween | fact.value[nbetween]=100,200 | Commas separated list with two values |
-
+       description: The value of the fact as a text value. This includes numerical as well as non-numerical values reported.
     fact.value-link_Param:
        in: query
        name: fact.value-link
@@ -5592,32 +5566,7 @@ components:
          uniqueItems: true
          items:
            type: integer
-       description: |
-        The fiscal year in which the fact is applicable in the format 'YYYY'. The following options defined in the table returns results based on a comparison of the value to a specified value or range. To use a comparison, include it in brackets directly after the parameter name. The following search example returns Assets greater than 100000000000 for fiscal years AFTER (greater than) 2023:
-        
-        `/api/v1/fact/search?concept.local-name=Assets&period.fiscal-year[gt]=2023&period.fiscal-period=Y&fact.value[gt]=100000000000`
-        
-        | Numeric and non-numeric comparisons | Comparison | Example | Notes |
-        |---|---|---|---|
-        | Equal | eq | period.fiscal-year[eq]=2017 | Default |
-        | In a list of values | in | fact.value[in]=100,200,300 | Commas separate the values in the list |
-        | Not in a list of values | nin | fact.value[nin]=100,200,300 | Commas separate the values in the list |
-        | or | or | fact.value[or]=100,200 | Commas separated list |
-        | not or | nor | fact.value[nor]=100,200 | Commas separated list |
-        | and | and | fact.value[and]=100,200 | Commas separated list |
-        | not and | nand | fact.value[nand]=100,200 | Every comma delimited value is not in the value |
-        | is null | isnull | fact.value[isnull] | Returns records where the value is null |
-        | isn't null | isnotnull | fact.value[isnotnull] | Returns records where the value is not null |
-
-        | Numeric and timestamp only comparisons | Comparison | Example | Notes |
-        |---|---|---|---|
-        | Not equal | ne | period.fiscal-year[ne]=2017 | Any existing value not '2017' will be returned |
-        | Greater than | gt | period.fiscal-year[gt]=2017 | Any existing value greater than '2017' will be returned |
-        | Greater than or equal to | gte | fact.value[ge]=100 | |
-        | Less than | lt | fact.value[lt]=100 | |
-        | Less than or equal to | lte | fact.value[le]=100 | |
-        | Between two values | between | fact.value[between]=100,200 | Commas separated list with two values |
-        | Not between two values | nbetween | fact.value[nbetween]=100,200 | Commas separated list with two values |
+       description: The fiscal year in which the fact is applicable in the format 'YYYY'.
     period.id_Param:
        in: query
        name: period.id

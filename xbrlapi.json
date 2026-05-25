@@ -3,7 +3,7 @@
   "info": {
     "version": "V1",
     "title": "XBRL API",
-    "description": "#### [Interactive documentation for objects](https://xbrlus.github.io/xbrl-api/index.html#oauth2) || [Rapidoc interactive documentation for objects](https://xbrlus.github.io/xbrl-api/rapidoc.html#oauth2) || [Additional context and background on XBRL API (PDF)](https://xbrlus.github.io/xbrl-api/XBRL-API-V1.5.pdf)\n\n## Introduction\nThe XBRL API can work with any database that conforms to the [XBRL Specification](https://specifications.xbrl.org/work-product-index-group-base-spec-base-spec.html). The xbrlapi.yaml file noted above defines the free XBRL API used to retrieve data from the [XBRL US Database of Public filings](https://xbrl.us/filings-database).\n\nThe documentation below describes how to use the XBRL API. The purpose of the XBRL API is to provide a unified interface to stored XBRL data which any data utility can adopt. This unified interface allows developers with limited XBRL knowledge to learn a single interface to access many data repositories. This expands access to the market for available data, while also encouraging the use of fundamental structured data.\n\n**_To use this page interactively_**, [generate a client ID and secret](https://xbrl.us/access-token) with your XBRL US Web account, then scroll down and click the **Authorize** button on the right-side of this page, or any of the lock icons. Enter the required details, change the \"Client credentials location\" to **Request body**, then click \"Authorize\" and \"Close\". Once authorized, click any **Try it out** button appearing at the top of any object's Parameters list to form a query and get results.  **Other tools and templates for using the API** are available on the [XBRL US web site's Data Community page](https://xbrl.us/xbrl-api-community). \n\n## Updates\n\n### May 2026: \n> Documentation was updated to include filters and fields that have been added to XBRL API endpoints since inception and [this page summarizes the additions](https://github.com/xbrlus/xbrl-api/blob/master/CHANGELOG-meta-sync.md).\n\n> The section below for <a href=\"#comparison\">fact endpoint comparison queries</a> was added to the documentation to provide details on how to use comparison operators in queries, and the examples provided in the documentation were updated to include these operators where applicable.\n\n> The `entity.cik` (SEC-specific) and `report.form-type` (FERC-specific) fields were removed from documentation as `entity.code` and `report.document-type` fields support entity identifiers and reports from multiple sources. The API will continue to support the removed fields for backward compatibility, but these will be deprecated in a future release. Please update any queries using these filters/fields to use the corresponding comprehensive values.\n\n## Structure and Syntax\nThe API is structured to allow the return of XBRL details as objects, which are used to classify XBRL data. These objects generally fall into two categories: **facts and data taxonomy**. Each object has multiple properties that can be used to define the query. Some are shared and others are unique to the object. **Objects can also be nested** allowing specific information about the main object to be retrieved.\n\nEach object has properties that can be accessed by requesting them from the XBRL API. The property of the object is defined using a dot notation (i.e. `object.property`). For example, to return the **value** of the fact, use `fact.value`. While many of these properties can also be used to search for data, **not all properties of the object are searchable** and some properties may be defined as components of other objects and are inherited from these objects.\n\n### Object Search\nThe `search` keyword is used as an endpoint in many URIs. This indicates to the API that you will be searching on one or more properties of the object. A search can be performed on one object at a time, and is based on the first object that appears in the URI. \n\nFor example, in the following uri, `entity.code` is the search property with the report object:\n\n`/api/v1/report/search?entity.code=0001493040&fields=report.*`\n\nMultiple parameters can be included in a search and are separated by ampersands (&). In the case below, the API will return `fact.value` data for a given CIK for Assets for 2017 in the first quarter:\n\n`/api/v1/fact/search?concept.local-name=Assets&period.fiscal-year=2017&period.fiscal.period=1Q&entity.code=0001493040&fields=fact.value`\n\nIt is not possible to search on a property that is not a component of the object. In the example above, the endpoint is referencing the fact object (fact appears after v1) so a user must search on a valid fact property.\n\n#### Unique results\nThese can be achieved by including `unique` as part of the query. This evaluates displayed fields for comparison: if all displayed values match an existing result, it will not be included in the result set (i.e. including a unique value like `fact.id` in the fields for a query that returns the same `fact.value` multiple times will cause the same `fact.value` to appear because the `fact.id` differentiates each result).\n\n`/api/v1/fact/search?concept.local-name=Assets&period.fiscal.period=1Q&entity.code=0001493040&fields=fact.value&unique`\n<a name=\"comparison\"></a>\n\n#### Fact endpoint comparison queries with `fact.value` and `period.fiscal-year` filters\nUse the following options defined in the tables to return results based on a comparison of the value to a specified value or range. To use a comparison, include it in brackets directly after the parameter name. The following search example returns fiscal years AFTER (greater than) 2023:\n\n`/api/v1/fact/search?concept.local-name=Assets&period.fiscal-year[gt]=2023`\n\n| Numeric and non-numeric comparisons | Comparison | Example | Notes |\n|---|---|---|---|\n|Equal | eq | period.fiscal-year[eq]=2017 | Default |\n|In a list of values | in | fact.value[in]=100,200,300 | Commas separate the values in the list |\n|Not in a list of values | nin | fact.value[nin]=100,200,300 | Commas separate the values in the list |\n|or | or | fact.value[or]=100,200 | Commas separated list |\n|not or | nor | fact.value[nor]=100,200 | Commas separated list |\n|and | and | fact.value[and]=100,200 | Commas separated list |\n|not and | nand | fact.value[nand]=100,200 | Every comma delimited value is not in the value |\n|is null | isnull | fact.value[isnull] | Returns records where the value is null |\n|isn't null | isnotnull | fact.value[isnotnull] | Returns records where the value is not null |\n\n|Numeric and timestamp only comparisons | Comparison | Example | Notes |\n|---|---|---|---|\n|Not equal | ne | period.fiscal-year[ne]=2017 | Any existing value not '2017' will be returned |\n|Greater than | gt | period.fiscal-year[gt]=2017 | Any existing value greater than '2017' will be returned |\n|Greater than or equal to | gte | fact.value[ge]=100 | |\n|Less than | lt | fact.value[lt]=100 | |\n|Less than or equal to | lte | fact.value[le]=100 | |\n|Between two values | between | fact.value[between]=100,200 | Commas separated list with two values |\n|Not between two values | nbetween | fact.value[nbetween]=100,200 | Commas separated list with two values |\n\n#### Nested objects\nNesting objects (i.e. `/report/fact/`) allows querying for sub-object information from the main object. Sub-objects that can be used are dependent on the main object. For example, facts can be returned for specific reports, and relationships can be returned for specific networks.\n\n### Filtering results\nIn addition to accessing data through a specific object, **returned data can be managed by defining the properties of the data to be returned** and attributes of the properties:\n-  what details about the data should be returned - `fields`; \n-  how many records should be returned - `limit`;\n-  what order should the records be returned in - `sort`, and; \n-  from what starting position within the sequence of records should the data be returned - `offset`.\n\n> #### Fields\n> The `fields` parameter establishes the details of the data to return for the specific query. Each field requested is separated using a comma without white space. The order of the fields returned is based on the position in the fields string.  Using the * as a wildcard on the object in the fields to return (i.e. fact.*) will return all available properties of the object, and should only be used for testing, as it can slow a query considerably. \n> #### Limit\n> A `limit` restricts the number of results returned by the query. **The limit attribute can only be added to an object type and not a property.** For example, to limit the number of reports in a query, the limit property is added to the fields to return as follows: `report.limit(10)`.\n> #### Sort\n> Any returned value can be sorted in ascending or descending order, by adding an additional attribute (ASC or DESC) to a field value (i.e. `report.document-type.sort(DESC)`). **Multiple sort criteria can be defined** and the sort sequence is determined by the order defined in the fields parameter. \n> #### Offset\n> The 'offset' attribute enables targeting a return to a specific starting point in a query return sequence (i.e. `report.offset(120)`).  To work reliably, *at least one* sorted property should be included in the returned fields.\n> In the following example, the 10 reports returned starting with the 120th report for the search query would be sorted alpha-numerically in descending order first by document type and then by timestamp: \n> `fields=report.limit(10),report.document-type.sort(DESC),report.accepted-timestamp.sort(DESC),report.offset(120)`\n\n## Authorization Flow\n\nWe use [OAuth2 JWT](https://jwt.io/) flows to secure interactions. Below are **CURL** examples for typical **XBRL API** flows to request, return and use a token, which is required to process queries. The XBRL API is sessionless, so each \"session\" always begins with the [OAuth2 JWT Access Token Flow](https://jwt.io/introduction).\n\n### Access Token Flow\n\nThis flow shows the steps required to interact with the API\n\n1. Send an HTTP `POST` request to the tokenUrl: `/oauth2/token`:\n  ```http\n  POST /oauth2/token HTTP/1.1 \n  Host: <api.xbrl.us> \n  Content-Type: application/x-www-form-urlencoded \n  Body: {\n    \"grant_type\": password,\n    \"client_id\": \"XBRL US Client\",\n    \"client_secret\": \"client secret\",\n    \"username\": \"username\",\n    \"password\": \"password\",\n    \"platform\": pc\n  }\n  ```\n2. Upon a successful authorization grant, the server will respond with an `access_token`:\n  ```http\n  HTTP/1.1 200 OK\n  Request URL: <example.com>/oauth2/token\n  Date: <EEE, dd MMM yyyy HH:mm:ss z>\n  Content-Length: 500\n  Body: {\n    \"platform\": \"pc\",\n    \"access_token\": \"eyJ...124nOvc\",\n    \"refresh_token\": \"eyJ...124nOvc\",\n    \"expires_in\" : 3600,\n    \"refresh_token_expires_in\": 10800,\n    \"token_type\": \"bearer\"\n  }\n  ```\n3. Add a new `Authorization` header with type `Bearer` and the contents of the above `access_token`\n  ```http\n  GET </some/route> HTTP/1.1\n  Host: <api.xbrl.us> \n  Authorization: Bearer yJ...124nOvc\n  Content-Type: application/json; charset=utf-8 \n  Body: <...>\n  ```    \n**Once an access_token has been acquired, it can be used on all queries with an account until it returns a 401.** If this occurs, simply request a new token using existing `client_id`, `client_secret`, `refresh_token` and `platform` values, and set `grant_type` to **refresh_token**. \n",
+    "description": "#### [Interactive documentation for objects](https://xbrlus.github.io/xbrl-api/index.html#oauth2) || [Rapidoc interactive documentation for objects](https://xbrlus.github.io/xbrl-api/rapidoc.html#oauth2) || [Additional context and background on XBRL API (PDF)](https://xbrlus.github.io/xbrl-api/XBRL-API-V1.5.pdf)\n\n## Introduction\nThe XBRL API can work with any database that conforms to the [XBRL 2.1 Specification](https://specifications.xbrl.org/work-product-index-group-base-spec-base-spec.html). The xbrlapi.yaml file noted above defines the free XBRL API used to retrieve data from the [XBRL US Database of Public filings](https://xbrl.us/filings-database).\n\nThe documentation below describes how to use the XBRL API. The purpose of the XBRL API is to provide a unified interface to stored XBRL data which any data utility can adopt. This unified interface allows developers with limited XBRL knowledge to learn a single interface to access many data repositories. This expands access to the market for available data, while also encouraging the use of fundamental structured data.\n\n**_To use this page interactively_**, [generate a client ID and secret](https://xbrl.us/access-token) with your XBRL US Web account, then scroll down and click the **Authorize** button on the right-side of this page, or any of the lock icons. Enter the required details, change the \"Client credentials location\" to **Request body**, then click \"Authorize\" and \"Close\". Once authorized, click any **Try it out** button appearing at the top of any object's Parameters list to form a query and get results.  \n\n## Changes\n\n- The entity.cik and report.form-type fields were deprecated in favor of entity.code and report.document-type to allow for the inclusion of entity identifiers and reports from multiple sources. The API will continue to support entity.cik and report.form-type for backward compatibility, but they will be removed in a future release. Please update any queries using these filters/fields to use the updated values.\n\n- This is a summary of filters added to the XBRL API since its release through May 2026.\n#### `/api/v1/fact/search`\n`concept.balance-type`, `entity.code`, `entity.name`, `entity.scheme`, `fact.numerical-value`, `footnote.role`, `footnote.text`, `period.instant`, `report.documentset-num`, `report.event-items`, `report.hash`, `report.html-url`, `report.is-most-current`, `report.period-focus`, `report.submission-type`, `report.year-focus`\n\n#### `/api/v1/fact/oim/search`\n`concept.balance-type`, `entity.code`, `entity.name`, `entity.scheme`, `fact.numerical-value`, `footnote.role`, `footnote.text`, `period.instant`, `report.document-type`, `report.document-index`, `report.documentset-num`, `report.event-items`, `report.hash`, `report.html-url`, `report.is-most-current`, `report.period-focus`, `report.submission-type`, `report.year-focus`\n\n#### `/api/v1/report/search`\n`entity.code`, `entity.name`, `entity.scheme`, `report.accepted-timestamp`, `report.base-taxonomy`, `report.creation-software`, `report.documentset-num`, `report.event-items`, `report.hash`, `report.html-url`, `report.period-focus`, `report.period-index`, `report.submission-type`, `report.year-focus`, `report.zip-url`\n\n#### `/api/v1/report/{report.id}/fact/search`\n`concept.balance-type`, `entity.code`, `entity.name`, `entity.scheme`, `fact.numerical-value`, `footnote.role`, `footnote.text`, `period.instant`, `report.accepted-timestamp`, `report.base-taxonomy`, `report.document-type`, `report.document-index`, `report.documentset-num`, `report.entity-name`, `report.entry-type`, `report.event-items`, `report.filer-category`, `report.hash`, `report.html-url`, `report.is-most-current`, `report.period-focus`, `report.period-index`, `report.submission-type`, `report.year-focus`, `report.zip-url`\n\n#### `/api/v1/report/fact/search`\n`concept.balance-type`, `dimensions.count`, `entity.code`, `entity.name`, `entity.scheme`, `entity.ticker`, `fact.numerical-value`, `footnote.role`, `footnote.text`, `period.instant`, `report.accepted-timestamp`, `report.base-taxonomy`, `report.documentset-num`, `report.event-items`, `report.hash`, `report.html-url`, `report.period-focus`, `report.submission-type`, `report.year-focus`, `report.zip-url`\n\n#### `/api/v1/entity/search`\n`entity.code`\n\n#### `/api/v1/entity/{entity.id}/report/search`\n`report.accepted-timestamp`, `report.base-taxonomy`, `report.creation-software`, `report.documentset-num`, `report.entity-name`, `report.event-items`, `report.hash`, `report.html-url`, `report.period-focus`, `report.submission-type`, `report.year-focus`, `report.zip-url`\n\n#### `/api/v1/entity/report/search`\n`entity.code`, `entity.name`, `entity.scheme`, `report.accepted-timestamp`, `report.base-taxonomy`, `report.creation-software`, `report.documentset-num`, `report.event-items`, `report.hash`, `report.html-url`, `report.period-focus`, `report.submission-type`, `report.year-focus`, `report.zip-url`\n\n#### `/api/v1/assertion/search`\n`entity.cik`, `entity.code`, `entity.scheme`, `report.base-taxonomy`, `report.period-focus`, `report.year-focus`, `report.zip-url`\n\n#### `/api/v1/dts/search`\nAdded filter: `report.hash`\n\n#### `/api/v1/cube/search`\n`concept.balance-type`, `cube.member-value`, `entity.code`, `entity.id`, `fact.accuracy-index`, `fact.numerical-value`, `fact.ultimus`, `footnote.role`, `footnote.text`, `report.base-taxonomy`, `report.document-type`, `report.entity-name`, `report.source-id`, `report.source-name`, `report.year-focus`\n\n#### `/api/v1/dimension/search`\n`report.document-type`, `report.id`, `report.source-id`, `report.source-name`\n\n#### `/api/v1/document/search`\n`document.documentset`, `document.id`, `entity.cik`, `entity.code`, `entity.name`, `entity.scheme`, `report.hash`, `report.id`, `report.source-id`, `report.source-name`\n\n#### `/api/v1/label/{dts.id}/search` and `/api/v1/label/search`\nAdded filter: `concept.is-abstract`\n\n#### `/api/v1/network/{network.id}/relationship/search` and `/api/v1/network/relationship/search`\n`network.role-description-like`, `relationship.target-label`\n\n#### `/api/v1/relationship/search` and `/api/v1/relationship/tree/search`\n`network.role-description-like`, `relationship.target-label`\n\n#### `/api/v1/dts/{dts.id}/network/search`\n`network.role-description`, `network.role-description-like`, `relationship.target-is-abstract`, `relationship.target-label`\n\n- The following definitions were added/updated in May 2026.\n| Field | Type | Description |\n|-----------|------|-------------|\n| `concept.balance-type` | string | The balance type of a concept. This can be either debit, credit or not defined. |\n| `concept.is-abstract` | boolean | Identifies if the concept is an abstract concept. If a primary concept (Not an axis or dimension) is an abstract it cannot have a value associated with it. |\n| `cube.member-value` | string | Typed value or local-name of the member depending on the dimension type. |\n| `document.documentset` | boolean | Boolean attribute that indicates if the document is part of the document set, i.e. an inline document. |\n| `document.id` | integer | An internal unique identifier of the document. |\n| `entity.code` | array[string] | The entity identifier from its associated source (ie. SEC entity codes are the Central Index Code or CIK; FERC entity codes are Company Identifier or CID). All entity identifiers are in this field. |\n| `entity.scheme` | string | The scheme of the identifier associated with a fact, report or DTS. A fact could have multiple entity identifiers and this indicates the identifier that was used. |\n| `fact.numerical-value` | number | The numerical value of the fact that was reported. |\n| `footnote.role` | string | The role used for the footnote. |\n| `footnote.text` | string | The text content of the footnote. |\n| `network.role-description-like` | string | The human readable description of the network role. This is used to do a text search on components of the text string. |\n| `period.instant` | date | Instant in time at which the fact was measured, only applicable for facts with a period type of instant. |\n| `relationship.target-label` | string | The label of the concept under the source relationship. |\n| `report.accepted-timestamp` | date-time | Date that the report was accepted at the regulator. |\n| `report.base-taxonomy` | string | Base taxonomy used for the filing, i.e. US-GAAP 2020. |\n| `report.documentset-num` | integer | The number of inline xbrl documents associated with the filing. |\n| `report.event-items` | string | The SEC 8-K event items associated with the report - see https://xbrl.us/8-k-items. |\n| `report.hash` | string | A hash string that is generated based on the semantic meaning of the report. Two identical reports expressed as XBRL JSON, XML or inline XBRL will have an identical hash string. This makes it possible to determine if a report is a duplicate. |\n| `report.html-url` | string | The URL of the HTML version of the report. |\n| `report.period-focus` | string | The period the report was reported for. |\n| `report.submission-type` | string | A FERC filing identifier indicating if it's the first time it was filed or a subsequent one. (O = Original; R = Restated) |\n| `report.year-focus` | string | The reporting year for the filing. |\n| `report.zip-url` | string | The url where the zip containing all the files of a filing can be accessed. |\n\n### Structure and Syntax\nThe API is structured to allow the return of XBRL details as objects, which are used to classify XBRL data. These objects generally fall into two categories: **facts and data taxonomy**. Each object has multiple properties that can be used to define the query. Some are shared and others are unique to the object. **Objects can also be nested** allowing specific information about the main object to be retrieved.\n\nEach object has properties that can be accessed by requesting them from the XBRL API. The property of the object is defined using a dot notation (i.e. `object.property`). For example, to return the **value** of the fact, use `fact.value`. While many of these properties can also be used to search for data, **not all properties of the object are searchable** and some properties may be defined as components of other objects and are inherited from these objects.\n\n#### Object Search\nThe `search` keyword is used as an endpoint in many URIs. This indicates to the API that you will be searching on one or more properties of the object. A search can be performed on one object at a time, and is based on the first object that appears in the URI. \n\nFor example, in the following uri, `entity.code` is the search property with the report object:\n\n`/api/v1/report/search?entity.code=0001493040&fields=report.*`\n\nMultiple parameters can be included in a search and are separated by ampersands (&). In the case below, the API will return `fact.value` data for a given CIK for Assets for 2017 in the first quarter:\n\n`/api/v1/fact/search?concept.local-name=Assets&period.fiscal-year=2017&period.fiscal.period=1Q&entity.code=0001493040&fields=fact.value`\n\nIt is not possible to search on a property that is not a component of the object. In the example above, the endpoint is referencing the fact object (fact appears after v1) so a user must search on a valid fact property.\n\n**Nested objects** allow you to pull sub-object information from the main object. Sub-objects that can be used are dependent on the main object. For example, facts can be returned for specific reports, and relationships can be returned for specific networks.\n\n**Unique results** can be achieved by including `unique` as part of the query. This evaluates displayed fields for comparison: if all displayed values match an existing result, it will not be included in the result set (ie. including a unique value like fact.id in the fields for a query that returns the same fact.value multiple times will cause the same fact.value to appear because the fact.id differentiates each result).\n\nIn addition to accessing data through a specific object, **returned data can be managed by defining the properties of the data to be returned** and attributes of the properties:\n-  what details about the data should be returned - `fields`; \n-  how many records should be returned - `limit`;\n-  what order should the records be returned in - `sort`, and; \n-  from what starting position within the sequence of records should the data be returned - `offset`.\n\n#### Fields\nThe `fields` query parameter establishes the details of the data to return for the specific query. Each field requested is separated using a comma without white space. The order of the fields returned is based on the position in the fields string.  Using the * as a wildcard on the object in the fields to return (i.e. fact.*) will return all available properties of the object, and should only be used for testing, as it can slow a query considerably.\n\n#### Limit \nA `limit` restricts the number of results returned by the query. **The limit attribute can only be added to an object type and not a property.** For example, to limit the number of reports in a query, the limit property is added to the fields to return as follows: `report.limit(10)`.\n\n#### Offset\nThe 'offset' attribute enables targeting a return to a specific starting point in a query return sequence (i.e. `report.offset(120)`).  To work reliably, __at least one__ sorted property should be included in the returned fields.\n\n#### Sort \nAny returned value can be sorted in ascending or descending order, by adding an additional attribute (ASC or DESC) to a field value (i.e. `report.document-type.sort(DESC)`). **Multiple sort criteria can be defined** and the sort sequence is determined by the order defined in the fields parameter. \n\nIn the following example, the 10 reports returned starting with the 120th report for the search query would be sorted alpha-numerically in descending order first by document type and then by timestamp:\n\n`fields=report.limit(10),report.document-type.sort(DESC),report.accepted-timestamp.sort(DESC),report.offset(120)`\n\n### Authorization Flow\n\nWe use [OAuth2 JWT](https://jwt.io/) flows to secure interactions. Below are **CURL** examples for typical **XBRL API** flows to request, return and use a token, which is required to process queries. The XBRL API is sessionless, so each \"session\" always begins with the [OAuth2 JWT Access Token Flow](https://jwt.io/introduction).\n\n#### Access Token Flow\n\nThis flow shows the steps required to interact with the API\n\n1. Send an HTTP `POST` request to the tokenUrl: `/oauth2/token`:\n  ```http\n  POST /oauth2/token HTTP/1.1 \n  Host: <api.xbrl.us> \n  Content-Type: application/x-www-form-urlencoded \n  Body: {\n    \"grant_type\": password,\n    \"client_id\": \"XBRL US Client\",\n    \"client_secret\": \"client secret\",\n    \"username\": \"username\",\n    \"password\": \"password\",\n    \"platform\": pc\n  }\n  ```\n2. Upon a successful authorization grant, the server will respond with an `access_token`:\n  ```http\n  HTTP/1.1 200 OK\n  Request URL: <example.com>/oauth2/token\n  Date: <EEE, dd MMM yyyy HH:mm:ss z>\n  Content-Length: 500\n  Body: {\n    \"platform\": \"pc\",\n    \"access_token\": \"eyJ...124nOvc\",\n    \"refresh_token\": \"eyJ...124nOvc\",\n    \"expires_in\" : 3600,\n    \"refresh_token_expires_in\": 10800,\n    \"token_type\": \"bearer\"\n  }\n  ```\n3. Add a new `Authorization` header with type `Bearer` and the contents of the above `access_token`\n  ```http\n  GET </some/route> HTTP/1.1\n  Host: <api.xbrl.us> \n  Authorization: Bearer yJ...124nOvc\n  Content-Type: application/json; charset=utf-8 \n  Body: <...>\n  ```    \n**Once an access_token has been acquired, it can be used on all queries with an account until it returns a 401.** If this occurs, simply request a new token using existing `client_id`, `client_secret`, `refresh_token` and `platform` values, and set `grant_type` to **refresh_token**. \n",
     "contact": {
       "name": "XBRL US",
       "email": "support@xbrl.us"
@@ -11,7 +11,7 @@
   },
   "servers": [
     {
-      "description": "Client credentials location is _Request body_\n",
+      "description": "Client credentials location is _Request body_",
       "url": "https://api.xbrl.us/"
     }
   ],
@@ -111,13 +111,13 @@
                     "access_token": {
                       "type": "string",
                       "format": "byte",
-                      "description": "A JWT access token. **[Read more](https://jwt.io/)**\n",
+                      "description": "A JWT access token. **[Read more](https://jwt.io/)**",
                       "example": "eyJ...124nOvc"
                     },
                     "refresh_token": {
                       "type": "string",
                       "format": "byte",
-                      "description": "A JWT access token. **[Read more](https://jwt.io/)**\n",
+                      "description": "A JWT access token. **[Read more](https://jwt.io/)**",
                       "example": "eyJ...124nOvc"
                     },
                     "expires_in": {
@@ -177,7 +177,7 @@
             "bearerAuth": []
           }
         ],
-        "description": "Search for *XBRL facts* based on the attributes of the fact, the report it was in, or the source of the data.  \n## Examples\n### _-Get all the facts in a document_\n\nThe following call will: get all facts in the report with an id of `226471`; limit the number of records returned to `1010` facts; sort facts `A-Z by the concept name`, and; return the following values:\n  * entity.name\n  * dimensions.count\n  * dimensions\n  * period.fiscal-period\n  * period.end\n  * period.instant\n  * period.year\n  * concept.local-name.sort(ASC)\n  * fact.numerical-value,fact.limit(1010)\n  * fact.value,report.source-id\n  * footnote.text\n  * footnote.role\n\n        https://api.xbrl.us/api/v1/fact/search?report.id=226471&fields=entity.name,dimensions.count,dimensions,entity.code,period.fiscal-period,period.end,period.instant,period.year,concept.local-name.sort(ASC),fact.numerical-value,fact.limit(1010),fact.value,report.source-id,footnote.text,footnote.role\n  \n\n### _-Get Operating Cash used by Pharma for the 2017 year_\nThe following call will get all facts reported for the 2017 year using the concept  `NetCashProvidedByUsedInOperatingActivities` reported for the sic code  `3841` which have no dimensions. It also limits the records returned to `100` facts and will return the following values:\n  \n  * fact.numerical-value\n  * period.fiscal-year\n  * period.fiscal-period\n  \n        https://api.xbrl.us/api/v1/fact/search?period.fiscal-period=Y&fact.ultimus=true&report.sic-code=3841&concept.local-name=NetCashProvidedByUsedInOperatingActivities&period.fiscal-year=2017&dimensions.count=0&fields=fact.numerical-value,period.fiscal-year,period.fiscal-period,fact.limit(100)\n\n    \n",
+        "description": "Search for _XBRL facts_ based on the attributes of the fact, the report it was in, or the source of the data.  \n## Examples\n### _-Get all the facts in a document_\n\nThe following call will: get all facts in the report with an id of `226471`; limit the number of records returned to `1010` facts; sort facts `A-Z by the concept name`, and; return the following values:\n  * entity.name\n  * dimensions.count\n  * dimensions\n  * period.fiscal-period\n  * period.end\n  * period.instant\n  * period.year\n  * concept.local-name.sort(ASC)\n  * fact.numerical-value,fact.limit(1010)\n  * fact.value,report.source-id\n  * footnote.text\n  * footnote.role\n\n        https://api.xbrl.us/api/v1/fact/search?report.id=226471&fields=entity.name,dimensions.count,dimensions,entity.code,period.fiscal-period,period.end,period.instant,period.year,concept.local-name.sort(ASC),fact.numerical-value,fact.limit(1010),fact.value,report.source-id,footnote.text,footnote.role\n  \n\n### _-Get Operating Cash used by Pharma for the 2017 year_\nThe following call will get all facts reported for the 2017 year using the concept  `NetCashProvidedByUsedInOperatingActivities` reported for the sic code  `3841` which have no dimensions. It also limits the records returned to `100` facts and will return the following values:\n  \n  * fact.numerical-value\n  * period.fiscal-year\n  * period.fiscal-period\n  \n        https://api.xbrl.us/api/v1/fact/search?period.fiscal-period=Y&fact.ultimus=true&report.sic-code=3841&concept.local-name=NetCashProvidedByUsedInOperatingActivities&period.fiscal-year=2017&dimensions.count=0&fields=fact.numerical-value,period.fiscal-year,period.fiscal-period,fact.limit(100)\n\n    \n",
         "parameters": [
           {
             "$ref": "#/components/parameters/concept.balance-type_Param"
@@ -381,12 +381,12 @@
             "schema": {
               "$ref": "#/components/schemas/fact_fields"
             },
-            "description": "This is the list of fields that can be returned for *XBRL facts*. \n"
+            "description": "This is the list of fields that can be returned for _XBRL facts_."
           }
         ],
         "responses": {
           "200": {
-            "description": "*fact details* successfully accepted\n",
+            "description": "__fact details__ successfully accepted",
             "content": {
               "application/json": {
                 "schema": {
@@ -448,7 +448,7 @@
             "bearerAuth": []
           }
         ],
-        "description": "Search for *XBRL facts* based on the fact.id attribute of the fact.\n",
+        "description": "Search for _XBRL facts_ based on the fact.id attribute of the fact.\n",
         "parameters": [
           {
             "$ref": "#/components/parameters/fact.text-search_Param"
@@ -471,12 +471,12 @@
             "schema": {
               "$ref": "#/components/schemas/fact_fields"
             },
-            "description": "This is the list of fields that can be returned for *XBRL facts*.\n"
+            "description": "This is the list of fields that can be returned for _XBRL facts_."
           }
         ],
         "responses": {
           "200": {
-            "description": "*fact details* successfully accepted\n",
+            "description": "__fact details__ successfully accepted",
             "content": {
               "application/json": {
                 "schema": {
@@ -526,7 +526,7 @@
             "bearerAuth": []
           }
         ],
-        "description": "Returns *XBRL facts* detail in the OIM JSON format.\n",
+        "description": "Returns _XBRL facts_ detail in the OIM JSON format.\n",
         "parameters": [
           {
             "$ref": "#/components/parameters/concept.balance-type_Param"
@@ -717,7 +717,7 @@
         ],
         "responses": {
           "200": {
-            "description": "*fact details* successfully accepted\n",
+            "description": "__fact details__ successfully accepted",
             "content": {
               "application/json": {
                 "schema": {
@@ -767,7 +767,7 @@
             "bearerAuth": []
           }
         ],
-        "description": "Return details for *XBRL reports* based on the attributes of the report(s).\n",
+        "description": "Return details for _XBRL reports_ based on the attributes of the report(s).\n",
         "parameters": [
           {
             "$ref": "#/components/parameters/dts.id_Param"
@@ -878,12 +878,12 @@
             "schema": {
               "$ref": "#/components/schemas/report_fields"
             },
-            "description": "This is the list of fields that can be returned for *XBRL reports*.\n"
+            "description": "This is the list of fields that can be returned for _XBRL reports_."
           }
         ],
         "responses": {
           "200": {
-            "description": "*report details* successfully accepted\n",
+            "description": "__report details__ successfully accepted",
             "content": {
               "application/json": {
                 "schema": {
@@ -936,7 +936,7 @@
             "bearerAuth": []
           }
         ],
-        "description": "Return detail for an *XBRL report* based on the report.id attribute.\n",
+        "description": "Return detail for an _XBRL report_ based on the report.id attribute.\n",
         "parameters": [
           {
             "in": "path",
@@ -957,12 +957,12 @@
             "schema": {
               "$ref": "#/components/schemas/report_fields"
             },
-            "description": "This is the list of fields that can be returned for *XBRL reports*.\n"
+            "description": "This is the list of fields that can be returned for _XBRL reports_."
           }
         ],
         "responses": {
           "200": {
-            "description": "*report details* successfully accepted\n",
+            "description": "__report details__ successfully accepted",
             "content": {
               "application/json": {
                 "schema": {
@@ -1012,7 +1012,7 @@
             "bearerAuth": []
           }
         ],
-        "description": "Allows searching for *XBRL reports* based on the report.id and returns certain *XBRL facts* associated with that report.  The attributes of those facts can be used as search parameters.\n",
+        "description": "Allows searching for _XBRL reports_ based on the report.id and returns certain _XBRL facts_ associated with that report.  The attributes of those facts can be used as search parameters.\n",
         "parameters": [
           {
             "in": "path",
@@ -1246,12 +1246,12 @@
             "schema": {
               "$ref": "#/components/schemas/report_and_fact_fields"
             },
-            "description": "Report *and* fact fields can be returned by a nested report/fact query.\n"
+            "description": "Report *and* fact fields can be returned by a nested report/fact query."
           }
         ],
         "responses": {
           "200": {
-            "description": "*report details* successfully accepted\n",
+            "description": "__report details__ successfully accepted",
             "content": {
               "application/json": {
                 "schema": {
@@ -1304,7 +1304,7 @@
             "bearerAuth": []
           }
         ],
-        "description": "Allows searching for *XBRL reports* based on valid report search parameters and returns certain *XBRL facts* associated with qualified reports.  The attributes of those facts can be used as search parameters.\n",
+        "description": "Allows searching for _XBRL reports_ based on valid report search parameters and returns certain _XBRL facts_ associated with qualified reports.  The attributes of those facts can be used as search parameters.\n",
         "parameters": [
           {
             "$ref": "#/components/parameters/concept.balance-type_Param"
@@ -1532,12 +1532,12 @@
             "schema": {
               "$ref": "#/components/schemas/report_details_with_facts"
             },
-            "description": "Report *and* fact fields can be returned by a nested report/fact query.\n"
+            "description": "Report *and* fact fields can be returned by a nested report/fact query."
           }
         ],
         "responses": {
           "200": {
-            "description": "*report details* successfully accepted\n",
+            "description": "__report details__ successfully accepted",
             "content": {
               "application/json": {
                 "schema": {
@@ -1589,7 +1589,7 @@
             "bearerAuth": []
           }
         ],
-        "description": "Deletes an *XBRL report*.\n",
+        "description": "Deletes an _XBRL report_.\n",
         "parameters": [
           {
             "in": "path",
@@ -1603,7 +1603,7 @@
         ],
         "responses": {
           "200": {
-            "description": "*report details* successfully deleted\n",
+            "description": "__report details__ successfully deleted",
             "content": {
               "application/json": {
                 "schema": {
@@ -1656,7 +1656,7 @@
             "bearerAuth": []
           }
         ],
-        "description": "Allows searching for *XBRL entities* based on the entity search parameters associated with the reporting entity. Use this to get ticker or CIK information quickly with a known entity name or ticker.\n",
+        "description": "Allows searching for _XBRL entities_ based on the entity search parameters associated with the reporting entity. Use this to get ticker or CIK information quickly with a known entity name or ticker.\n",
         "parameters": [
           {
             "$ref": "#/components/parameters/entity.code_Param"
@@ -1680,12 +1680,12 @@
             "schema": {
               "$ref": "#/components/schemas/entity_only_fields"
             },
-            "description": "This is the list of fields that can be returned for *XBRL entities*.\n"
+            "description": "This is the list of fields that can be returned for _XBRL entities_."
           }
         ],
         "responses": {
           "200": {
-            "description": "*entity report details* successfully accepted\n",
+            "description": "__entity report details__ successfully accepted",
             "content": {
               "application/json": {
                 "schema": {
@@ -1752,7 +1752,7 @@
             "bearerAuth": []
           }
         ],
-        "description": "Search for *XBRL reports* based on the entity identifier associated with the reporting entity. Get entity and report information for the known entity. \n",
+        "description": "Search for _XBRL reports_ based on the entity identifier associated with the reporting entity. Get entity and report information for the known entity. \n",
         "parameters": [
           {
             "in": "path",
@@ -1851,12 +1851,12 @@
             "schema": {
               "$ref": "#/components/schemas/entity_fields"
             },
-            "description": "Entity *and* report fields can be returned by a nested entity/report query.\n"
+            "description": "Entity *and* report fields can be returned by a nested entity/report query."
           }
         ],
         "responses": {
           "200": {
-            "description": "*entity report details* successfully accepted\n",
+            "description": "__entity report details__ successfully accepted",
             "content": {
               "application/json": {
                 "schema": {
@@ -1909,7 +1909,7 @@
             "bearerAuth": []
           }
         ],
-        "description": "Search *XBRL reports* grouped by the entity that filed the reports. The API allows searching on the attributes of the entity and the report.\n",
+        "description": "Search _XBRL reports_ grouped by the entity that filed the reports. The API allows searching on the attributes of the entity and the report.\n",
         "parameters": [
           {
             "$ref": "#/components/parameters/entity.code_Param"
@@ -2014,12 +2014,12 @@
             "schema": {
               "$ref": "#/components/schemas/entity_fields"
             },
-            "description": "Entity *and* report fields can be returned by a nested entity/report query.\n"
+            "description": "Entity *and* report fields can be returned by a nested entity/report query."
           }
         ],
         "responses": {
           "200": {
-            "description": "*entity report details* successfully accepted\n",
+            "description": "__entity report details__ successfully accepted",
             "content": {
               "application/json": {
                 "schema": {
@@ -2072,7 +2072,7 @@
             "bearerAuth": []
           }
         ],
-        "description": "Allows searching for *XBRL entities* based on the entity identifier associated with the reporting entity. Use this to get ticker or CIK information quickly with a known entity.id.\n",
+        "description": "Allows searching for _XBRL entities_ based on the entity identifier associated with the reporting entity. Use this to get ticker or CIK information quickly with a known entity.id.\n",
         "parameters": [
           {
             "in": "path",
@@ -2093,12 +2093,12 @@
             "schema": {
               "$ref": "#/components/schemas/entity_only_fields"
             },
-            "description": "This is the list of fields that can be returned for *XBRL entities*.\n"
+            "description": "This is the list of fields that can be returned for _XBRL entities_."
           }
         ],
         "responses": {
           "200": {
-            "description": "*entity report details* successfully accepted\n",
+            "description": "__entity report details__ successfully accepted",
             "content": {
               "application/json": {
                 "schema": {
@@ -2151,7 +2151,7 @@
             "bearerAuth": []
           }
         ],
-        "description": "Search for errors in *XBRL reports* based on validation frameworks used by regulators and Data Quality Committees. The API allows searching for errors by report, error code, sverity of the error, etc.\n",
+        "description": "Search for errors in _XBRL reports_ based on validation frameworks used by regulators and Data Quality Committees. The API allows searching for errors by report, error code, sverity of the error, etc.\n",
         "parameters": [
           {
             "$ref": "#/components/parameters/assertion.code_Param"
@@ -2220,12 +2220,12 @@
             "schema": {
               "$ref": "#/components/schemas/assertion_fields"
             },
-            "description": "This is the list of fields that can be returned for *XBRL assertions*.\n"
+            "description": "This is the list of fields that can be returned for _XBRL assertions_."
           }
         ],
         "responses": {
           "200": {
-            "description": "*assertion details* successfully accepted\n",
+            "description": "__report details__ successfully accepted",
             "content": {
               "application/json": {
                 "schema": {
@@ -2278,7 +2278,7 @@
             "bearerAuth": []
           }
         ],
-        "description": "Allows a user to submit a .zip file containing an XBRL instance and associated taxonomy files to the API.  The API returns validation errors based on the validation framework selected. The results can be returned as JSON or XML.",
+        "description": "Allows a user to submit a .zip file containing an XBRL instance and associated taxonomy files to the API.  The API returns validation errors based on the validation framework selected. The results can be returned as JSON or XML.\n",
         "requestBody": {
           "required": true,
           "content": {
@@ -2293,7 +2293,7 @@
                   },
                   "Task": {
                     "type": "string",
-                    "description": "This parameter allows the user to control which rules will be run. The option dqcfiling will run Data Quality Committee (DQC) rules. The checkfiling option will run the DQC rules and the [XBRL US SEC Filer Membership rules](https://xbrl.us/sec-filer) for qualified accounts.\n",
+                    "description": "This parameter allows the user to control which rules will be run. The option dqcfiling will run Data Quality Committee (DQC) rules. The checkfiling option will run the DQC rules and the [XBRL US SEC Filer Membership rules](https://xbrl.us/sec-filer) for qualified accounts.",
                     "enum": [
                       "checkfiling",
                       "dqcfiling"
@@ -2318,7 +2318,7 @@
                   "status": {
                     "type": "string",
                     "default": "approved",
-                    "description": "Used to specify either the current [Approved Data Quality Committee rules](https://xbrl.us/rules-guidance), or any [Proposed Rules (inclusive of Approved Rules)](https://xbrl.us/public-review). The default value is approved if nothing is specified.\n",
+                    "description": "Used to specify either the current [Approved Data Quality Committee rules](https://xbrl.us/rules-guidance), or any [Proposed Rules (inclusive of Approved Rules)](https://xbrl.us/public-review). The default value is approved if nothing is specified.",
                     "enum": [
                       "approved",
                       "proposed"
@@ -2336,7 +2336,7 @@
         },
         "responses": {
           "200": {
-            "description": "*validation details* successfully processed\n",
+            "description": "__validation details__ successfully processed",
             "content": {
               "application/xml": {
                 "schema": {
@@ -2426,7 +2426,7 @@
         ],
         "responses": {
           "200": {
-            "description": "*concept details* successfully accepted\n",
+            "description": "__concept details__ successfully accepted",
             "content": {
               "application/json": {
                 "schema": {
@@ -2479,7 +2479,7 @@
             "bearerAuth": []
           }
         ],
-        "description": "Search for *XBRL concepts* in a specific DTS.\n",
+        "description": "Search for _XBRL concepts_ in a specific DTS.\n",
         "parameters": [
           {
             "in": "path",
@@ -2523,7 +2523,7 @@
         ],
         "responses": {
           "200": {
-            "description": "*concept details* successfully accepted\n",
+            "description": "__concept details__ successfully accepted",
             "content": {
               "application/json": {
                 "schema": {
@@ -2576,7 +2576,7 @@
             "bearerAuth": []
           }
         ],
-        "description": "Search for *XBRL concept* details based on specific dts.id and concept.local-name parameters. The returned attributes of the DTS and concept can be used as search parameters.\n",
+        "description": "Search for _XBRL concept_ details based on specific dts.id and concept.local-name parameters. The returned attributes of the DTS and concept can be used as search parameters.\n",
         "parameters": [
           {
             "in": "path",
@@ -2612,7 +2612,7 @@
         ],
         "responses": {
           "200": {
-            "description": "*concept details* successfully accepted\n",
+            "description": "__concept details__ successfully accepted",
             "content": {
               "application/json": {
                 "schema": {
@@ -2665,7 +2665,7 @@
             "bearerAuth": []
           }
         ],
-        "description": "Search for *XBRL label* information for a given *XBRL concept* in a specific DTS.\n",
+        "description": "Search for _XBRL label_ information for a given _XBRL concept_ in a specific DTS.\n",
         "parameters": [
           {
             "in": "path",
@@ -2701,7 +2701,7 @@
         ],
         "responses": {
           "200": {
-            "description": "*label details* successfully accepted\n",
+            "description": "__concept details__ successfully accepted",
             "content": {
               "application/json": {
                 "schema": {
@@ -2754,7 +2754,7 @@
             "bearerAuth": []
           }
         ],
-        "description": "Search for *XBRL references* of a given *XBRL concept* for a specific DTS.\n",
+        "description": "Search for _XBRL references_ of a given _XBRL concept_ for a specific DTS.\n",
         "parameters": [
           {
             "in": "path",
@@ -2790,7 +2790,7 @@
         ],
         "responses": {
           "200": {
-            "description": "*reference details* successfully accepted\n",
+            "description": "__concept details__ successfully accepted",
             "content": {
               "application/json": {
                 "schema": {
@@ -2869,7 +2869,7 @@
         ],
         "responses": {
           "200": {
-            "description": "*network details* successfully accepted\n",
+            "description": "__concept details__ successfully accepted",
             "content": {
               "application/json": {
                 "schema": {
@@ -2922,7 +2922,7 @@
             "bearerAuth": []
           }
         ],
-        "description": "Search for *XBRL relationship* details within the *XBRL networks* of a specific DTS.\n",
+        "description": "Search for _XBRL relationship_ details within the _XBRL networks_ of a specific DTS.\n",
         "parameters": [
           {
             "in": "path",
@@ -3005,7 +3005,7 @@
         ],
         "responses": {
           "200": {
-            "description": "*network details* successfully accepted\n",
+            "description": "__concept details__ successfully accepted",
             "content": {
               "application/json": {
                 "schema": {
@@ -3058,7 +3058,7 @@
             "bearerAuth": []
           }
         ],
-        "description": "Search for *XBRL concept* details for a given DTS, or across a set of taxonomies. If searching for concept details it highly recomended that a DTS identifier is used to limit the concept search, *especially when returning label data*. For example, if _no DTS is presribed_ and the details of Assets are requested, the API will attempt to return _all the labels used for Assets in every single filing made_.\n",
+        "description": "Search for _XBRL concept_ details for a given DTS, or across a set of taxonomies. If searching for concept details it highly recomended that a DTS identifier is used to limit the concept search, *especially when returning label data*. For example, if _no DTS is presribed_ and the details of Assets are requested, the API will attempt to return _all the labels used for Assets in every single filing made_.\n",
         "parameters": [
           {
             "$ref": "#/components/parameters/concept.id_Param"
@@ -3095,7 +3095,7 @@
         ],
         "responses": {
           "200": {
-            "description": "*concept details* successfully accepted\n",
+            "description": "__concept details__ successfully accepted",
             "content": {
               "application/json": {
                 "schema": {
@@ -3148,7 +3148,7 @@
             "bearerAuth": []
           }
         ],
-        "description": "Allows searching for *XBRL concept* details in *XBRL reports*.\n",
+        "description": "Allows searching for _XBRL concept_ details in _XBRL reports_.\n",
         "parameters": [
           {
             "in": "path",
@@ -3190,12 +3190,12 @@
             "schema": {
               "$ref": "#/components/schemas/concept_fields"
             },
-            "description": "This is the list of fields that can be returned for *XBRL concepts*.\n"
+            "description": "This is the list of fields that can be returned for _XBRL concepts_."
           }
         ],
         "responses": {
           "200": {
-            "description": "*concept details* successfully accepted\n",
+            "description": "__concept details__ successfully accepted",
             "content": {
               "application/json": {
                 "schema": {
@@ -3248,7 +3248,7 @@
             "bearerAuth": []
           }
         ],
-        "description": "Search for *XBRL label* details in one or moreDTS.\n",
+        "description": "Search for _XBRL label_ details in one or moreDTS.\n",
         "parameters": [
           {
             "in": "query",
@@ -3288,12 +3288,12 @@
             "schema": {
               "$ref": "#/components/schemas/label_fields"
             },
-            "description": "This is the list of fields that can be returned for *XBRL labels*.\n"
+            "description": "This is the list of fields that can be returned for _XBRL labels_."
           }
         ],
         "responses": {
           "200": {
-            "description": "*label details* successfully accepted\n",
+            "description": "__label details__ successfully accepted",
             "content": {
               "application/json": {
                 "schema": {
@@ -3346,7 +3346,7 @@
             "bearerAuth": []
           }
         ],
-        "description": "Search for *XBRL label* details in a specific DTS.\n",
+        "description": "Search for _XBRL label_ details in a specific DTS.\n",
         "parameters": [
           {
             "in": "path",
@@ -3386,12 +3386,12 @@
             "schema": {
               "$ref": "#/components/schemas/label_fields"
             },
-            "description": "This is the list of fields that can be returned for *XBRL labels*.\n"
+            "description": "This is the list of fields that can be returned for _XBRL labels_."
           }
         ],
         "responses": {
           "200": {
-            "description": "*label details* successfully accepted\n",
+            "description": "__concept details__ successfully accepted",
             "content": {
               "application/json": {
                 "schema": {
@@ -3525,12 +3525,12 @@
             "schema": {
               "$ref": "#/components/schemas/network_con_relationship_fields"
             },
-            "description": "DTS, network *and* relationship fields can be returned by a nested network/relationship query.\n"
+            "description": "DTS, network *and* relationship fields can be returned by a nested network/relationship query."
           }
         ],
         "responses": {
           "200": {
-            "description": "*network details* successfully accepted\n",
+            "description": "__network details__ successfully accepted",
             "content": {
               "application/json": {
                 "schema": {
@@ -3655,12 +3655,12 @@
             "schema": {
               "$ref": "#/components/schemas/network_con_relationship_fields"
             },
-            "description": "DTS, network *and* relationship fields can be returned by a nested network/relationship query.\n"
+            "description": "DTS, network *and* relationship fields can be returned by a nested network/relationship query."
           }
         ],
         "responses": {
           "200": {
-            "description": "*network details* successfully accepted\n",
+            "description": "__network details__ successfully accepted",
             "content": {
               "application/json": {
                 "schema": {
@@ -3713,7 +3713,7 @@
             "bearerAuth": []
           }
         ],
-        "description": "Returns the characteristics of a specific _XBRL network_. This does *not* include the _XBRL relationships_. Use the endpoint /api/v1/network/{network.id}/relationship/search to get relationship information about the network.\n",
+        "description": "Returns the characteristics of a specific _XBRL network_. This does __not__ include the _XBRL relationships_. Use the endpoint /api/v1/network/{network.id}/relationship/search to get relationship information about the network.\n",
         "parameters": [
           {
             "in": "path",
@@ -3740,7 +3740,7 @@
         ],
         "responses": {
           "200": {
-            "description": "*network details* successfully accepted\n",
+            "description": "__network details__ successfully accepted",
             "content": {
               "application/json": {
                 "schema": {
@@ -3873,7 +3873,7 @@
         ],
         "responses": {
           "200": {
-            "description": "*relationship details* successfully accepted\n",
+            "description": "__relationship details__ successfully accepted",
             "content": {
               "application/json": {
                 "schema": {
@@ -3976,12 +3976,12 @@
             "schema": {
               "$ref": "#/components/schemas/relationship_fields"
             },
-            "description": "DTS, network *and* relationship fields can be returned from a nested relationship/tree query.\n"
+            "description": "DTS, network *and* relationship fields can be returned from a nested relationship/tree query."
           }
         ],
         "responses": {
           "200": {
-            "description": "*relationship details* successfully accepted\n",
+            "description": "__relationship details__ successfully accepted",
             "content": {
               "application/json": {
                 "schema": {
@@ -4034,7 +4034,7 @@
             "bearerAuth": []
           }
         ],
-        "description": "Search for *XBRL facts* or _primary items_ based on the details of a hypercube. \n\n## Examples\n\n### Get all the facts in a cube\n\nThe following call will: get all facts in the report with an id of `226471`; limit the number of records returned to `1010` facts; sort facts `A-Z by the concept name`, and; return the following values:\n  * dimensions.count\n  * dimensions\n  * period.fiscal-period\n  * period.year\n  * cube.primary-local-name.sort(ASC)\n  * fact.numerical-value\n  * fact.limit(1010)\n  * fact.value\n  * report.source-id\n\n        https://api.xbrl.us/api/v1/cube/search?report.id=226471&fields=dimensions.count,dimensions,period.fiscal-period,period.year,cube.primary-local-name.sort(ASC),fact.numerical-value,cube.limit(1010),fact.value,report.source-id\n\n    \n",
+        "description": "Search for _XBRL facts_ or _primary items_ based on the details of a hypercube. \n\n## Examples\n\n### Get all the facts in a cube\n\nThe following call will: get all facts in the report with an id of `226471`; limit the number of records returned to `1010` facts; sort facts `A-Z by the concept name`, and; return the following values:\n  * dimensions.count\n  * dimensions\n  * period.fiscal-period\n  * period.year\n  * cube.primary-local-name.sort(ASC)\n  * fact.numerical-value\n  * fact.limit(1010)\n  * fact.value\n  * report.source-id\n\n        https://api.xbrl.us/api/v1/cube/search?report.id=226471&fields=dimensions.count,dimensions,period.fiscal-period,period.year,cube.primary-local-name.sort(ASC),fact.numerical-value,cube.limit(1010),fact.value,report.source-id\n\n    \n",
         "parameters": [
           {
             "$ref": "#/components/parameters/concept.balance-type_Param"
@@ -4154,12 +4154,12 @@
             "schema": {
               "$ref": "#/components/schemas/cube_fields"
             },
-            "description": "This is the list of fields that can be returned for *XBRL cubes*.\n"
+            "description": "This is the list of fields that can be returned for _XBRL cubes_."
           }
         ],
         "responses": {
           "200": {
-            "description": "*cube details* successfully accepted\n",
+            "description": "__cube details__ successfully accepted",
             "content": {
               "application/json": {
                 "schema": {
@@ -4212,7 +4212,7 @@
             "bearerAuth": []
           }
         ],
-        "description": "Search for *XBRL dimensions* or *members*  of a specific hypercube.  \n\n## Examples\n\n### Get all the dimensions and members of a cube\n\nThe following call will: get dimensions of the dts id of `226471`;  and; return the following values:\n  * cube.table-local-name\n  * cube.id\n  * cube.drs-role-uri\n\n        https://api.xbrl.us/api/v1/dimension/search?dts.id=226471&fields=cube.table-local-name,cube.id,cube.drs-role-uri\n\n    \n",
+        "description": "Search for _XBRL dimensions_ or _members_  of a specific hypercube.  \n\n## Examples\n\n### Get all the dimensions and members of a cube\n\nThe following call will: get dimensions of the dts id of `226471`;  and; return the following values:\n  * cube.table-local-name\n  * cube.id\n  * cube.drs-role-uri\n\n        https://api.xbrl.us/api/v1/dimension/search?dts.id=226471&fields=cube.table-local-name,cube.id,cube.drs-role-uri\n\n    \n",
         "parameters": [
           {
             "$ref": "#/components/parameters/cube.default-local-name_Param"
@@ -4275,12 +4275,12 @@
             "schema": {
               "$ref": "#/components/schemas/dimension_fields"
             },
-            "description": "This is the list of fields that can be returned for *XBRL cubes*.\n"
+            "description": "This is the list of fields that can be returned for _XBRL cubes_."
           }
         ],
         "responses": {
           "200": {
-            "description": "*dimension details* successfully accepted\n",
+            "description": "__cube details__ successfully accepted",
             "content": {
               "application/json": {
                 "schema": {
@@ -4389,7 +4389,7 @@
         ],
         "responses": {
           "200": {
-            "description": "*document details* successfully accepted\n",
+            "description": "__document details__ successfully accepted",
             "content": {
               "application/json": {
                 "schema": {
@@ -4460,7 +4460,7 @@
           },
           "client_id": {
             "type": "string",
-            "description": "Unique identifier agreed upon by **XBRL US** and the 3rd party client\n",
+            "description": "Unique identifier agreed upon by **XBRL US** and the 3rd party client",
             "example": "XBRL US"
           },
           "client_secret": {
@@ -6746,17 +6746,17 @@
       },
       "dts_taxonomy": {
         "type": "string",
-        "description": "The taxonomy group that the taxonomy belongs to, i.e. `US GAAP` or `IFRS`.\n",
+        "description": "The taxonomy group that the taxonomy belongs to, i.e. `US GAAP` or `IFRS`.",
         "example": "US GAAP"
       },
       "dts_taxonomy-name": {
         "type": "string",
-        "description": "The specific taxonomy name, i.e. `US GAAP 2019` or `IFRS 2019`.\n",
+        "description": "The specific taxonomy name, i.e. `US GAAP 2019` or `IFRS 2019`.",
         "example": "US GAAP 2019"
       },
       "dts_version": {
         "type": "string",
-        "description": "The specific taxonomy version name, i.e. `2019` for US GAAP.\n",
+        "description": "The specific taxonomy version name, i.e. `2019` for US GAAP.",
         "example": 2019.0
       },
       "entity_cik": {
@@ -6995,7 +6995,7 @@
       },
       "network_role-description-like": {
         "type": "string",
-        "description": "The human readable description of the network role. This is used to do a text search on components of the text string. See *stringmatch* parameter of options to search with operators on the relationship endpoint.\n"
+        "description": "The human readable description of the network role. This is used to do a text search on components of the text string. See *stringmatch* parameter of options to search with operators on the relationship endpoint."
       },
       "network_role-uri": {
         "type": "string",
@@ -7851,7 +7851,7 @@
         "schema": {
           "type": "string"
         },
-        "description": "Search for strings within document object (i.e. to locate a specific name, topic or reference within an entire document). Fields returned include document.example and document.highlighted-vaule \n\nThe XBRL API uses the Sphinx search engine to identify text. This powerful search engine quickly identifies a given text string. Sphinx is enabled to support stemming, which means it will also return plurals of a noun i.e. ipad will also return ipads. It will also return the present, future and past form of a verb for example the word kill will also return killed and killing. To match the word exactly the character \"=\" can be placed in front of the word i.e. = ipad will return the occurrence of the word ipad only.\n\nThe Sphinx search characters that can be used are summarized in the table below:\n\n|Operator Name | Symbol | Example |\n| ------- | ------- | ------- | \n| OR operator  | &#124; | Tsunami &#124; Earthquake will return text that contain either Earthquake or Tsunami. |\n| AND Operator\t| & |\tTsunami & Earthquake will return text that contains both Tsunami and Earthquake. If you leave a space between 2 words it is assumed to represent an &, i.e. Tsunami Japan |\n| NOT Operator\t| ! | To exclude words from a text search use the operator !. For example Tsunami & Japan &! Earthquake will return strings that contain Tsunami and Japan but not earthquake. |\n| Exact Match Operator | \"text here\" | Use quotes to match an exact sentence for example \"the ultimate effect that the Tsunami\" will return the exact sentence match. |\n| Parenthesis\t| () |\tUse Parenthesis to group search logic. (Assets & Liabilities) &! retirement will return text that contain both Assets and Liabilities but excluding retirement. |\n| Equal (no stemming)\t| = |\tUse = in front of a word to stop stemming, i.e. kill will return kill, killed, kills and killing. =kill will return kill. |\n| Word Proximity\t| NEAR/n |\tUse the key word NEAR with an integer to identify closeness of words, i.e. Tsunami NEAR/3 Japan will return those occurrences where Tsunami and Japan are within three words of each other, i.e. \"Tsunami in Japan\", \"Japan earthquake and tsunami\" but not \"Japan earthquake and large tsunami\" |\n| Sentence Restriction\t| SENTENCE\t| Use the key word SENTENCE to identify where words are in the same sentence, i.e. Japan SENTENCE tsunami to return where these 2 words are in the same sentence. |\n| Paragraph Restriction\t| PARAGRAPH\t| Use the key word PARAGRAPH to identify where words are in the same paragraph, i.e. Japan PARAGRAPH tsunami to return where these 2 words are in the same paragraph. |         \n| Quorum matching\t| \"text here\"/n\t| Use an integer after a text string to match the number of words defined after the forward slash, i.e. \"Japan earthquake tsunami\"/2 will return those strings where any 2 of the 3 words listed occurr i.e. Japan and Earthquake, Japan and Tsunami, earthquake and Tsunami. |             \n| Order\t| << |\tTo return those strings only where words appear in a certain 2 less than signs are used. For example Japan << earthquake << tsunami will return a string where all three words appear in this order. such as \"occurred in Japan. The earthquake was followed by a tsunami which\" |             \n| Proximity Search\t| \"text here\"~n\t| Use ~n after a text string to identify where the search words all appear in a sequence of n words. For example \"Japan earthquake tsunami\"~10 will return those strings where the 3 words appear within a sequence of 10 words i.e. Japan Tsunami and Earthquake, Japan's earthquake shook the town and was destroyed by Tsunami, would both be returned as all 3 words appear in a sequence of less than 10 words. |\n"
+        "description": "Search for strings within document object (i.e. to locate a specific name, topic or reference within an entire document). Fields returned include document.example and document.highlighted-vaule \n\nThe XBRL API uses the Sphinx search engine to identify text. This powerful search engine quickly identifies a given text string. Sphinx is enabled to support stemming, which means it will also return plurals of a noun i.e. ipad will also return ipads. It will also return the present, future and past form of a verb for example the word kill will also return killed and killing. To match the word exactly the character \"=\" can be placed in front of the word i.e. = ipad will return the occurrence of the word ipad only.\n\nThe Sphinx search characters that can be used are summarized in the table below:\n\n| Operator Name | Symbol | Example |\n| ------- | ------- | ------- | \n| OR operator  | &#124; | Tsunami &#124; Earthquake will return text that contain either Earthquake or Tsunami. |\n| AND Operator\t| & |\tTsunami & Earthquake will return text that contains both Tsunami and Earthquake. If you leave a space between 2 words it is assumed to represent an &, i.e. Tsunami Japan |\n| NOT Operator\t| ! | To exclude words from a text search use the operator !. For example Tsunami & Japan &! Earthquake will return strings that contain Tsunami and Japan but not earthquake. |\n| Exact Match Operator | \"text here\" | Use quotes to match an exact sentence for example \"the ultimate effect that the Tsunami\" will return the exact sentence match. |\n| Parenthesis\t| () |\tUse Parenthesis to group search logic. (Assets & Liabilities) &! retirement will return text that contain both Assets and Liabilities but excluding retirement. |\n| Equal (no stemming)\t| = |\tUse = in front of a word to stop stemming, i.e. kill will return kill, killed, kills and killing. =kill will return kill. |\n| Word Proximity\t| NEAR/n |\tUse the key word NEAR with an integer to identify closeness of words, i.e. Tsunami NEAR/3 Japan will return those occurrences where Tsunami and Japan are within three words of each other, i.e. \"Tsunami in Japan\", \"Japan earthquake and tsunami\" but not \"Japan earthquake and large tsunami\" |\n| Sentence Restriction\t| SENTENCE\t| Use the key word SENTENCE to identify where words are in the same sentence, i.e. Japan SENTENCE tsunami to return where these 2 words are in the same sentence. |\n| Paragraph Restriction\t| PARAGRAPH\t| Use the key word PARAGRAPH to identify where words are in the same paragraph, i.e. Japan PARAGRAPH tsunami to return where these 2 words are in the same paragraph. |         \n| Quorum matching\t| \"text here\"/n\t| Use an integer after a text string to match the number of words defined after the forward slash, i.e. \"Japan earthquake tsunami\"/2 will return those strings where any 2 of the 3 words listed occurr i.e. Japan and Earthquake, Japan and Tsunami, earthquake and Tsunami. |             \n| Order\t| << |\tTo return those strings only where words appear in a certain 2 less than signs are used. For example Japan << earthquake << tsunami will return a string where all three words appear in this order. such as \"occurred in Japan. The earthquake was followed by a tsunami which\" |             \n| Proximity Search\t| \"text here\"~n\t| Use ~n after a text string to identify where the search words all appear in a sequence of n words. For example \"Japan earthquake tsunami\"~10 will return those strings where the 3 words appear within a sequence of 10 words i.e. Japan Tsunami and Earthquake, Japan's earthquake shook the town and was destroyed by Tsunami, would both be returned as all 3 words appear in a sequence of less than 10 words. |\n"
       },
       "document.top-level_Param": {
         "in": "query",
@@ -7904,7 +7904,7 @@
         "schema": {
           "type": "string"
         },
-        "description": "The taxonomy group that the taxonomy belongs to such as `US GAAP` or `IFRS`.\n",
+        "description": "The taxonomy group that the taxonomy belongs to such as `US GAAP` or `IFRS`.",
         "example": "US GAAP"
       },
       "dts.taxonomy-name_Param": {
@@ -7913,7 +7913,7 @@
         "schema": {
           "type": "string"
         },
-        "description": "The specific taxonomy name such as `US GAAP 2019` or `IFRS 2019`.\n",
+        "description": "The specific taxonomy name such as `US GAAP 2019` or `IFRS 2019`.",
         "example": "US GAAP 2019"
       },
       "dts.target-namespace_Param": {
@@ -7930,7 +7930,7 @@
         "schema": {
           "type": "string"
         },
-        "description": "The specific taxonomy version name, such as `2019` for US GAAP.\n",
+        "description": "The specific taxonomy version name, such as `2019` for US GAAP.",
         "example": 2019
       },
       "entity.id_Param": {
@@ -8052,7 +8052,7 @@
         "schema": {
           "type": "string"
         },
-        "description": "The value of the fact as a text value. This includes numerical as well as non-numerical values reported. The following options defined in the table can be used to return results based on a comparison of the fact value to a specified string, integer or range. To use a comparison, include it in brackets directly after the parameter name. The following search example returns Assets greater than 100000000000 for fiscal years AFTER (greater than) 2023:\n\n`/api/v1/fact/search?concept.local-name=Assets&period.fiscal-year[gt]=2023&period.fiscal-period=Y&fact.value[gt]=100000000000`\n\n| Numeric and non-numeric comparisons | Comparison | Example | Notes |\n|---|---|---|---|\n| Equal | eq | period.fiscal-year[eq]=2017 | Default |\n| In a list of values | in | fact.value[in]=100,200,300 | Commas separate the values in the list |\n| Not in a list of values | nin | fact.value[nin]=100,200,300 | Commas separate the values in the list |\n| or | or | fact.value[or]=100,200 | Commas separated list |\n| not or | nor | fact.value[nor]=100,200 | Commas separated list |\n| and | and | fact.value[and]=100,200 | Commas separated list |\n| not and | nand | fact.value[nand]=100,200 | Every comma delimited value is not in the value |\n| is null | isnull | fact.value[isnull] | Returns records where the value is null |\n| isn't null | isnotnull | fact.value[isnotnull] | Returns records where the value is not null |\n\n| Numeric and timestamp only comparisons | Comparison | Example | Notes |\n|---|---|---|---|\n| Not equal | ne | period.fiscal-year[ne]=2017 | Any existing value not '2017' will be returned |\n| Greater than | gt | period.fiscal-year[gt]=2017 | Any existing value greater than '2017' will be returned |\n| Greater than or equal to | gte | fact.value[ge]=100 | |\n| Less than | lt | fact.value[lt]=100 | |\n| Less than or equal to | lte | fact.value[le]=100 | |\n| Between two values | between | fact.value[between]=100,200 | Commas separated list with two values |\n| Not between two values | nbetween | fact.value[nbetween]=100,200 | Commas separated list with two values |\n"
+        "description": "The value of the fact as a text value. This includes numerical as well as non-numerical values reported."
       },
       "fact.value-link_Param": {
         "in": "query",
@@ -8248,7 +8248,7 @@
             "type": "integer"
           }
         },
-        "description": "The fiscal year in which the fact is applicable in the format 'YYYY'. The following options defined in the table returns results based on a comparison of the value to a specified value or range. To use a comparison, include it in brackets directly after the parameter name. The following search example returns Assets greater than 100000000000 for fiscal years AFTER (greater than) 2023:\n\n`/api/v1/fact/search?concept.local-name=Assets&period.fiscal-year[gt]=2023&period.fiscal-period=Y&fact.value[gt]=100000000000`\n\n| Numeric and non-numeric comparisons | Comparison | Example | Notes |\n|---|---|---|---|\n| Equal | eq | period.fiscal-year[eq]=2017 | Default |\n| In a list of values | in | fact.value[in]=100,200,300 | Commas separate the values in the list |\n| Not in a list of values | nin | fact.value[nin]=100,200,300 | Commas separate the values in the list |\n| or | or | fact.value[or]=100,200 | Commas separated list |\n| not or | nor | fact.value[nor]=100,200 | Commas separated list |\n| and | and | fact.value[and]=100,200 | Commas separated list |\n| not and | nand | fact.value[nand]=100,200 | Every comma delimited value is not in the value |\n| is null | isnull | fact.value[isnull] | Returns records where the value is null |\n| isn't null | isnotnull | fact.value[isnotnull] | Returns records where the value is not null |\n\n| Numeric and timestamp only comparisons | Comparison | Example | Notes |\n|---|---|---|---|\n| Not equal | ne | period.fiscal-year[ne]=2017 | Any existing value not '2017' will be returned |\n| Greater than | gt | period.fiscal-year[gt]=2017 | Any existing value greater than '2017' will be returned |\n| Greater than or equal to | gte | fact.value[ge]=100 | |\n| Less than | lt | fact.value[lt]=100 | |\n| Less than or equal to | lte | fact.value[le]=100 | |\n| Between two values | between | fact.value[between]=100,200 | Commas separated list with two values |\n| Not between two values | nbetween | fact.value[nbetween]=100,200 | Commas separated list with two values |\n"
+        "description": "The fiscal year in which the fact is applicable in the format 'YYYY'."
       },
       "period.id_Param": {
         "in": "query",
@@ -8463,7 +8463,7 @@
         "schema": {
           "type": "integer"
         },
-        "description": "Year in which the filing was made."
+        "description": "Year in which the filing was made.\n"
       },
       "report.id_Param": {
         "in": "query",
@@ -8672,7 +8672,7 @@
         "schema": {
           "type": "string"
         },
-        "description": "The human readable description of the network role. This is used to do a text search on components of the text string. See *stringmatch* parameter of options to search with operators on the relationship endpoint.\n"
+        "description": "The human readable description of the network role. This is used to do a text search on components of the text string. See *stringmatch* parameter of options to search with operators on the relationship endpoint."
       },
       "period.instant_Param": {
         "in": "query",
@@ -8775,7 +8775,7 @@
     },
     "responses": {
       "invalid_request": {
-        "description": "*each user account* has a specific limit associated with it (i.e. [100, 500 or 2,000](https://xbrl.us/access-token))\n",
+        "description": "__each user account__ has a specific limit associated with it (i.e. [100, 500 or 2,000](https://xbrl.us/access-token))",
         "content": {
           "applications/json": {
             "schema": {
