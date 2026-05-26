@@ -6761,12 +6761,12 @@
       },
       "entity_cik": {
         "type": "string",
-        "description": "The CIK is the SEC identifier used to identify a reporting entity. This is the CIK associated with a given fact, DTS or report. This will be replaced with the LEI when the SEC supports the LEI standard.",
+        "description": "The CIK is the SEC identifier used to identify a reporting entity. This is the CIK associated with a given fact, DTS or report.",
         "example": "0001000045"
       },
       "entity_id": {
         "type": "integer",
-        "description": "The internal identifier used to identify an entity. This will be replaced with the LEI when the SEC supports the LEI standard.",
+        "description": "The internal identifier used to identify an entity.",
         "example": 1
       },
       "entity_name": {
@@ -7440,7 +7440,7 @@
       },
       "report_restated": {
         "type": "boolean",
-        "description": "A boolean that indicates if the report has been subsequently restated. A value of true represents that the report has been subsequently restated by another report.  A value of false means that this report has not been subsequently restated by another report."
+        "description": "A boolean that indicates if the report has been subsequently restated. A value of true represents that the report has been subsequently restated by another report. A value of false means that this report has not been subsequently restated by another report."
       },
       "report_restated-index": {
         "type": "integer",
@@ -7601,17 +7601,17 @@
         "in": "query",
         "name": "concept.is-base",
         "schema": {
-          "type": "boolean",
-          "description": "Identifies if the concept is from a base published taxonomy (i.e. US GAAP, IFRS) or from a company extension. A value of true indicates that it is a base taxonomy element. This attribute can be used to find extension elements in a filing."
-        }
+          "type": "boolean"
+        },
+        "description": "Identifies if the concept is from a base published taxonomy (i.e. US GAAP, IFRS) or from a company extension. A value of true indicates that it is a base taxonomy element. This attribute can be used to find extension elements in a filing."
       },
       "concept.is-monetary_Param": {
         "in": "query",
         "name": "concept.is-monetary",
         "schema": {
-          "type": "boolean",
-          "description": "Identifies if the concept is a monetary value when the attribute is true. A monetary value is differs from a numeric concept because it has a currency associated with it."
-        }
+          "type": "boolean"
+        },
+        "description": "Identifies if the concept is a monetary value when the attribute is true. A monetary value differs from a numeric concept because it has a currency associated with it."
       },
       "concept.local-name_Param": {
         "in": "query",
@@ -7632,7 +7632,7 @@
         "schema": {
           "type": "string"
         },
-        "description": "The namespace of the concept used to identify a fact."
+        "description": "\"The namespace of the concept as defined in the schema of a taxonomy. This is often a URL that indicates the taxonomy version and type, such as us-gaap/2021 or ifrs-full/2021.\"\n"
       },
       "cube.default-local-name_Param": {
         "in": "query",
@@ -7676,7 +7676,7 @@
           "type": "string",
           "format": "uri"
         },
-        "description": "The URI of the dimension role. This would appear as a URI describing the reporting dimension group i.e. http://www.bc.com/role/DisclosureBalanceSheetComponentsDetails.",
+        "description": "The URI of the dimension role. This would appear as a URI describing the reporting dimension group.",
         "example": "http://www.bc.com/role/DisclosureBalanceSheetComponentsDetails"
       },
       "cube.id_Param": {
@@ -7801,7 +7801,7 @@
         "schema": {
           "type": "boolean"
         },
-        "description": "A boolean value that indicates if the dimension (aspect) is a base element in the reporting taxonomy or a company extension."
+        "description": "A boolean value that indicates if the dimension (aspect) is a base element in the reporting taxonomy (true) or a company extension (false)."
       },
       "dimension.local-name_Param": {
         "in": "query",
@@ -7851,7 +7851,7 @@
         "schema": {
           "type": "string"
         },
-        "description": "Search for strings within document object (i.e. to locate a specific name, topic or reference within an entire document). Fields returned include document.example and document.highlighted-vaule \n\nThe XBRL API uses the Sphinx search engine to identify text. This powerful search engine quickly identifies a given text string. Sphinx is enabled to support stemming, which means it will also return plurals of a noun i.e. ipad will also return ipads. It will also return the present, future and past form of a verb for example the word kill will also return killed and killing. To match the word exactly the character \"=\" can be placed in front of the word i.e. = ipad will return the occurrence of the word ipad only.\n\nThe Sphinx search characters that can be used are summarized in the table below:\n\n|Operator Name | Symbol | Example |\n| ------- | ------- | ------- | \n| OR operator  | &#124; | Tsunami &#124; Earthquake will return text that contain either Earthquake or Tsunami. |\n| AND Operator\t| & |\tTsunami & Earthquake will return text that contains both Tsunami and Earthquake. If you leave a space between 2 words it is assumed to represent an &, i.e. Tsunami Japan |\n| NOT Operator\t| ! | To exclude words from a text search use the operator !. For example Tsunami & Japan &! Earthquake will return strings that contain Tsunami and Japan but not earthquake. |\n| Exact Match Operator | \"text here\" | Use quotes to match an exact sentence for example \"the ultimate effect that the Tsunami\" will return the exact sentence match. |\n| Parenthesis\t| () |\tUse Parenthesis to group search logic. (Assets & Liabilities) &! retirement will return text that contain both Assets and Liabilities but excluding retirement. |\n| Equal (no stemming)\t| = |\tUse = in front of a word to stop stemming, i.e. kill will return kill, killed, kills and killing. =kill will return kill. |\n| Word Proximity\t| NEAR/n |\tUse the key word NEAR with an integer to identify closeness of words, i.e. Tsunami NEAR/3 Japan will return those occurrences where Tsunami and Japan are within three words of each other, i.e. \"Tsunami in Japan\", \"Japan earthquake and tsunami\" but not \"Japan earthquake and large tsunami\" |\n| Sentence Restriction\t| SENTENCE\t| Use the key word SENTENCE to identify where words are in the same sentence, i.e. Japan SENTENCE tsunami to return where these 2 words are in the same sentence. |\n| Paragraph Restriction\t| PARAGRAPH\t| Use the key word PARAGRAPH to identify where words are in the same paragraph, i.e. Japan PARAGRAPH tsunami to return where these 2 words are in the same paragraph. |         \n| Quorum matching\t| \"text here\"/n\t| Use an integer after a text string to match the number of words defined after the forward slash, i.e. \"Japan earthquake tsunami\"/2 will return those strings where any 2 of the 3 words listed occurr i.e. Japan and Earthquake, Japan and Tsunami, earthquake and Tsunami. |             \n| Order\t| << |\tTo return those strings only where words appear in a certain 2 less than signs are used. For example Japan << earthquake << tsunami will return a string where all three words appear in this order. such as \"occurred in Japan. The earthquake was followed by a tsunami which\" |             \n| Proximity Search\t| \"text here\"~n\t| Use ~n after a text string to identify where the search words all appear in a sequence of n words. For example \"Japan earthquake tsunami\"~10 will return those strings where the 3 words appear within a sequence of 10 words i.e. Japan Tsunami and Earthquake, Japan's earthquake shook the town and was destroyed by Tsunami, would both be returned as all 3 words appear in a sequence of less than 10 words. |\n"
+        "description": "Search for strings within document object (i.e. to locate a specific name, topic or reference within an entire document). Fields returned include document.example and document.highlighted-value \n\nThe XBRL API uses the Sphinx search engine to identify text. This powerful search engine quickly identifies a given text string. Sphinx is enabled to support stemming, which means it will also return plurals of a noun i.e. ipad will also return ipads. It will also return the present, future and past form of a verb for example the word kill will also return killed and killing. To match the word exactly the character \"=\" can be placed in front of the word i.e. = ipad will return the occurrence of the word ipad only.\n\nThe Sphinx search characters that can be used are summarized in the table below:\n\n|Operator Name | Symbol | Example |\n| ------- | ------- | ------- | \n| OR operator  | &#124; | Tsunami &#124; Earthquake will return text that contain either Earthquake or Tsunami. |\n| AND Operator\t| & |\tTsunami & Earthquake will return text that contains both Tsunami and Earthquake. If you leave a space between 2 words it is assumed to represent an &, i.e. Tsunami Japan |\n| NOT Operator\t| ! | To exclude words from a text search use the operator !. For example Tsunami & Japan &! Earthquake will return strings that contain Tsunami and Japan but not earthquake. |\n| Exact Match Operator | \"text here\" | Use quotes to match an exact sentence for example \"the ultimate effect that the Tsunami\" will return the exact sentence match. |\n| Parenthesis\t| () |\tUse Parenthesis to group search logic. (Assets & Liabilities) &! retirement will return text that contain both Assets and Liabilities but excluding retirement. |\n| Equal (no stemming)\t| = |\tUse = in front of a word to stop stemming, i.e. kill will return kill, killed, kills and killing. =kill will return kill. |\n| Word Proximity\t| NEAR/n |\tUse the key word NEAR with an integer to identify closeness of words, i.e. Tsunami NEAR/3 Japan will return those occurrences where Tsunami and Japan are within three words of each other, i.e. \"Tsunami in Japan\", \"Japan earthquake and tsunami\" but not \"Japan earthquake and large tsunami\" |\n| Sentence Restriction\t| SENTENCE\t| Use the key word SENTENCE to identify where words are in the same sentence, i.e. Japan SENTENCE tsunami to return where these 2 words are in the same sentence. |\n| Paragraph Restriction\t| PARAGRAPH\t| Use the key word PARAGRAPH to identify where words are in the same paragraph, i.e. Japan PARAGRAPH tsunami to return where these 2 words are in the same paragraph. |         \n| Quorum matching\t| \"text here\"/n\t| Use an integer after a text string to match the number of words defined after the forward slash, i.e. \"Japan earthquake tsunami\"/2 will return those strings where any 2 of the 3 words listed occurr i.e. Japan and Earthquake, Japan and Tsunami, earthquake and Tsunami. |             \n| Order\t| << |\tTo return those strings only where words appear in a certain 2 less than signs are used. For example Japan << earthquake << tsunami will return a string where all three words appear in this order. such as \"occurred in Japan. The earthquake was followed by a tsunami which\" |             \n| Proximity Search\t| \"text here\"~n\t| Use ~n after a text string to identify where the search words all appear in a sequence of n words. For example \"Japan earthquake tsunami\"~10 will return those strings where the 3 words appear within a sequence of 10 words i.e. Japan Tsunami and Earthquake, Japan's earthquake shook the town and was destroyed by Tsunami, would both be returned as all 3 words appear in a sequence of less than 10 words. |\n"
       },
       "document.top-level_Param": {
         "in": "query",
@@ -7865,7 +7865,7 @@
         "in": "query",
         "name": "document.uri",
         "schema": {
-          "type": "boolean"
+          "type": "string"
         },
         "description": "The URL at which the document comprising the DTS is located."
       },
@@ -7904,7 +7904,7 @@
         "schema": {
           "type": "string"
         },
-        "description": "The taxonomy group that the taxonomy belongs to such as `US GAAP` or `IFRS`.\n",
+        "description": "The taxonomy group that the taxonomy belongs to such as 'US GAAP' or 'IFRS'.\n",
         "example": "US GAAP"
       },
       "dts.taxonomy-name_Param": {
@@ -7913,7 +7913,7 @@
         "schema": {
           "type": "string"
         },
-        "description": "The specific taxonomy name such as `US GAAP 2019` or `IFRS 2019`.\n",
+        "description": "The specific taxonomy name such as 'US GAAP 2019' or 'IFRS 2019'.\n",
         "example": "US GAAP 2019"
       },
       "dts.target-namespace_Param": {
@@ -7930,7 +7930,7 @@
         "schema": {
           "type": "string"
         },
-        "description": "The specific taxonomy version name, such as `2019` for US GAAP.\n",
+        "description": "The specific taxonomy version name, such as '2019' for US GAAP.\n",
         "example": 2019
       },
       "entity.id_Param": {
@@ -7944,7 +7944,7 @@
             "type": "integer"
           }
         },
-        "description": "The internal identifier used to identify an entity. This will be replaced with the LEI when the SEC supports the LEI standard."
+        "description": "The internal identifier used to identify an entity."
       },
       "entity.name_Param": {
         "in": "query",
@@ -8044,7 +8044,7 @@
             "type": "integer"
           }
         },
-        "description": "An integer that records the incarnation of the fact. The same fact may be reported many times and the ultimus field represents the reverse order of incarnation for the fact's reporting. A value of 1 indicates that this is the latest value of the fact. A value of 6 for example would indicate that the value has been reported 6 times subsquent to the fact's most-recent reporting. If requesting values from a specific report, the ultimus index should not be used as a search parameter, as all the fact values will not be returned if a subsequent report has been filed in which the fact appears."
+        "description": "An integer that records the incarnation of the fact. The same fact may be reported many times and the ultimus field represents the reverse order of incarnation for the fact's reporting. A value of 1 indicates that this is the latest value of the fact. A value of 6 for example would indicate that the value has been reported 6 times subsequent to the fact's most-recent reporting. If requesting values from a specific report, the ultimus index should not be used as a search parameter, as all the fact values will not be returned if a subsequent report has been filed in which the fact appears."
       },
       "fact.value_Param": {
         "in": "query",
@@ -8068,7 +8068,7 @@
         "schema": {
           "type": "string"
         },
-        "description": "Portion of the label text to be searched on."
+        "description": "The text of the label, i.e 'Assets, Current'. This is usually used in conjunction with label.role to specify the role of the label being searched for, such as standard label, terse label, or verbose label."
       },
       "label.role_Param": {
         "in": "query",
@@ -8084,7 +8084,7 @@
         "schema": {
           "type": "boolean"
         },
-        "description": "A boolean value that indicates if the member is a base element in the reporting taxonomy or a company extension."
+        "description": "A boolean value that indicates if the member is a base element in the reporting taxonomy (true) or a company extension (false)."
       },
       "member.local-name_Param": {
         "in": "query",
@@ -8200,7 +8200,7 @@
             ]
           }
         },
-        "description": "The period identifier for the fact such as year(Y) quarters such as (Q1,Q2,Q3,Q4), cumulative quarters such as 3QCUM, and half years such as H1 and H2. The calendar period aligns the periods with a calendar year. A company with a year end of 30 September would have a fiscal 4th quarter which would be a calendar quarter of Q3."
+        "description": "The period identifier for the fact such as year(Y) quarters such as (1Q,2Q,3Q,4Q), cumulative quarters such as 3QCUM, and half years such as 1H and 2H. The calendar period aligns the periods with a calendar year. A company with a year end of 30 September would have a fiscal 4th quarter which would be a calendar quarter of 3Q."
       },
       "period.fiscal-id_Param": {
         "in": "query",
@@ -8233,7 +8233,7 @@
             ]
           }
         },
-        "description": "The period identifier for the fact such as year(Y) quarters such as (Q1,Q2,Q3,Q4), cumulative quarters such as 3QCUM, and half years such as H1 and H2. The fiscal period aligns the periods with a fiscal year. A company with a year end of 30 September would have a fiscal 4th quarter which would be a fiscal quarter of Q4 and a calendar quarter of Q3."
+        "description": "The period identifier for the fact such as year(Y) quarters such as (1Q,2Q,3Q,4Q), cumulative quarters such as 3QCUM, and half years such as 1H and 2H. The fiscal period aligns the periods with a fiscal year. A company with a year end of 30 September would have a fiscal 4th quarter which would be a fiscal quarter of 4Q and a calendar quarter of 3Q."
       },
       "period.fiscal-year_Param": {
         "in": "query",
@@ -8406,7 +8406,7 @@
         "schema": {
           "type": "string"
         },
-        "description": "The unique identifier (inclusive of the entity CIK) used by the SEC for a report. No comma seperated values are allowed."
+        "description": "The unique identifier (inclusive of the entity CIK) used by the SEC for a report. No comma separated values are allowed."
       },
       "report.creation-software_Param": {
         "in": "query",
@@ -8431,7 +8431,8 @@
           "type": "string",
           "enum": [
             "instance",
-            "inline"
+            "inline",
+            "JSON"
           ]
         },
         "description": "The entry type of the report. This could be instance, inline, JSON, etc."
@@ -8455,7 +8456,7 @@
             "Non-accelerated Filer"
           ]
         },
-        "description": "Identifies filer size associated with the report. Can be one of the following: - Large Accelerated Filer - Accelerated Filer - Non-accelerated Filer"
+        "description": "Identifies filer size associated with the report. Can be one of the following: Large Accelerated Filer, Accelerated Filer, Non-accelerated Filer."
       },
       "report.filing-year_Param": {
         "in": "query",
@@ -8507,7 +8508,7 @@
         "schema": {
           "type": "boolean"
         },
-        "description": "A boolean that indicates if the report has been subsequently restated. A value of true represents that the report has been subsequently restated by another report.  A value of false means that this report has not been subsequently restated by another report."
+        "description": "A boolean that indicates if the report has been subsequently restated. A value of true represents that the report has been subsequently restated by another report. A value of false means that this report has not been subsequently restated by another report."
       },
       "report.restated-index_Param": {
         "in": "query",
@@ -8632,7 +8633,7 @@
             "type": "string"
           }
         },
-        "description": "The entity identifier from its associated source (ie. SEC entity codes are the Central Index Code or CIK; FERC entity codes are Company Identifier or CID). All entity identifiers are in this field."
+        "description": "The entity identifier from its associated source (i.e. SEC entity codes are the Central Index Code or CIK; FERC entity codes are Company Identifier or CID). All entity identifiers are in this field."
       },
       "entity.scheme_Param": {
         "in": "query",
@@ -8762,7 +8763,7 @@
         "schema": {
           "type": "string"
         },
-        "description": "The reporting year for the filing."
+        "description": "The reporting year for the report as declared by the entity in the format 'YYYY'."
       },
       "report.zip-url_Param": {
         "in": "query",

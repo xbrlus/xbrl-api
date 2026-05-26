@@ -4424,11 +4424,11 @@ components:
       example: 2019.
     entity_cik:
       type: string
-      description: The CIK is the SEC identifier used to identify a reporting entity. This is the CIK associated with a given fact, DTS or report. This will be replaced with the LEI when the SEC supports the LEI standard.
+      description: The CIK is the SEC identifier used to identify a reporting entity. This is the CIK associated with a given fact, DTS or report.
       example: "0001000045"
     entity_id:
       type: integer
-      description: The internal identifier used to identify an entity. This will be replaced with the LEI when the SEC supports the LEI standard.
+      description: The internal identifier used to identify an entity.
       example: 1
     entity_name:
       type: string
@@ -4920,7 +4920,7 @@ components:
       description: The phone number of the submitter of the report.
     report_restated:
       type: boolean
-      description: A boolean that indicates if the report has been subsequently restated. A value of true represents that the report has been subsequently restated by another report.  A value of false means that this report has not been subsequently restated by another report.
+      description: A boolean that indicates if the report has been subsequently restated. A value of true represents that the report has been subsequently restated by another report. A value of false means that this report has not been subsequently restated by another report.
     report_restated-index:
       type: integer
       description: A numerical indicator that can be used to identify if a report has been restated. If the value is 1 it indicates that this is the latest report. If the value is 2 it means that an updated copy of the report has been filed.
@@ -5043,13 +5043,13 @@ components:
        name: concept.is-base
        schema:
          type: boolean
-         description: Identifies if the concept is from a base published taxonomy (i.e. US GAAP, IFRS) or from a company extension. A value of true indicates that it is a base taxonomy element. This attribute can be used to find extension elements in a filing.
+       description: Identifies if the concept is from a base published taxonomy (i.e. US GAAP, IFRS) or from a company extension. A value of true indicates that it is a base taxonomy element. This attribute can be used to find extension elements in a filing.
     concept.is-monetary_Param:
        in: query
        name: concept.is-monetary
        schema:
          type: boolean
-         description: Identifies if the concept is a monetary value when the attribute is true. A monetary value is differs from a numeric concept because it has a currency associated with it.
+       description: Identifies if the concept is a monetary value when the attribute is true. A monetary value differs from a numeric concept because it has a currency associated with it.
     concept.local-name_Param:
        in: query
        name: concept.local-name
@@ -5065,7 +5065,8 @@ components:
        name: concept.namespace
        schema:
          type: string
-       description: The namespace of the concept used to identify a fact.
+       description: |
+        "The namespace of the concept as defined in the schema of a taxonomy. This is often a URL that indicates the taxonomy version and type, such as us-gaap/2021 or ifrs-full/2021."
     cube.default-local-name_Param:
        in: query
        name: cube.default-local-name
@@ -5099,7 +5100,7 @@ components:
        schema:
          type: string
          format: uri
-       description: The URI of the dimension role. This would appear as a URI describing the reporting dimension group i.e. http://www.bc.com/role/DisclosureBalanceSheetComponentsDetails.
+       description: The URI of the dimension role. This would appear as a URI describing the reporting dimension group.
        example: http://www.bc.com/role/DisclosureBalanceSheetComponentsDetails
     cube.id_Param:
        in: query
@@ -5194,7 +5195,7 @@ components:
        name: dimension.is-base
        schema:
          type: boolean
-       description: A boolean value that indicates if the dimension (aspect) is a base element in the reporting taxonomy or a company extension.
+       description: A boolean value that indicates if the dimension (aspect) is a base element in the reporting taxonomy (true) or a company extension (false).
     dimension.local-name_Param:
        in: query
        name: dimension.local-name
@@ -5233,7 +5234,7 @@ components:
        schema:
          type: string
        description: |
-         Search for strings within document object (i.e. to locate a specific name, topic or reference within an entire document). Fields returned include document.example and document.highlighted-vaule 
+         Search for strings within document object (i.e. to locate a specific name, topic or reference within an entire document). Fields returned include document.example and document.highlighted-value 
 
          The XBRL API uses the Sphinx search engine to identify text. This powerful search engine quickly identifies a given text string. Sphinx is enabled to support stemming, which means it will also return plurals of a noun i.e. ipad will also return ipads. It will also return the present, future and past form of a verb for example the word kill will also return killed and killing. To match the word exactly the character "=" can be placed in front of the word i.e. = ipad will return the occurrence of the word ipad only.
 
@@ -5263,7 +5264,7 @@ components:
        in: query
        name: document.uri
        schema:
-         type: boolean
+         type: string
        description: The URL at which the document comprising the DTS is located.
     dts.entry-point_Param:
        in: query
@@ -5293,7 +5294,7 @@ components:
        schema:
          type: string
        description: |
-         The taxonomy group that the taxonomy belongs to such as `US GAAP` or `IFRS`.
+        The taxonomy group that the taxonomy belongs to such as 'US GAAP' or 'IFRS'.
        example: US GAAP
     dts.taxonomy-name_Param:
        in: query
@@ -5301,7 +5302,7 @@ components:
        schema:
          type: string
        description: |
-         The specific taxonomy name such as `US GAAP 2019` or `IFRS 2019`.
+        The specific taxonomy name such as 'US GAAP 2019' or 'IFRS 2019'.
        example: US GAAP 2019
     dts.target-namespace_Param:
        in: query
@@ -5315,7 +5316,7 @@ components:
        schema:
          type: string
        description: |
-         The specific taxonomy version name, such as `2019` for US GAAP.
+         The specific taxonomy version name, such as '2019' for US GAAP.
        example: 2019
     entity.id_Param:
        in: query
@@ -5326,7 +5327,7 @@ components:
          type: array
          items:
            type: integer
-       description: The internal identifier used to identify an entity. This will be replaced with the LEI when the SEC supports the LEI standard.
+       description: The internal identifier used to identify an entity.
     entity.name_Param:
        in: query
        name: entity.name
@@ -5422,7 +5423,7 @@ components:
          type: array
          items:
            type: integer
-       description: An integer that records the incarnation of the fact. The same fact may be reported many times and the ultimus field represents the reverse order of incarnation for the fact's reporting. A value of 1 indicates that this is the latest value of the fact. A value of 6 for example would indicate that the value has been reported 6 times subsquent to the fact's most-recent reporting. If requesting values from a specific report, the ultimus index should not be used as a search parameter, as all the fact values will not be returned if a subsequent report has been filed in which the fact appears.
+       description: An integer that records the incarnation of the fact. The same fact may be reported many times and the ultimus field represents the reverse order of incarnation for the fact's reporting. A value of 1 indicates that this is the latest value of the fact. A value of 6 for example would indicate that the value has been reported 6 times subsequent to the fact's most-recent reporting. If requesting values from a specific report, the ultimus index should not be used as a search parameter, as all the fact values will not be returned if a subsequent report has been filed in which the fact appears.
     fact.value_Param:
        in: query
        name: fact.value
@@ -5466,7 +5467,7 @@ components:
        name: label.text
        schema:
          type: string
-       description: Portion of the label text to be searched on.
+       description: The text of the label, i.e 'Assets, Current'. This is usually used in conjunction with label.role to specify the role of the label being searched for, such as standard label, terse label, or verbose label.
     label.role_Param:
        in: query
        name: label.role
@@ -5478,7 +5479,7 @@ components:
        name: member.is-base
        schema:
          type: boolean
-       description: A boolean value that indicates if the member is a base element in the reporting taxonomy or a company extension.
+       description: A boolean value that indicates if the member is a base element in the reporting taxonomy (true) or a company extension (false).
     member.local-name_Param:
        in: query
        name: member.local-name
@@ -5561,7 +5562,7 @@ components:
          items:
            type: string
            enum: [Y,1Q,2Q,3Q,4Q,3QCUM,1H,2H]
-       description: The period identifier for the fact such as year(Y) quarters such as (Q1,Q2,Q3,Q4), cumulative quarters such as 3QCUM, and half years such as H1 and H2. The calendar period aligns the periods with a calendar year. A company with a year end of 30 September would have a fiscal 4th quarter which would be a calendar quarter of Q3.
+       description: The period identifier for the fact such as year(Y) quarters such as (1Q,2Q,3Q,4Q), cumulative quarters such as 3QCUM, and half years such as 1H and 2H. The calendar period aligns the periods with a calendar year. A company with a year end of 30 September would have a fiscal 4th quarter which would be a calendar quarter of 3Q.
     period.fiscal-id_Param:
        in: query
        name: period.fiscal-id
@@ -5580,7 +5581,7 @@ components:
          items:
            type: string
            enum: [Y,1Q,2Q,3Q,4Q,3QCUM,1H,2H]
-       description: The period identifier for the fact such as year(Y) quarters such as (Q1,Q2,Q3,Q4), cumulative quarters such as 3QCUM, and half years such as H1 and H2. The fiscal period aligns the periods with a fiscal year. A company with a year end of 30 September would have a fiscal 4th quarter which would be a fiscal quarter of Q4 and a calendar quarter of Q3.
+       description: The period identifier for the fact such as year(Y) quarters such as (1Q,2Q,3Q,4Q), cumulative quarters such as 3QCUM, and half years such as 1H and 2H. The fiscal period aligns the periods with a fiscal year. A company with a year end of 30 September would have a fiscal 4th quarter which would be a fiscal quarter of 4Q and a calendar quarter of 3Q.
     period.fiscal-year_Param:
        in: query
        name: period.fiscal-year
@@ -5738,7 +5739,7 @@ components:
        name: report.accession
        schema:
          type: string
-       description: The unique identifier (inclusive of the entity CIK) used by the SEC for a report. No comma seperated values are allowed.
+       description: The unique identifier (inclusive of the entity CIK) used by the SEC for a report. No comma separated values are allowed.
     report.creation-software_Param:
        in: query
        name: report.creation-software
@@ -5759,6 +5760,7 @@ components:
          enum: [
                instance
                ,inline
+               ,JSON
                ]
        description: The entry type of the report. This could be instance, inline, JSON, etc.
     report.entry-url_Param:
@@ -5777,7 +5779,7 @@ components:
                ,Accelerated Filer
                ,Non-accelerated Filer
                ]
-       description: 'Identifies filer size associated with the report. Can be one of the following: - Large Accelerated Filer - Accelerated Filer - Non-accelerated Filer'
+       description: 'Identifies filer size associated with the report. Can be one of the following: Large Accelerated Filer, Accelerated Filer, Non-accelerated Filer.'
     report.filing-year_Param:
        in: query
        name: report.filing-year
@@ -5817,7 +5819,7 @@ components:
        name: report.restated
        schema:
          type: boolean
-       description: A boolean that indicates if the report has been subsequently restated. A value of true represents that the report has been subsequently restated by another report.  A value of false means that this report has not been subsequently restated by another report.
+       description: A boolean that indicates if the report has been subsequently restated. A value of true represents that the report has been subsequently restated by another report. A value of false means that this report has not been subsequently restated by another report.
     report.restated-index_Param:
        in: query
        name: report.restated-index
@@ -5925,7 +5927,7 @@ components:
          type: array
          items:
            type: string
-       description: The entity identifier from its associated source (ie. SEC entity codes are the Central Index Code or CIK; FERC entity codes are Company Identifier or CID). All entity identifiers are in this field.
+       description: The entity identifier from its associated source (i.e. SEC entity codes are the Central Index Code or CIK; FERC entity codes are Company Identifier or CID). All entity identifiers are in this field.
     entity.scheme_Param:
        in: query
        name: entity.scheme
@@ -6024,7 +6026,7 @@ components:
        name: report.year-focus
        schema:
          type: string
-       description: The reporting year for the filing.
+       description: The reporting year for the report as declared by the entity in the format 'YYYY'.
     report.zip-url_Param:
        in: query
        name: report.zip-url
