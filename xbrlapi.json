@@ -330,6 +330,9 @@
             "$ref": "#/components/parameters/report.event-items_Param"
           },
           {
+            "$ref": "#/components/parameters/report.filing-date_Param"
+          },
+          {
             "$ref": "#/components/parameters/report.hash_Param"
           },
           {
@@ -381,7 +384,7 @@
             "schema": {
               "$ref": "#/components/schemas/fact_fields"
             },
-            "description": "This is the list of fields that can be returned for *XBRL facts*. \n"
+            "description": "This is the list of fields that can be returned for *XBRL facts*.\n"
           }
         ],
         "responses": {
@@ -822,6 +825,9 @@
           },
           {
             "$ref": "#/components/parameters/report.filer-category_Param"
+          },
+          {
+            "$ref": "#/components/parameters/report.filing-date_Param"
           },
           {
             "$ref": "#/components/parameters/report.hash_Param"
@@ -8457,6 +8463,15 @@
           ]
         },
         "description": "Identifies filer size associated with the report. Can be one of the following: Large Accelerated Filer, Accelerated Filer, Non-accelerated Filer."
+      },
+      "report.filing-date_Param": {
+        "in": "query",
+        "name": "report.filing-date",
+        "schema": {
+          "type": "string",
+          "format": "date"
+        },
+        "description": "Date that the report was filed with the regulator, as YYYY-MM-DD. Supports eq and the range operators gt, gte, lt, lte, between."
       },
       "report.filing-year_Param": {
         "in": "query",

@@ -351,6 +351,7 @@ paths:
         - $ref: '#/components/parameters/report.documentset-num_Param'
         - $ref: '#/components/parameters/report.entry-url_Param'
         - $ref: '#/components/parameters/report.event-items_Param'
+        - $ref: '#/components/parameters/report.filing-date_Param'
         - $ref: '#/components/parameters/report.hash_Param'
         - $ref: '#/components/parameters/report.html-url_Param'
         - $ref: '#/components/parameters/report.id_Param'
@@ -374,7 +375,7 @@ paths:
           schema:
             $ref: '#/components/schemas/fact_fields'
           description: |
-            This is the list of fields that can be returned for *XBRL facts*. 
+            This is the list of fields that can be returned for *XBRL facts*.
         # - in: query
         #   name: aspect
         #   # Wrap 'schema' into 'content.<media-type>'
@@ -602,6 +603,7 @@ paths:
         - $ref: '#/components/parameters/report.entry-url_Param'
         - $ref: '#/components/parameters/report.event-items_Param'
         - $ref: '#/components/parameters/report.filer-category_Param'
+        - $ref: '#/components/parameters/report.filing-date_Param'
         - $ref: '#/components/parameters/report.hash_Param'
         - $ref: '#/components/parameters/report.html-url_Param'
         - $ref: '#/components/parameters/report.id_Param'
@@ -5780,6 +5782,13 @@ components:
                ,Non-accelerated Filer
                ]
        description: 'Identifies filer size associated with the report. Can be one of the following: Large Accelerated Filer, Accelerated Filer, Non-accelerated Filer.'
+    report.filing-date_Param:
+       in: query
+       name: report.filing-date
+       schema:
+         type: string
+         format: date
+       description: Date that the report was filed with the regulator, as YYYY-MM-DD. Supports eq and the range operators gt, gte, lt, lte, between.
     report.filing-year_Param:
        in: query
        name: report.filing-year
